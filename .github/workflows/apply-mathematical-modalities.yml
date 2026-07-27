@@ -1,0 +1,57 @@
+name: Apply mathematical modalities
+
+on:
+  push:
+    branches:
+      - transport/mathematical-modalities-v2
+    paths:
+      - .github/workflows/apply-mathematical-modalities.yml
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout transport branch
+        uses: actions/checkout@v4
+        with:
+          ref: transport/mathematical-modalities-v2
+          path: transport
+          fetch-depth: 0
+
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: repo
+          fetch-depth: 0
+
+      - name: Verify and apply reviewed patch
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat transport/transport/modalities-v3.* | base64 --decode > /tmp/modalities.patch.gz
+          test "$(git hash-object /tmp/modalities.patch.gz)" = "714d3825e3d811515a0d865991cbd4156b0e831a"
+          gzip --test /tmp/modalities.patch.gz
+          gzip --decompress --stdout /tmp/modalities.patch.gz > /tmp/modalities.patch
+
+          cd repo
+          test "$(git rev-parse HEAD)" = "9775bd72c833021ee31547602fb474a1d0371c7c"
+          git apply --check /tmp/modalities.patch
+          git apply /tmp/modalities.patch
+          git add \
+            STYLE_GUIDE.md \
+            CONTRIBUTING.md \
+            CHANGELOG.md \
+            ANALYSES/COBLE_NOTEBOOK_MATHEMATICAL_THOUGHT_MODALITIES.md
+          git diff --cached --check
+          test "$(git hash-object STYLE_GUIDE.md)" = "3c376a2fe13d14a7260ad6e3e08c73e2ac65e41c"
+          test "$(git hash-object CONTRIBUTING.md)" = "b0369bf6d903a6ea4c5d2b3c9ca33c10256848ec"
+          test "$(git hash-object CHANGELOG.md)" = "151bf9350335d713dd9d6552a09d8dc590a7373e"
+          test "$(git hash-object ANALYSES/COBLE_NOTEBOOK_MATHEMATICAL_THOUGHT_MODALITIES.md)" = "4793def7d45511a0b2f8d82a66bace178bfa0bbe"
+          git config user.name "OpenAI"
+          git config user.email "noreply@openai.com"
+          git commit -m "Teach mathematical modalities and Sage semantic code"
+          git push origin HEAD:main
