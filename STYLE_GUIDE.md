@@ -119,23 +119,35 @@ A presentation-specific implementation may serve as one verified backend. It mus
 
 Intrinsic notions must not acquire unnecessary embedding hypotheses. In particular, a singular locus is intrinsic to a scheme; it is not fundamentally a construction on “a curve on a surface.”
 
-## 7. Do not mistake a case table for generality
+## 7. General interfaces with explicitly partial backend coverage
 
-Replacing one special implementation with a list of special implementations is not a general design.
+Define the semantic operation at the correct mathematical level even when Sage only implements it for special presentations. A method representing products or fiber products of arbitrary schemes may legitimately dispatch only to toric, affine, projective, product-of-projective-spaces, chartwise, or other supported cases.
 
-Before proposing backend dispatch, determine:
+Case analysis and assertion gates are appropriate when they preserve one general semantic interface while making the implemented subdomain explicit. They are preferable to inventing a narrower method whose mathematical meaning is restricted to the first backend that happens to work.
 
-1. the full intended mathematical domain;
-2. the common semantic contract;
+Before implementing backend dispatch, determine:
+
+1. the full mathematical domain of the semantic operation;
+2. the common contract and mathematically primary return object;
 3. the existing Sage primitive, if any;
-4. the cases actually implemented;
-5. the compatibility between implementations;
-6. the unsupported cases;
-7. whether the general Sage primitive should instead be repaired or extended.
+4. the predicates that identify supported representations;
+5. the branches actually implemented and executed;
+6. the compatibility of their outputs;
+7. the unsupported cases and their precise failure mode.
 
-Do not announce dispatch across affine, projective, toric, chartwise, or other cases without inspecting and executing the relevant Sage paths.
+Distinguish three different boundaries:
 
-Assertions may enforce genuine mathematical preconditions. They must not hide missing functionality or exclude examples the task requires.
+- a **mathematical precondition**, outside which the construction itself is undefined;
+- an **implementation precondition**, where the construction exists but the available Sage backend cannot yet compute it;
+- a **research-scope boundary**, where implementing the missing general backend would be substantial work not required for the present mathematical computation.
+
+An implementation precondition should be represented by an explicit assertion, case-match, `NotImplementedError`, or equivalent result that names the unsupported representation. It must not be disguised as a mathematical nonexistence claim, and it must not be followed by a claimed result for the rejected case.
+
+Before expanding the backend, check whether the general case follows by a short composition of existing Sage primitives. If so, implement that composition at the general level. If it requires substantial new infrastructure and the current research computation lies in a supported branch, use the general interface with an explicit gate, record the general implementation as backlog or a TODO, and continue the research task. Do not derail a mathematical research conversation into an open-ended Sage backend project merely to remove a transparent implementation boundary.
+
+If the current computation itself lies outside every supported branch, either implement the minimum correct extension needed for that computation or state that the computation is blocked. Do not claim general execution merely because the semantic interface is general.
+
+A list of special cases is not by itself a general design. It becomes a valid partial implementation only when it dispatches beneath a correctly defined general operation and exposes its coverage honestly.
 
 ## 8. Sage-first implementation audit
 
@@ -146,9 +158,9 @@ Before declaring that Sage lacks a construction or designing a replacement API:
 3. search for partially implemented methods and adjacent general primitives;
 4. test the relevant operation in the active Sage version;
 5. identify the exact defect or missing generality;
-6. determine whether the correct remedy is extension, repair, or a mathematically faithful shadow implementation.
+6. determine whether the correct remedy is extension, repair, assertion-gated dispatch, or a mathematically faithful shadow implementation.
 
-Do not build a parallel abstraction merely because the existing API is inconvenient or defective. Repair the general primitive when feasible. When a correct shadow is required, preserve the same mathematical semantics and make the divergence from Sage explicit.
+Do not build a parallel abstraction merely because the existing API is inconvenient or defective. Repair or compose the general primitive when this is reasonably short and directly serves the research task. When a full general repair is substantial, preserve the general semantics through explicit dispatch and coverage gates rather than either overfitting the interface or derailing the research task. When a correct shadow is required, preserve the same mathematical semantics and make the divergence from Sage explicit.
 
 Do not claim that a method exists, is absent, succeeds, or fails without source inspection or executed evidence.
 
@@ -276,9 +288,9 @@ Coordinate equations, bases, matrices, dimensions, and enumerated points should 
 
 ## 16. Hypotheses and partial operations
 
-Before attaching an operation to a broad class of objects, determine its actual domain of definition.
+Before attaching an operation to a broad class of objects, determine its mathematical domain of definition and its currently implemented Sage domain.
 
-Do not make a method total by returning guesses, assertions, placeholders, or classifications outside its hypotheses.
+Do not make a mathematically partial operation appear total by returning guesses, placeholders, or classifications outside its hypotheses.
 
 State and check conditions such as:
 
@@ -294,7 +306,9 @@ State and check conditions such as:
 - isolatedness of a singularity;
 - existence of square roots or descent data.
 
-A mathematically partial operation should fail with an explicit violated hypothesis or return a result type that records the unresolved condition.
+A mathematically partial operation should fail with an explicit violated mathematical hypothesis or return a result type that records the unresolved condition.
+
+A mathematically well-defined operation with partial Sage coverage should retain its general interface and fail explicitly at the backend boundary. Assertions, case matches, and `NotImplementedError` are valid for this purpose when they state the unsupported representation and do not conflate implementation failure with mathematical undefinedness.
 
 ## 17. Computation, evidence, and verification
 
@@ -340,13 +354,13 @@ Check whether the remediation:
 
 1. supplies the missing mathematical data;
 2. corrects object ownership;
-3. removes presentation dependence;
-4. preserves the original domain;
+3. removes presentation dependence from the semantic interface;
+4. preserves the original mathematical domain;
 5. uses existing Sage semantics;
-6. establishes implementation coverage;
-7. executes and verifies the promised computation.
+6. states implemented backend coverage and gates unsupported cases explicitly;
+7. executes and verifies the computation claimed for the current input.
 
-Do not narrow the task to the easiest supported case. Do not move unsupported required functionality behind an assertion. Do not treat the first counterexample named by the user as the complete specification.
+Do not narrow the semantic operation to the easiest supported presentation. Use assertion-gated or case-matched backend coverage when the general operation is mathematically correct but only special cases are computationally available. If implementing the missing general backend is a substantial, nonessential diversion, record it as backlog and continue the supported research computation. If the current result requires an unsupported branch, state the block or implement the necessary extension; do not claim completion. Do not treat the first counterexample named by the user as the complete specification.
 
 ## 19. Reporting style
 
