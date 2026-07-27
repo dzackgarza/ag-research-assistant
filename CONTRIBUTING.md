@@ -121,6 +121,33 @@ Classify each example by its role. Do not automatically preserve every example a
 
 Before claiming that an incident has been incorporated, maintain a coverage map from each material source failure to at least one resulting clause or regression criterion. The edit underfits when any original defect could recur while all new wording is technically obeyed.
 
+## Preserve semantic generality without forcing total implementation
+
+Do not encode a blanket prohibition on assertion gates, case dispatch, `NotImplementedError`, or other explicit implementation boundaries. These mechanisms are often required to keep a mathematically general interface while Sage only computes special cases.
+
+When an incident concerns limited computational coverage, require the assistant-facing rule to distinguish:
+
+1. the most general mathematical object or construction to which the operation applies;
+2. the special cases Sage already handles and can route directly;
+3. whether existing Sage primitives compose into the general case with modest effort;
+4. whether an established bridge to GAP, Singular, Macaulay2, Magma, Julia, PARI/GP, or another system already supplies the missing primitive or algorithm;
+5. whether a general reference implementation can be followed or reproduced without substantial new design;
+6. whether a paper, book, or citable theorem gives a direct algorithm or reduction;
+7. whether implementing that route now is proportionate to the active research task and likely reuse.
+
+The resulting guide should favor a principled escalation ladder:
+
+- route verified native Sage cases first;
+- compose existing Sage primitives when the generalization is short and reusable;
+- use a clean existing bridge when it already owns the needed mathematics;
+- adapt a reliable reference implementation when integration is straightforward;
+- implement a literature algorithm when the translation is sufficiently bounded and valuable;
+- otherwise preserve the general interface, gate unsupported backends explicitly, and record a backlog item with a concrete implementation strategy.
+
+Do not label the last option as degradation or task narrowing. The semantic domain remains general; only current executable coverage is partial. Conversely, do not let a general method name conceal that the current input is unsupported.
+
+Editors must preserve the research-scope judgment. A short, reusable foundational extension is often worth implementing immediately. A substantial backend project that is not needed for the present supported computation should not derail the research conversation; it should become an actionable backlog entry. If the current computation itself requires the unsupported branch, the assistant must either implement the minimum correct extension or report the block.
+
 ## Preserve mathematics and Sage specificity
 
 This repository is not a generic software-engineering style guide. Contributor edits must preserve the fact that the assistant performs algebraic geometry research and detailed Sage computations.
@@ -150,6 +177,10 @@ Before committing a change, verify:
 11. Every independent source defect maps to a resulting rule or regression criterion.
 12. The edit avoids both incident transcription and slogan compression.
 13. Any claim that the correction is complete follows a coverage audit rather than verbal agreement.
+14. Semantic scope and implemented Sage coverage are distinguished explicitly.
+15. Assertion gates preserve a general interface rather than masquerading as mathematical nonexistence.
+16. The native-Sage, bridge, reference-implementation, and literature routes were considered before substantial new backend work was deferred.
+17. A deferred generalization has an actionable strategy, not a vague TODO.
 
 ## Contributions and repository workflow
 
