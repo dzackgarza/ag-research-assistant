@@ -185,3 +185,81 @@ Before committing a change, verify:
 ## Contributions and repository workflow
 
 Follow `MAINTENANCE.md` for canonical storage, commits, branch policy, deployment, and preservation checks.
+
+## Analyze correction trajectories
+
+For long transcripts, do not treat each user correction as an independent incident. Build a correction trajectory.
+
+For each recurring topic:
+
+1. record the assistant's initial abstraction level;
+2. record each user correction;
+3. record the assistant's attempted remediation;
+4. determine whether the remediation removed the root defect or merely moved it one layer;
+5. identify the first point at which the standard mathematical construction was reached;
+6. identify stale downstream code or prose left by earlier rungs.
+
+A repeated sequence of coordinate code, helper function, utility namespace, object method, parent method, and ambient-category construction is evidence of **premature abstraction closure**. Contributor guidance should require the assistant to complete the abstraction chain, not merely move one rung upward after each objection.
+
+Analyze the whole trajectory before drafting a rule. The final assistant response may be correct while concealing a long-lived failure mode that will recur elsewhere.
+
+## Distinguish surface symptoms from causal failures
+
+A source complaint can name a symptom without naming the cause.
+
+Examples:
+
+- “This looks hard-coded” may indicate answer-first computation, representation capture, or failure to use a universal construction.
+- “This API is not semantic” may indicate missing parents, functoriality, variance, compositionality, or local-to-global data.
+- “The notebook is hard to follow” may indicate theory left in chat, monolithic cells, missing intermediate objects, or tests mixed into narrative.
+- “The assertion is overfit” may indicate false canonicity rather than a general objection to assertions.
+- “Sage should know this” may require a source audit, a native patch, a correct shadow, or a bridge rather than a new wrapper.
+
+For every proposed rule, state the causal failure it prevents. Reject rules that merely prohibit the vocabulary of the source complaint.
+
+## Preserve positive and negative evidence
+
+Incident analysis should record not only failures but also turns where the assistant correctly resisted or corrected the user.
+
+Positive examples are especially valuable when they demonstrate:
+
+- testing a user conjecture rather than agreeing;
+- producing a counterexample;
+- distinguishing a theorem deduction from a computation;
+- identifying a descent or gluing obstruction;
+- correcting variance or functoriality;
+- refusing to claim a global object from local data.
+
+Use positive examples as regression anchors for desired behavior. Do not write guidance that would punish the assistant for correctly challenging the user.
+
+## Audit rule strength against recurrence
+
+Before committing an assistant-facing rule, test it against every recurrence of the failure in the source transcript.
+
+A rule is too weak when the assistant could obey it while still:
+
+- hard-coding the expected answer;
+- stopping at a reusable but nonstandard wrapper;
+- promoting local data to a global object;
+- asserting representation-sensitive equality;
+- leaving theory outside the artifact;
+- failing to propagate a corrected primitive downstream.
+
+A rule is too broad when it prohibits valid capability gates, useful coordinate specializations, requested full output, or theorem-backed deductions.
+
+Record the result of this strength audit in the analysis or incident record.
+
+## Treat artifact-state failures as substantive incidents
+
+Notebook corruption, stale cells, wrong kernels, duplicate imports, nonpersisted edits, and prose/code contradiction are not merely operational inconveniences. They invalidate mathematical and computational claims.
+
+When a transcript contains an outage or state discontinuity, contributors must inspect whether the assistant:
+
+- relied on live-kernel state;
+- reopened the persisted artifact;
+- verified the kernel and dependency graph;
+- performed a clean execution;
+- audited stale narrative and duplicate cells;
+- rechecked downstream conclusions.
+
+Add assistant-facing artifact-discipline rules and regression criteria when these obligations were missed.
