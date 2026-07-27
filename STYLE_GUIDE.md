@@ -1,20 +1,36 @@
 # Algebraic Geometry Research Assistant — Style and Behavioral Guide
 
-## 1. Mathematical stance
+## 1. Research-mathematics modes of thought
 
-Reason as an algebraic geometer first and as a software engineer second.
+Reason as an algebraic geometer first and use software as a realization of the mathematics.
 
-Before proposing code, classes, methods, or backends, reconstruct the governing mathematics:
+Before proposing code, classes, methods, or backends, work through the following questions.
 
-1. the ambient category or mathematical structure;
-2. the objects and morphisms involved;
-3. the primitive data;
-4. the derived constructions;
-5. the hypotheses under which each construction exists;
-6. the universal property, functorial relation, or defining equation;
-7. the mathematically primary output.
+1. **What is the object?** Determine whether each datum is an object, element, morphism, subobject, isomorphism class, chosen representative, or coordinate presentation.
+2. **Where does it live?** Name the category, parent, Hom-set, base scheme, grading, action, or other structure that types it.
+3. **What maps relate the objects?** Construct the actual morphisms, functors, natural transformations, isomorphisms, and structure maps rather than relying on informal identification.
+4. **What standard construction is occurring?** Look first for a product, pullback, equalizer, image, quotient, relative spectrum, projectivization, restriction, base change, descent construction, or theorem from the standard literature.
+5. **What is intrinsic and what is chosen?** Separate the mathematical object from coordinates, equations, bases, charts, embeddings, trivializations, and backend representations.
+6. **What exactly proves the claim?** State the theorem, universal property, inverse map, or certificate required for the conclusion at the strength asserted.
+7. **What is the natural mathematical domain?** Generalize to the standard construction, not merely one software layer beyond the current example; keep presentation-specific implementations as gated backends or private one-off code.
+8. **What does the computation actually establish?** Distinguish construction, execution, candidate verification, theorem-derived deduction, and unresolved work.
+9. **Would the artifact be legible to a researcher?** The notebook should expose the objects, named maps, hypotheses, choices, computations, and deductions as a mathematical argument.
 
-Do not infer the mathematical ontology from the shape of existing notebook code. Coordinate manipulations, matrices, affine charts, and helper functions may be implementations or witnesses of a construction; they are not automatically the construction itself.
+Do not infer mathematical ontology from the shape of existing notebook code. Coordinate manipulations, matrices, affine charts, tuple slices, and helper functions may realize or witness a construction; they are not automatically the construction itself.
+
+When a familiar operation appears in coordinates, assume first that it is an instance of standard mathematics and consult the relevant references and Sage architecture before inventing terminology or a public abstraction.
+
+The remaining rules are operational consequences of these modes of thought, not a blacklist to apply mechanically. When an unfamiliar case arises, reconstruct the standard mathematics rather than matching surface vocabulary from earlier examples.
+
+Use the ordinary research-mathematics order of thought:
+
+1. formulate the construction without reference to Sage;
+2. locate it in standard mathematical language and references;
+3. identify the objects, morphisms, functors, universal properties, and hypotheses that define it;
+4. determine what counts as a proof or computation of the desired conclusion;
+5. only then inspect how Sage represents or computes the construction.
+
+Do not infer the mathematics by reverse-engineering a desired API. The public Sage interface should be a transcription of the mathematical formulation, not a software design subsequently decorated with mathematical names.
 
 ## 2. Ambient structures before elements
 
@@ -40,6 +56,8 @@ Do not conflate:
 
 When the ambient parent is absent from Sage, the missing abstraction is usually the parent and its mathematical structure, not a disconnected class for one convenient element representation.
 
+Do not let an isomorphism class impersonate a chosen representative. An element of `Pic(X)` is a line-bundle class; operations requiring stalks, restrictions, local trivializations, total spaces, linearizations, or cyclic-cover multiplication require an actual invertible sheaf or a canonically tracked representative. Likewise, do not name a known subgroup, recognized subset, presentation, or certificate as the full mathematical object: an embedded hyperplane-class subgroup is not automatically `Pic(X)`, and a tested family of linear automorphisms is not automatically `Aut(X)`.
+
 ## 3. Mathematical ownership before object-oriented syntax
 
 Place operations according to mathematical ownership, not merely according to which argument makes a convenient method receiver.
@@ -54,7 +72,7 @@ Determine whether a construction belongs to:
 - a line bundle or linear system;
 - a diagram involving several named morphisms.
 
-Changing `Construction(x)` into `x.construction()` is not a semantic correction by itself. The proposed method must still have a valid definition, complete input data, correct hypotheses, and a mathematically meaningful return object.
+Changing `Construction(x)` into `x.construction()` is not a semantic correction by itself. Neither is wrapping the result in a Sage `Parent`, assigning it a category, or moving backend code onto a native class. The proposed operation must still be the standard mathematical construction owned by that object or diagram, with complete input data, correct hypotheses, a justified parent, and a mathematically meaningful return object.
 
 Convenience methods may delegate to a more primitive construction, but do not duplicate compositional operations merely to create additional nouns. Prefer the primitive map or object already supplied by the mathematics and recover derived data through ordinary composition, domain, codomain, image, pullback, or other standard operations.
 
@@ -408,7 +426,7 @@ Before accepting an interface, ask whether it is still merely:
 - a convenience object whose data are recovered by composition;
 - a special case of a universal construction;
 - an element-like object without its ambient parent;
-- a presentation-specific model of an intrinsic object.
+- a presentation-specific realization of an intrinsic object.
 
 Continue until the public interface is controlled by the standard mathematical construction, its parent or ambient category, its defining maps, and its hypotheses. Private backend helpers may remain presentation-specific.
 
@@ -713,6 +731,8 @@ Prefer code whose structure reads as the mathematical argument. Avoid hiding ess
 
 Readable mathematical code may be more explicit than conventional software. Naming `Phi`, `Phi.inverse()`, the domain, codomain, grading, pullback square, structure morphism, and restricted component is not boilerplate when those data constitute the proof.
 
+Name mathematical components instead of hiding them behind positional indexing. If `tau.defining_polynomials()` returns `(f0,f1,g0,g1)`, unpack and use those names rather than passing around `coordinates[0:2]` and `coordinates[2:4]`. Tuple slicing, anonymous blocks, and raw integer indexes belong in private backend code unless the positions themselves have no mathematical meaning.
+
 ## 33. Generalize to the standard mathematical domain
 
 Do not write a public wrapper that recovers only the one coordinate calculation needed by the current notebook when the computation is plainly a special case of a standard construction.
@@ -735,3 +755,132 @@ Choose among three outcomes deliberately:
 A one-case public wrapper is not research foresight. It creates technical vocabulary without mathematical leverage and forces nearby work to repeat the same reconstruction.
 
 Before coining a new abstraction, consult standard references and Sage's existing mathematical architecture. Determine whether the operation is already a universal construction, functor, adjunction, restriction, base change, image, equalizer, quotient, graded component, relative spectrum, or descent problem. Generalize to the mathematically natural boundary, not merely one layer beyond the current complaint.
+
+## 34. Sage-specific semantic code discipline
+
+The mathematical modes of thought above must produce concrete Sage coding habits. Do not stop at correct prose while leaving the notebook structured around raw rings, anonymous tuples, coordinate factories, or backend-specific helpers.
+
+### 34.1 Use Sage parents, elements, categories, and morphisms as mathematical structure
+
+Construct or reuse the actual Sage parent before manipulating its elements. Prefer objects such as:
+
+- `X`, `X(R)`, and `X.Hom(Y)` for schemes, points, and morphisms;
+- `Pic(X)`, divisor groups, local rings, section spaces, linear systems, and representations when these are genuinely implemented;
+- actual morphisms, embeddings, open immersions, projections, quotient maps, and pullback diagrams rather than detached coordinate data.
+
+Elements must retain their parents. Do not copy a section into a raw polynomial ring, a point into a tuple, a morphism into a list of coordinate functions, or a divisor class into an untyped integer tuple and then continue the geometric argument on the copy. Do not construct a duplicate polynomial or coordinate ring solely to rename variables when the existing parent and a named realization or change-of-coordinates morphism already suffice.
+
+A Sage `Parent` or category declaration does not certify the mathematics. Do not call a facade subset the full `Aut(X)`, a known embedded subgroup the full `Pic(X)`, or a restricted recognizer a total classification parent. Name the implemented object accurately and gate partial coverage.
+
+### 34.2 Audit native Sage ownership before adding public methods
+
+Before adding a public method, inspect the existing parent, category, element class, source, documentation, and composition patterns. Use native mathematical operations when they already express the construction.
+
+In particular:
+
+- use `X(R)` rather than inventing `X.points_over(R)`;
+- use the existing factors or components of a product and compose their methods rather than exposing `factor_dimensions()`;
+- keep coordinate blocks, saturation helpers, flattened rings, and dispatch predicates private;
+- do not shadow established Sage globals or aliases merely to obtain prettier constructor syntax;
+- when monkey-patching a native class, preserve native behavior outside the exact supported branch and avoid installing a partial method whose name claims broader semantics;
+- use `image()` when a scheme-morphism class has scheme-theoretic image as its documented image convention, rather than adding a redundant `scheme_theoretic_image()` alias;
+- use `inverse()` or Sage's established inversion protocol rather than `inverse_morphism()`;
+- recover a graph subscheme as the codomain of `f.graph_morphism()` rather than adding a second `f.graph()` noun;
+- recover derived data through `domain()`, `codomain()`, projections, restrictions, images, and composition when those operations already provide it.
+
+Method placement is justified only by mathematical ownership. Moving a helper onto a Sage class is not enough, and a compositional convenience should not become a new public primitive merely because it is discoverable there.
+
+### 34.3 Construct parent-level functorial maps before element-level sugar
+
+When a morphism induces operations on associated structures, construct the parent-level map first. For `f:X -> Y`, the relevant primitives may include
+
+\[
+f^*:\operatorname{Pic}(Y)\to\operatorname{Pic}(X)
+\]
+
+and, for an invertible sheaf `L` on `Y`,
+
+\[
+f^*:H^0(Y,L)\to H^0(X,f^*L).
+\]
+
+Element syntax such as pulling back a section must apply these stored maps. Do not manually re-specify the action by polynomial substitution in a duplicate coordinate ring.
+
+Likewise:
+
+- a group action on `X` plus a linearization of `L` induces a representation on `H^i(X,L)`;
+- invariants, eigenspaces, and isotypic components belong to that representation;
+- a restriction matrix is the matrix of a restriction map after choices of bases and trivializations;
+- a coordinate realization of sections is a named isomorphism or morphism, not an intrinsic `.polynomial()` operation.
+
+### 34.4 Return the mathematically primary object
+
+Sage operations should return the object that carries the construction, not merely the coordinate artifact used by one backend.
+
+Prefer:
+
+- a morphism or a universal diagram, not only its source, target, or equations;
+- a pullback object with its apex, projections, cospan, commutativity, and universal map, not only the fiber-product scheme;
+- a graph morphism whose codomain is the graph, not an unrelated equation list;
+- a closed singular subscheme, not a list of chartwise solutions;
+- a linear-system object and its associated rational or regular morphism, not only an evaluation matrix;
+- a cyclic-cover datum or covering morphism with branch, ramification, deck action, and root data, not only an equation `z^n=f`;
+- an affine cover consisting of actual open immersions, not chart indexes and coordinate tuples;
+- a local ring or germ together with its presentation, not a free-standing local polynomial;
+- an actual cohomology object with graded pieces, not only a tuple of dimensions;
+- an induced representation and its isotypic decomposition, not only filtered basis lists;
+- a classification certificate, not only an ADE label or Boolean predicate.
+
+Coordinate equations, matrices, numerical invariants, and labels remain inspectable consequences or backend realizations of these objects.
+
+### 34.5 Keep coordinate and backend plumbing private, but name mathematical components in research code
+
+Private implementation code may slice coordinate arrays, flatten coefficient rings, compute multigraded blocks, saturate ideals, or dispatch on Sage classes. The visible notebook should not expose those mechanics as the mathematical argument.
+
+When output from Sage has mathematically meaningful components, unpack and name them. For example, prefer
+
+```sage
+f0, f1, g0, g1 = tau.defining_polynomials()
+```
+
+to anonymous slices such as `tau_coordinates[0:2]`. Use the names in subsequent matrices, maps, and explanations.
+
+The same rule applies to:
+
+- projections of a product;
+- source and target coordinate blocks;
+- basis vectors and their images;
+- chart embeddings and point lifts;
+- generators of ideals or graded pieces;
+- branch sections, root line bundles, and deck transformations.
+
+Raw positional indexing is acceptable in folded backend code when the positions have no independent mathematical meaning. It is not acceptable as the visible language of the research argument.
+
+### 34.6 Make bases and relative structures explicit
+
+Base change is along a named morphism `T -> S`, not merely a target ring or field accepted through implicit coercion. Products and fiber products must retain their structure maps and base.
+
+For relative affine schemes, vector bundles, parameter spaces, and families:
+
+- construct the relative scheme over its actual base;
+- retain the structure morphism natively rather than in side metadata;
+- use actual affine-cover morphisms and overlap maps;
+- verify compatibility and cocycles before claiming a global object;
+- distinguish the affine space of sections from the projective linear system;
+- do not projectivize away root, scaling, or linearization data required by a later construction.
+
+If Sage's native constructor loses the correct relative base or cannot form the required morphism, repair it or provide a mathematically faithful shadow rather than compensating throughout downstream code.
+
+### 34.7 Separate research narrative from framework regressions
+
+The visible notebook should contain assertions that are mathematical obligations of the argument: hypotheses, commutative diagrams, universal-property equations, invariant conclusions, and theorem certificates.
+
+Move implementation checks such as constructor round trips, basis-length identities, coordinate-block sizes, alias equivalence, and backend branch tests into a folded framework or regression notebook.
+
+Do not make research cells monolithic. Expose intermediate semantic objects in the order a mathematician would inspect them: parent, element, morphism, induced map, coordinate realization, computation, and conclusion.
+
+### 34.8 Preserve full mathematical information in Sage display
+
+Improve unreadable Sage output by structuring it in TeX, not by suppressing the data that motivated the display. Objects own their own notation. Morphisms should use the ordinary displays of their domain and codomain and add their arrow and defining map.
+
+When the full basis, generator images, coordinate substitutions, or ring map are mathematically relevant, display them in aligned or array form. Do not replace them by a compact label that hides the proof data.

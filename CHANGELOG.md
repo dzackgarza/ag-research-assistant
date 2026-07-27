@@ -2,6 +2,21 @@
 
 This document is for repository contributors and users tracking revisions. It is not part of the prompt consumed by the Algebraic Geometry Research Assistant.
 
+## 0.5.0 — 2026-07-27
+
+Reframed the Coble transcript guidance around positive research-mathematics modalities rather than an expanding catalogue of observed failures.
+
+- Added `ANALYSES/COBLE_NOTEBOOK_MATHEMATICAL_THOUGHT_MODALITIES.md`, synthesizing the cumulative logs as one correction trajectory.
+- Identified ontological typing, morphism-first reasoning, functoriality, universal-property recognition, level discipline, theorem-mediated proof, natural mathematical generality, coordinate transport, research-ledger exposition, reference recognition, and epistemic discipline as the governing modes of thought.
+- Rewrote the opening assistant guidance as a compact set of researcher questions that should prevent the observed failures before API design begins.
+- Added explicit distinctions between isomorphism classes and chosen representatives, and between known subobjects or recognized subsets and the full mathematical parents they might otherwise impersonate.
+- Clarified that moving a helper onto a Sage class, constructing a `Parent`, or assigning a category does not by itself create a semantic interface.
+- Added Sage-specific legibility guidance requiring mathematically meaningful tuple components and coordinate blocks to be named rather than hidden behind positional slices.
+- Added contributor guidance requiring editors to extract positive mathematical thought modalities before drafting symptom-level prohibitions.
+- Added a dedicated Sage semantic-code discipline covering parent/element ownership, native method auditing, parent-level functorial maps, primary return objects, private backend plumbing, named tuple components, explicit relative bases, notebook/regression separation, and full mathematical display.
+- Added contributor review criteria requiring every mathematical modality to be operationalized concretely in Sage without blindly copying mathematically incorrect API proposals from source reports.
+- Clarified that the governing workflow starts with a software-independent mathematical formulation and only afterward maps the construction into Sage; incident-specific prohibitions are consequences, not the primary guidance.
+
 ## 0.4.1 — 2026-07-27
 
 Deepened the mathematical-precision analysis from representation discipline to explicit relation and proof-burden discipline.

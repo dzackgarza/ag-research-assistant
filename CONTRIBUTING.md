@@ -69,6 +69,35 @@ Do not include:
 
 Examples in `STYLE_GUIDE.md` are regression anchors, not provenance narratives. State what the assistant must do, not how the rule was discovered.
 
+## Extract mathematical thought modalities before symptom rules
+
+The primary editorial question is not “which observed behavior should be banned?” It is “which ordinary research-mathematical habit would have prevented the error before it appeared?”
+
+For each correction trajectory, identify the positive mode of thought first. Do not begin by enumerating bad method names or procedural mistakes. Reconstruct how a careful researcher would have approached the mathematics before any code existed, and make that order of thought the governing rule.
+
+Typical modalities include:
+
+- ontological typing: determine what the object is and where it lives;
+- morphism-first reasoning: name the comparison maps rather than identifying objects informally;
+- functorial reasoning: construct parent-level induced maps before element-level convenience syntax;
+- universal-property recognition: identify limits, colimits, relative spectra, quotients, projectivizations, and descent constructions before writing equations;
+- level discipline: distinguish object and presentation, class and representative, local and global, absolute and relative, affine and projective, family and fiber;
+- theorem-mediated proof: establish the exact hypotheses and proof obligation rather than substituting matching invariants;
+- natural mathematical generality: expose the standard construction and treat supported Sage presentations as backends;
+- research-ledger exposition: make objects, named maps, choices, computations, and deductions legible in the notebook.
+
+Then derive operational rules and regression checks from that modality. A specific prohibition is justified when it is needed to make the modality executable in Sage, but it must not replace the modality.
+
+Use the following review test:
+
+1. Could the rule guide the assistant on a nearby problem whose method names and varieties are different?
+2. Would a careful mathematician naturally derive the source correction by following the rule?
+3. Does the rule teach what to construct or ask, rather than merely list what not to write?
+4. Are concrete examples retained as consequences or regression cases rather than treated as the governing ontology?
+5. Could the assistant obey the wording while continuing to think in backend classes, coordinate containers, or numerical proxies? If so, the rule is too superficial.
+
+For example, “do not expose `factor_blocks()`” is too narrow. The governing modality is that a product's factors are mathematical objects and coordinate blocking is derived private bookkeeping. Likewise, “unpack this tuple” is a style consequence of naming the components of a morphism, not an independent theory of tuple syntax.
+
 ## Extracting rules from incidents
 
 Do not reflexively append a literal prohibition for every noun or phrase appearing in an incident.
@@ -159,6 +188,32 @@ When editing rules:
 - do not replace concrete algebraic-geometric guidance with generic object-oriented design language;
 - do not invent terminology when standard mathematical language exists;
 - verify nontrivial mathematical corrections before encoding them as standing guidance.
+
+
+## Require concrete Sage operationalization
+
+Positive mathematical modalities must be translated into concrete Sage-facing guidance whenever the incident concerns code. Do not use “think semantically” as a reason to omit specific operational rules.
+
+For each Sage-related correction, review at least:
+
+1. **Parent and element ownership:** Does the code construct or reuse the correct Sage parent, or does it manipulate an untyped proxy?
+2. **Native architecture:** Were Sage categories, parents, elements, morphisms, existing methods, and source inspected before adding an abstraction?
+3. **Functorial ownership:** Is an element-level operation actually induced by a parent-level map, action, linearization, restriction, or base change?
+4. **Primary return object:** Does the interface return the morphism, diagram, scheme, local ring, linear system, or cover rather than only equations, matrices, or tuples?
+5. **Compositional redundancy:** Is a proposed public method already recovered from domain, codomain, factors, image, inverse, projections, or ordinary composition?
+6. **Public versus private data:** Have coordinate blocks, ring flattening, saturation, dispatch predicates, positional indexes, duplicate coordinate rings, and alias shadowing remained out of the public research interface?
+7. **Naming and legibility:** Are mathematically meaningful tuple components, maps, and generators explicitly named in the research notebook?
+8. **Relative structure:** Are base morphisms, open immersions, overlaps, and descent data explicit rather than stored as side metadata or inferred by coercion?
+9. **Partial-parent honesty:** Does a Sage `Parent`, predicate, or method name claim exactly the mathematical object and domain actually implemented?
+10. **Narrative separation:** Are proof obligations visible in research cells while API self-tests remain in framework regressions?
+
+The report or incident may itself propose incorrect APIs. Contributors must retain its valid Sage-style evidence while correcting claims such as `H^0(X,L)` being an algebra, every point having a local equation or total ADE classifier, every divisor determining a double cover, or every method receiver being the mathematically correct owner.
+
+A useful assistant-facing rule should normally pair:
+
+- the governing mathematical modality;
+- the concrete Sage behavior it requires;
+- one or more regression examples demonstrating that the rule excludes the original failure.
 
 ## Review checklist
 
