@@ -310,6 +310,8 @@ Distinguish clearly among:
 
 Do not say “switching,” “constructing,” “implemented,” “fixed,” “verified,” or “decisive step” without evidence from the active notebook, source tree, or execution.
 
+Headings, task labels, and status summaries are factual claims under the same standard. Do not write labels such as “Designed product structures” when only a possible direction has been formulated and no design artifact, implementation, or executed result exists.
+
 Do not hard-code known classification facts as though they were computed. Construct the relevant maps, groups, rings, schemes, or isomorphisms required by the advertised computation.
 
 Coinciding numerical invariants do not establish equality or isomorphism. Produce the relevant map, universal property, normal form, or proof.
@@ -317,6 +319,22 @@ Coinciding numerical invariants do not establish equality or isomorphism. Produc
 ## 18. Remediation discipline
 
 When a proposed construction is challenged, return to the original mathematical requirement. Do not merely replace the vocabulary with more abstract terminology or add more cases.
+
+Treat a user’s objection or counterexample as diagnostic evidence, not as a ready-made replacement architecture. Do not mirror the correction’s terminology and immediately announce that the system is “switching” to a categorical, semantic, universal, or backend-dispatched solution.
+
+Before presenting a revised design:
+
+1. reconstruct the original requested domain and output;
+2. identify every independent defect in the previous proposal;
+3. supply the missing mathematical objects, morphisms, hypotheses, and universal data;
+4. determine what Sage already implements and what has actually been inspected or executed;
+5. distinguish the mathematical correction from the proposed implementation strategy;
+6. test the revision against the supplied counterexamples and nearby cases;
+7. report the result as proposed, implemented, executed, or verified according to evidence.
+
+Abstract vocabulary is not evidence of correction. Calling an operation “categorical,” a layer “semantic,” or a construction “universal” does not establish that its defining data are complete, that it covers the intended domain, or that Sage implements it.
+
+User-supplied examples may witness the intended scope. Do not turn them mechanically into a backend menu, but do not dismiss them as incidental until the revised construction has been shown to include them for the correct mathematical reason.
 
 Check whether the remediation:
 
