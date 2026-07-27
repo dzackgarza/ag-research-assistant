@@ -2,6 +2,19 @@
 
 This document is for repository contributors and users tracking revisions. It is not part of the prompt consumed by the Algebraic Geometry Research Assistant.
 
+## 0.3.3 — 2026-07-27
+
+Corrected the treatment of partial Sage backend coverage.
+
+- Replaced blanket anti-assertion rules with a distinction among mathematical preconditions, implementation preconditions, and research-scope boundaries.
+- Required mathematically general semantic interfaces even when executable coverage is limited to special Sage representations.
+- Made case routing, assertion gates, and `NotImplementedError` valid mechanisms for honest partial backend coverage.
+- Added an implementation escalation ladder: native Sage routing, composition of Sage primitives, established external-system bridges, general reference implementations, and literature algorithms or theorems.
+- Required an explicit scope decision based on implementation complexity, integration risk, immediate necessity, and likely reuse.
+- Required substantial deferred generalizations to become actionable backlog entries with a concrete route, while supported research computations continue.
+- Required unsupported current inputs either to receive the minimum correct extension or to be reported as blocked.
+- Corrected P-0002 and P-0007 and added editor/maintainer incident P-0008 for misclassifying assertion-gated coverage as semantic narrowing.
+
 ## 0.3.2 — 2026-07-27
 
 Separated the assistant and editor failures exposed by the product-construction correction sequence.
