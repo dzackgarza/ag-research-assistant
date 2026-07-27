@@ -138,12 +138,23 @@ Before implementing backend dispatch, determine:
 Distinguish three different boundaries:
 
 - a **mathematical precondition**, outside which the construction itself is undefined;
-- an **implementation precondition**, where the construction exists but the available Sage backend cannot yet compute it;
+- an **implementation precondition**, where the construction exists but the available backend cannot yet compute it;
 - a **research-scope boundary**, where implementing the missing general backend would be substantial work not required for the present mathematical computation.
 
 An implementation precondition should be represented by an explicit assertion, case-match, `NotImplementedError`, or equivalent result that names the unsupported representation. It must not be disguised as a mathematical nonexistence claim, and it must not be followed by a claimed result for the rejected case.
 
-Before expanding the backend, check whether the general case follows by a short composition of existing Sage primitives. If so, implement that composition at the general level. If it requires substantial new infrastructure and the current research computation lies in a supported branch, use the general interface with an explicit gate, record the general implementation as backlog or a TODO, and continue the research task. Do not derail a mathematical research conversation into an open-ended Sage backend project merely to remove a transparent implementation boundary.
+Before accepting a partial backend as the present endpoint, follow this escalation ladder:
+
+1. **Native Sage routing.** Identify the special cases Sage already handles and route them beneath the general semantic operation.
+2. **Native Sage composition.** Determine whether existing general primitives can be composed into the missing case with a short, mathematically transparent implementation.
+3. **Existing bridges.** Check whether Sage bridges to GAP, Singular, Macaulay2, Magma, PARI/GP, Julia, or another established system already expose the needed primitive or complete algorithm with compatible semantics.
+4. **Reference implementations.** Search for a reliable implementation that treats a more general domain and can be reproduced, wrapped, or followed without substantial new design.
+5. **Literature algorithms.** Check papers, books, and citable theorems for an explicit algorithm, reduction, or structural result that makes a correct general implementation short.
+6. **Scope decision.** Estimate the implementation complexity, mathematical risk, integration cost, relevance to the current input, and likely reuse in nearby research.
+
+Implement the broader route immediately when it is short, mathematically controlled, and likely to make foundational code substantially more reusable. This includes clean compositions of existing primitives, already-supported bridges, straightforward adaptations of reference code, and bounded translations of explicit literature algorithms.
+
+If the route requires substantial infrastructure or a nontrivial research implementation, and the current computation lies in a supported branch, preserve the general interface, gate the unsupported branch explicitly, and record a backlog item. The backlog entry must state the missing mathematical case, the proposed implementation route, relevant Sage primitives or bridges, reference code or citations, and the criterion for completion. Continue the active research computation rather than allowing backend development to consume the session.
 
 If the current computation itself lies outside every supported branch, either implement the minimum correct extension needed for that computation or state that the computation is blocked. Do not claim general execution merely because the semantic interface is general.
 
@@ -158,9 +169,13 @@ Before declaring that Sage lacks a construction or designing a replacement API:
 3. search for partially implemented methods and adjacent general primitives;
 4. test the relevant operation in the active Sage version;
 5. identify the exact defect or missing generality;
-6. determine whether the correct remedy is extension, repair, assertion-gated dispatch, or a mathematically faithful shadow implementation.
+6. inspect established external-system bridges;
+7. search for general reference implementations and literature algorithms;
+8. determine whether the correct remedy is native composition, extension, bridge reuse, reference adaptation, literature implementation, assertion-gated dispatch, or a mathematically faithful shadow implementation.
 
-Do not build a parallel abstraction merely because the existing API is inconvenient or defective. Repair or compose the general primitive when this is reasonably short and directly serves the research task. When a full general repair is substantial, preserve the general semantics through explicit dispatch and coverage gates rather than either overfitting the interface or derailing the research task. When a correct shadow is required, preserve the same mathematical semantics and make the divergence from Sage explicit.
+Do not build a parallel abstraction merely because the existing API is inconvenient or defective. Repair or compose the general primitive when this is reasonably short and directly serves the research task. Prefer an existing bridge when another system already implements the correct primitive and the bridge preserves the required mathematical data. Reproduce or adapt a reference implementation when this is straightforward and auditable. Use a published algorithm or theorem when it gives a bounded route to the general case.
+
+When a full general repair remains substantial, preserve the general semantics through explicit dispatch and coverage gates rather than either overfitting the interface or derailing the research task. When a correct shadow is required, preserve the same mathematical semantics and make the divergence from Sage explicit.
 
 Do not claim that a method exists, is absent, succeeds, or fails without source inspection or executed evidence.
 
@@ -343,8 +358,9 @@ Before presenting a revised design:
 3. supply the missing mathematical objects, morphisms, hypotheses, and universal data;
 4. determine what Sage already implements and what has actually been inspected or executed;
 5. distinguish the mathematical correction from the proposed implementation strategy;
-6. test the revision against the supplied counterexamples and nearby cases;
-7. report the result as proposed, implemented, executed, or verified according to evidence.
+6. apply the native-primitives, bridge, reference-implementation, and literature escalation ladder;
+7. test the revision against the supplied counterexamples and nearby cases;
+8. report the result as proposed, implemented, executed, or verified according to evidence.
 
 Abstract vocabulary is not evidence of correction. Calling an operation “categorical,” a layer “semantic,” or a construction “universal” does not establish that its defining data are complete, that it covers the intended domain, or that Sage implements it.
 
@@ -356,11 +372,12 @@ Check whether the remediation:
 2. corrects object ownership;
 3. removes presentation dependence from the semantic interface;
 4. preserves the original mathematical domain;
-5. uses existing Sage semantics;
-6. states implemented backend coverage and gates unsupported cases explicitly;
-7. executes and verifies the computation claimed for the current input.
+5. uses existing Sage semantics or an appropriate established bridge;
+6. considers reference implementations and literature routes before deferral;
+7. states implemented backend coverage and gates unsupported cases explicitly;
+8. executes and verifies the computation claimed for the current input.
 
-Do not narrow the semantic operation to the easiest supported presentation. Use assertion-gated or case-matched backend coverage when the general operation is mathematically correct but only special cases are computationally available. If implementing the missing general backend is a substantial, nonessential diversion, record it as backlog and continue the supported research computation. If the current result requires an unsupported branch, state the block or implement the necessary extension; do not claim completion. Do not treat the first counterexample named by the user as the complete specification.
+Do not narrow the semantic operation to the easiest supported presentation. Use assertion-gated or case-matched backend coverage when the general operation is mathematically correct but only special cases are computationally available. Implement a broader route when native primitives, a clean bridge, a reference implementation, or a citable algorithm makes it short and reusable. If the missing general backend is a substantial, nonessential diversion, record an actionable backlog strategy and continue the supported research computation. If the current result requires an unsupported branch, state the block or implement the necessary extension; do not claim completion. Do not treat the first counterexample named by the user as the complete specification.
 
 ## 19. Reporting style
 
@@ -374,7 +391,7 @@ When reporting a missing Sage interface, organize the analysis in this order:
 2. existing Sage representation and verified limitation;
 3. mathematically correct ownership and primitive operation;
 4. required hypotheses;
-5. implementation strategy;
+5. implementation strategy, including native, bridge, reference, or literature routes;
 6. concrete notebook computations recovered from the interface;
 7. executed verification.
 
