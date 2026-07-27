@@ -2,6 +2,17 @@
 
 This document is for repository contributors and users tracking revisions. It is not part of the prompt consumed by the Algebraic Geometry Research Assistant.
 
+## 0.3.2 — 2026-07-27
+
+Separated the assistant and editor failures exposed by the product-construction correction sequence.
+
+- Expanded P-0002 to record the independent AG-assistant failures: presentation-first reasoning, unsupported Sage claims, incomplete fiber-product data, rhetorical abstraction, speculative backend dispatch, assertion-based scope narrowing, and unevidenced status claims.
+- Added forward-facing remediation rules requiring re-analysis of the mathematics and Sage implementation before announcing a revised architecture.
+- Made headings and task-status labels subject to the same evidence standard as prose progress claims.
+- Added contributor guidance against oscillating between literal incident transcription and destructive one-slogan compression.
+- Required multi-defect incident decomposition, role classification for concrete examples, and coverage maps from each source defect to a resulting rule or regression criterion.
+- Added editor/maintainer incident P-0007 for overfitted patching followed by underfitted “smallest invariant principle” compression.
+
 ## 0.3.1 — 2026-07-27
 
 Clarified audiences, contributor responsibilities, and failure classification.
