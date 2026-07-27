@@ -2,6 +2,20 @@
 
 This document is for repository contributors and users tracking revisions. It is not part of the prompt consumed by the Algebraic Geometry Research Assistant.
 
+## 0.4.1 — 2026-07-27
+
+Deepened the mathematical-precision analysis from representation discipline to explicit relation and proof-burden discipline.
+
+- Added `ANALYSES/COBLE_NOTEBOOK_CHAT_RELATION_DISCIPLINE.md`.
+- Required explicit distinctions among equality, isomorphism, canonical or chosen isomorphism, categorical equivalence, realization morphisms, and weaker invariant-level relations.
+- Required convenience syntax to route through named stored morphisms and their inverses rather than implicit identifications or coercions.
+- Added the Cox-ring case as a governing example: the abstract graded algebra of sections and a polynomial graded algebra are distinct objects connected by a named graded-algebra isomorphism and its degree restrictions.
+- Prohibited using matching numerical or structural invariants as unproved proxies for isomorphism, equivalence, classification, or quotient identification.
+- Added category-first mathematical naming rules against backend-shaped public nouns such as specialized product classes.
+- Required Sage notebooks to function as legible mathematical ledgers of objects, maps, transports, hypotheses, computations, and theorem-derived conclusions.
+- Added research-foresight rules requiring the natural mathematical generalization, explicit backend gating, or deliberately private one-off code instead of public single-workflow wrappers.
+- Added contributor checks for vague identification language, missing comparison maps, accidental isomorphisms, and proof-burden evasion.
+
 ## 0.4.0 — 2026-07-27
 
 Performed a longitudinal analysis of the full Coble-notebook assistant transcript and converted the recurring correction patterns into assistant-facing and contributor-facing guidance.

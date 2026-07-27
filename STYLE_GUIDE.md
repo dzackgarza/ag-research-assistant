@@ -455,7 +455,7 @@ Prefer:
 
 Do not impose a canonical order on points, basis vectors, equations, components, or charts merely to make tuple equality pass.
 
-Whenever a calculation uses a basis, chart, trivialization, coordinate model, ordering, normalization, grading convention, or embedding:
+Whenever a calculation uses a basis, chart, trivialization, coordinate realization, ordering, normalization, grading convention, or embedding:
 
 1. name the choice;
 2. identify the coordinate-free object it presents;
@@ -584,3 +584,154 @@ Full bases, defining maps, coordinate substitutions, and generator images may be
 Each object owns its own display. A morphism should compose the displays of its domain and codomain rather than invent endpoint notation. Dependent objects should inherit names and notation from their parents.
 
 Do not create a parallel display ontology that diverges from the mathematical objects themselves.
+
+
+## 29. Equality, isomorphism, equivalence, and realization
+
+Never replace a mathematical relation by informal identification merely because the related objects are routinely regarded as interchangeable.
+
+Distinguish explicitly among:
+
+- definitional identity in the implementation;
+- equality of elements in one parent;
+- equality of morphisms in one Hom-set;
+- equality of subobjects in a fixed ambient object;
+- a specified isomorphism in a category;
+- a canonical isomorphism together with its naturality or coherence data;
+- a chosen noncanonical isomorphism depending on a basis, coordinates, a trivialization, or an embedding;
+- an equivalence of categories;
+- a weaker relation such as birational, formal, analytic, derived, numerical, or homotopy equivalence;
+- a realization morphism that need not be an isomorphism.
+
+When the mathematics supplies an isomorphism
+
+\[
+\Phi:A\xrightarrow{\sim}B,
+\]
+
+construct and name `A`, `B`, the ambient category, `Phi`, and its inverse. Do not implement the situation by making elements of `A` silently become elements of `B`, by returning one parent in place of the other, or by writing `A == B` unless they are literally equal in the relevant parent.
+
+Record any grading map, base morphism, variance, naturality square, or coherence condition needed for `Phi` to be the claimed kind of isomorphism. Isomorphisms of underlying sets, modules, rings, graded rings, sheaves, schemes, and functors are different claims.
+
+Convenience syntax may suppress notation but not data. A method such as `s.to_polynomial()` must apply a stored explicit morphism. Its inverse must be the inverse of that same morphism. The sugar must not create a second implicit identification.
+
+### Cox rings and polynomial coordinates
+
+The abstract Cox ring
+
+\[
+\operatorname{Cox}(X)=\bigoplus_{[L]}H^0(X,L)
+\]
+
+and a graded polynomial algebra are distinct objects in the relevant category of graded `k`-algebras. In cases where chosen homogeneous coordinates produce an isomorphism, the implementation must construct a morphism in that category and prove that it is an isomorphism
+
+\[
+\Phi_X:\operatorname{Cox}(X)\xrightarrow{\sim}k[x_0,\ldots,x_N]
+\]
+
+and use its degree restrictions
+
+\[
+\Phi_{X,L}:H^0(X,L)\xrightarrow{\sim}k[x_0,\ldots,x_N]_{[L]}.
+\]
+
+A section is not a polynomial. A polynomial expression is the image of a section under `Phi_{X,L}`. Polynomial substitution, differentiation, elimination, and Jacobian computations therefore occur after explicit transport to the polynomial algebra. Intrinsic conclusions must be transported back or proved independent of the chosen realization.
+
+### Points and coordinates
+
+An `R`-valued point is a morphism
+
+\[
+p:\operatorname{Spec}R\to X.
+\]
+
+A tuple is constructor input or the coordinate expression of `p` in a chosen chart. An affine coordinate tuple belongs to the domain of an open immersion `j:U -> X`; it represents `p` only together with a point `q:Spec(R) -> U` satisfying `j ∘ q = p`. Do not replace the point, chart, and open immersion by one untyped tuple.
+
+## 30. Do not substitute weaker evidence for a harder mathematical claim
+
+A collection of invariants is not an isomorphism. Matching dimensions, ranks, cardinalities, Hilbert series, Hodge numbers, intersection forms, Gram matrices, singularity numbers, or other numerical data may obstruct or suggest an isomorphism, but it does not construct one.
+
+Before claiming equality, isomorphism, equivalence, quotient identification, or classification, state the exact proof obligation.
+
+For an isomorphism, normally provide at least one of:
+
+1. a named morphism and a named inverse with both composites verified;
+2. a universal property that identifies the object uniquely in the relevant category;
+3. a theorem whose hypotheses have been established and whose conclusion is precisely the asserted isomorphism;
+4. a fully faithful comparison together with essential surjectivity when proving an equivalence of categories;
+5. an explicit normal-form or local-algebra isomorphism when classifying a germ.
+
+Do not let the following stand in for an isomorphism without a completeness theorem:
+
+- equal numerical invariants;
+- the same generators or equations after an unexplained identification;
+- a matching database row;
+- an equality after forgetting grading, topology, base, action, or other structure;
+- a bijection of computed points;
+- two objects having isomorphic coordinate rings without naming the contravariant scheme morphism and checking the relevant hypotheses;
+- agreement on one dense chart or one presentation.
+
+State exactly what the evidence proves. If it proves only compatibility, equality after applying a functor, or agreement of invariants, report only that weaker conclusion.
+
+## 31. Mathematical names and category-first public interfaces
+
+Name public objects and operations by standard mathematics, not by the backend representation that first made them computable.
+
+A product of projective spaces is a product in the category of schemes. `ProductOfProjectiveSpaces` may be the name of a private Sage class or dispatch branch, but it is not the governing mathematical construction and must not define the public mathematical object.
+
+Likewise, avoid public foundational nouns such as “coordinate manager,” “factor block object,” “projective-product equalizer,” or “section polynomial” when the mathematics already supplies products, projections, equalizers, graded components, restriction maps, affine covers, and realization morphisms.
+
+For every proposed public noun, ask:
+
+1. What standard mathematical object is it?
+2. In which category does it live?
+3. What parent contains its elements?
+4. What are its structure morphisms?
+5. Is it merely a special presentation or a predicate selecting a supported backend?
+6. Is it recovered compositionally from an existing object or morphism?
+
+Presentation-specific class names and helpers belong in private backend code. The research notebook and public interface should speak in schemes, morphisms, sheaves, line bundles, graded algebras, actions, functors, diagrams, and the standard constructions applied to them.
+
+## 32. Write Sage code as a mathematical research ledger
+
+Research code should make the mathematical dependency graph legible. It is not ordinary application code whose primary concerns are encapsulation, service boundaries, or generic software patterns.
+
+A research notebook should visibly record:
+
+- definitions of the mathematical objects;
+- their parents and ambient categories;
+- named morphisms and diagrams;
+- hypotheses and assertion gates;
+- theorem applications;
+- explicit transports through isomorphisms or realizations;
+- coordinate specializations and the choices they use;
+- computed outputs;
+- proof obligations and verification certificates;
+- unresolved mathematical or implementation boundaries.
+
+Prefer code whose structure reads as the mathematical argument. Avoid hiding essential maps inside constructors, coercions, wrappers, managers, factories, registries, or helper state. Backend complexity may be folded, but the visible interface must preserve the mathematical objects and maps through which the argument proceeds.
+
+Readable mathematical code may be more explicit than conventional software. Naming `Phi`, `Phi.inverse()`, the domain, codomain, grading, pullback square, structure morphism, and restricted component is not boilerplate when those data constitute the proof.
+
+## 33. Generalize to the standard mathematical domain
+
+Do not write a public wrapper that recovers only the one coordinate calculation needed by the current notebook when the computation is plainly a special case of a standard construction.
+
+Before implementing a helper, determine the natural mathematical domain of the operation and the nearby research cases that share it. Examples include:
+
+- products and fiber products of schemes, not only products of projective spaces;
+- graded-algebra morphisms and their homogeneous restrictions, not only Cox-to-polynomial conversion in one degree;
+- restriction and pullback maps on section spaces, not one evaluation matrix;
+- affine covers and open immersions, not one chart-coordinate extraction;
+- cyclic covers from root data, not one double-cover equation;
+- local rings and germ presentations, not one ADE test on one affine chart.
+
+Choose among three outcomes deliberately:
+
+1. implement the standard construction at its natural level when the required primitives make this reasonably short;
+2. define the general mathematical interface and dispatch to explicitly gated special backends;
+3. keep a one-off computation private and label it as such when no public reusable abstraction is justified.
+
+A one-case public wrapper is not research foresight. It creates technical vocabulary without mathematical leverage and forces nearby work to repeat the same reconstruction.
+
+Before coining a new abstraction, consult standard references and Sage's existing mathematical architecture. Determine whether the operation is already a universal construction, functor, adjunction, restriction, base change, image, equalizer, quotient, graded component, relative spectrum, or descent problem. Generalize to the mathematically natural boundary, not merely one layer beyond the current complaint.

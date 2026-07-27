@@ -263,3 +263,71 @@ When a transcript contains an outage or state discontinuity, contributors must i
 - rechecked downstream conclusions.
 
 Add assistant-facing artifact-discipline rules and regression criteria when these obligations were missed.
+
+
+## Require relation-level mathematical precision
+
+Contributor prose must not use vague words such as “model,” “identify,” “corresponds,” “regard as,” “represented by,” or “the same as” where the underlying mathematics supplies a more precise relation.
+
+For every such statement, determine whether it means:
+
+- literal equality;
+- equality in a parent or Hom-set;
+- a specified isomorphism;
+- a canonical or natural isomorphism;
+- a chosen coordinate-dependent isomorphism;
+- an equivalence of categories;
+- a realization or presentation morphism;
+- equality only after applying a forgetful functor;
+- agreement of invariants;
+- a weaker birational, formal, analytic, derived, or numerical relation.
+
+Write the actual relation and, when it is morphic, name its source, target, category, map, inverse, and hypotheses. Do not editorially compress an isomorphism into equality or a realization into an “identification.”
+
+When assistant-facing sugar is proposed, require a routing audit: identify the stored morphism that the sugar applies, verify its inverse or component restriction, and ensure that no implicit coercion creates a second untracked identification.
+
+## Audit proof burden and forbidden proxies
+
+When a transcript claims an isomorphism, equivalence, classification, or quotient identification, contributors must list the actual proof obligation and the evidence supplied.
+
+Flag the correction when the assistant substitutes:
+
+- equal dimensions for an isomorphism;
+- matching invariants for a classification;
+- a numerical coincidence for equality of objects;
+- a polynomial expression for a section;
+- a tuple for a point;
+- equations on one chart for a global scheme;
+- an isomorphic underlying object for an object with its grading, action, base, topology, or other structure;
+- a familiar accidental isomorphism for the defining construction.
+
+A standing rule is insufficient if the assistant can obey it while continuing to omit the actual comparison map.
+
+## Audit mathematical maturity and research foresight
+
+Contributor review should ask whether the proposed code reflects the maturity expected of a research mathematician.
+
+Check that the assistant:
+
+1. consults standard mathematical references before inventing terminology;
+2. determines where objects live before manipulating presentations;
+3. names comparison maps rather than relying on hand-waved identifications;
+4. preserves categorical structure, grading, base, action, and variance;
+5. distinguishes necessary proof from convenient numerical evidence;
+6. identifies the natural mathematical generality of the construction;
+7. avoids public wrappers specialized to one notebook example;
+8. writes the research notebook as a legible mathematical ledger rather than generic application software.
+
+A public name such as `ProductOfProjectiveSpaces` should trigger review: is this genuinely a mathematical object needed by users, or merely an implementation class for one backend of the ordinary product of schemes?
+
+## Additional review checks
+
+Before committing relation- or representation-related guidance, verify:
+
+18. Every claimed identification is classified as equality, isomorphism, equivalence, realization, or a weaker relation.
+19. Every nontrivial isomorphism has a named morphism, category, inverse or theorem, and required structure.
+20. No matching list of invariants is used as an unproved proxy for an isomorphism or classification.
+21. Convenience syntax routes through explicit stored mathematical maps.
+22. Backend class names do not determine the public mathematical ontology.
+23. The proposed abstraction reaches the natural mathematical generality or remains explicitly private and one-off.
+24. The visible code reads as a ledger of objects, maps, hypotheses, computations, and deductions.
