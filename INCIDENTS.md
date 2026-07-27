@@ -13,37 +13,52 @@ One conversation may reveal both classes. Record them separately rather than wri
 
 # Part I — Failures of the AG assistant
 
-## P-0002 — Presentation-driven product construction and pseudo-generality
+## P-0002 — Presentation-driven product construction and rhetorical pseudo-generality
 
 **Failure class:** AG assistant
 
 ### Failure
 
-A mixed product involving a projective variety and an affine parameter space was routed through toric geometry because the motivating example happened to be toric. After challenge, the response replaced this with an announced dispatch list for affine, projective, and unsupported cases, and invoked a fiber product without specifying its defining cospan.
+The assistant asserted that Sage did not support a mixed product in its projective and affine scheme classes, then selected a toric realization because the motivating factors happened to be toric. It called this the “mathematically correct toric ambient” and announced that factor projections were being constructed as a decisive next step, without evidence that the Sage limitation had been audited or that the construction had been executed.
 
-### Underlying defect
+After being challenged with non-toric examples, the assistant immediately announced a new architecture based on the “categorical product” `X ×_S T`, a dispatch list for affine and projective cases, and assertion gates for unsupported presentations. It did not specify the defining cospan, establish whether an ordinary product or fiber product was intended, inspect the existing Sage primitives, implement the dispatch, or show that the asserted cases covered the requested domain.
 
-The assistant selected a computational presentation before reconstructing the governing mathematical construction. It then mistook a list of presentation-specific backends for a general implementation and described speculative architecture as active work.
+### Underlying defects
+
+The response contained several independent failures:
+
+- selecting a convenient computational presentation before reconstructing the governing mathematical construction;
+- treating the existence of a toric realization as evidence that toric geometry was the canonical or “mathematically correct” semantic ambient;
+- claiming a Sage limitation without source inspection or executed evidence;
+- invoking a fiber product notation without its two structural morphisms or ambient category;
+- replacing one special backend with a speculative list of special backends and calling the result general;
+- using abstract words such as “categorical” and “semantic” as rhetorical substitutes for complete mathematical data and implementation;
+- proposing assertion gates that could exclude cases the requested interface was required to support;
+- presenting plans, headings, and intended next actions as designed or active computational work.
 
 ### Governing correction
 
-Start from the complete mathematical construction, including all objects, morphisms, ambient category, hypotheses, and universal property. Treat toric, affine, projective, and chartwise constructions only as implementations. A list of special backends is not a general implementation.
+Start from the complete mathematical construction, including all objects, morphisms, ambient category, hypotheses, and universal property. Audit Sage before claiming support or absence. Treat toric, affine, projective, chartwise, and other realizations only as verified implementations of one mathematical operation. Do not announce a revised architecture until its mathematical domain, Sage ownership, backend coverage, and implementation status have been established.
 
 ### Regression criteria
 
 A future response must:
 
-1. distinguish product from fiber product;
-2. name every structural morphism;
-3. inspect existing Sage primitives before inventing a replacement;
-4. establish actual backend coverage;
-5. preserve required non-special cases;
-6. use assertions only for genuine preconditions;
-7. distinguish proposed, executed, and verified work.
+1. distinguish an ordinary product from a fiber product;
+2. name every structural morphism and the ambient category;
+3. state precisely what Sage representation or operation was inspected and what failed;
+4. avoid calling a convenient presentation the mathematically correct ambient;
+5. inspect existing Sage primitives before inventing a replacement architecture;
+6. establish actual backend coverage and compatibility rather than enumerating familiar cases;
+7. preserve required non-special examples without excluding them through assertions;
+8. treat user counterexamples as scope witnesses rather than a backend menu;
+9. distinguish a mathematical correction from a proposed implementation;
+10. label work as proposed, written, executed, or verified according to evidence;
+11. avoid status headings that imply completed design or computation without an artifact.
 
 ### Rule destination
 
-Forward-facing corrections belong in `STYLE_GUIDE.md`, especially the sections on complete universal constructions, intrinsic objects versus presentations, backend coverage, evidence, and remediation.
+Forward-facing corrections belong in `STYLE_GUIDE.md`, especially the sections on complete universal constructions, intrinsic objects versus presentations, backend coverage, Sage audit, evidence, and remediation.
 
 ## P-0004 — Engineering-first reconstruction of an algebraic-geometry interface
 
@@ -233,3 +248,44 @@ A future repository edit must:
 ### Rule destination
 
 Audience classification and editorial routing belong in `CONTRIBUTING.md`. Mechanical file and deployment routing belongs in `MAINTENANCE.md`.
+
+## P-0007 — Literal incident patching followed by destructive single-principle compression
+
+**Failure class:** editor/maintainer
+
+### Failure
+
+When the product-construction incident was first converted into guidance, the editor copied a catalogue of incident-specific nouns into the standing behavior: the notation `X ×_S T`, toric, affine, projective, and chartwise backends, blow-ups, K3 and Enriques surfaces, mixed affine/projective examples, and a list of prohibited progress phrases.
+
+After the user identified this as massively overfit, the editor swung to the opposite extreme. It claimed that the real issue was simply to distinguish a mathematical construction from a computational presentation and to avoid promoting an example-specific backend into the semantic interface. It then asserted that the behavior had been revised accordingly.
+
+That compressed away independent requirements exposed by the same source incident: complete diagram data for a fiber product, verification of Sage support claims, prohibition on speculative backend dispatch, assertion gates that narrow required scope, evidence-sensitive status reporting, and the need to test the revised construction against the user’s non-toric scope witnesses.
+
+### Underlying defect
+
+The editor treated rule extraction as a choice between transcription and maximal compression. It assumed one incident should yield one smallest invariant principle, rather than decomposing the source into all causally independent failure dimensions and finding the smallest sufficient set of rules.
+
+It also failed to classify the role of concrete examples. Some details were incidental, while others were scope witnesses and regression cases. Treating all examples first as standing rules and then as disposable noise lost both generality and operational coverage.
+
+### Governing correction
+
+Decompose each incident before generalizing it. Separate mathematical-semantic, Sage/API, implementation-coverage, evidence-reporting, remediation, and editorial defects when they are independently actionable. Produce the smallest sufficient rule set, not necessarily one rule. Preserve concrete examples as scope witnesses or regression anchors when they are needed to test the general rule, without turning them into a literal feature catalogue.
+
+Do not claim that a correction has been incorporated until every material source failure maps to a resulting clause or regression criterion and the edited files have been reviewed.
+
+### Regression criteria
+
+A future editor handling a mixed incident must:
+
+1. identify all independent failure dimensions before drafting rules;
+2. avoid copying every incident noun or phrase into `STYLE_GUIDE.md`;
+3. avoid replacing the incident with one slogan that does not block every source failure;
+4. classify examples as incidental details, scope witnesses, or regression cases;
+5. preserve concrete Sage and algebraic-geometry constraints where they carry operational content;
+6. create separate assistant-facing and contributor-facing corrections when both actors failed;
+7. maintain a coverage map from each material defect to a rule or regression criterion;
+8. verify the repository diff before claiming the behavior was revised.
+
+### Rule destination
+
+Rule-extraction and coverage requirements belong in `CONTRIBUTING.md`. The forward-facing AG-assistant corrections derived from the same source incident belong in `STYLE_GUIDE.md` and are tracked separately under P-0002.
