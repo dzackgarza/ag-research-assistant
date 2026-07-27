@@ -252,3 +252,37 @@ Added:
 - precise reporting of software limitations;
 - regression checklist;
 - provenance record P-0001.
+
+## 9. Storage and update mechanism
+
+### 9.1 Repository requirement
+
+The canonical guide must be stored as tracked files in a Git repository on the local filesystem.
+
+Chat messages, summaries, model memory, and bounded configuration fields are not valid canonical storage mechanisms.
+
+Every accepted correction must be applied to the repository and committed before the assistant claims that the guide has been updated.
+
+### 9.2 Required update procedure
+
+For each new correction:
+
+1. Read the current tracked document from the repository.
+2. Apply the narrowest correct textual patch.
+3. Inspect the resulting diff.
+4. Run the preservation and regression checks in Section 6.
+5. Commit the change with a message identifying the correction.
+6. Report the commit identifier and the files changed.
+
+The assistant must not use model memory as a substitute for any of these steps.
+
+## 10. Changelog continuation
+
+### Version 0.1.1 — 2026-07-27
+
+Added:
+
+- mandatory local Git repository storage;
+- explicit prohibition on treating memory or chat as canonical storage;
+- commit-before-claim update discipline;
+- required repository-based update procedure.
