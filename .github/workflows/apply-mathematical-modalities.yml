@@ -1,4 +1,4 @@
-name: Apply mathematical modalities patch
+name: Apply mathematical modalities
 
 on:
   push:
@@ -12,37 +12,49 @@ jobs:
   apply:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout transport branch
+        uses: actions/checkout@v4
         with:
+          ref: transport/mathematical-modalities-v2
+          path: transport
           fetch-depth: 0
 
-      - name: Apply reviewed patch and remove transport
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: repo
+          fetch-depth: 0
+
+      - name: Verify and apply reviewed patch
         shell: bash
         run: |
           set -euo pipefail
+          cat transport/transport/modalities-v3.* | base64 --decode > /tmp/modalities.patch.gz
+          test "$(git hash-object /tmp/modalities.patch.gz)" = "714d3825e3d811515a0d865991cbd4156b0e831a"
+          gzip --test /tmp/modalities.patch.gz
+          gzip --decompress --stdout /tmp/modalities.patch.gz > /tmp/modalities.patch
 
-          BASE=9775bd72c833021ee31547602fb474a1d0371c7c
-          PARENT="$GITHUB_SHA"
-          TRANSPORT=transport/mathematical-modalities
-          PATCH_SHA=011a166d610df4216779e0ccef462fda2728cbd534fac23a056317b5141b7003
-
-          git fetch origin "$TRANSPORT:refs/remotes/origin/$TRANSPORT"
-          for n in 00 01 02 03 04 05 06 07 08; do
-            git show "origin/$TRANSPORT:.transport/modalities/chunk$n"
-          done | base64 -d > /tmp/modalities.patch
-
-          echo "${PATCH_SHA}  /tmp/modalities.patch" | sha256sum -c -
-
-          git checkout --detach "$BASE"
-          git apply --index /tmp/modalities.patch
-
-          export GIT_AUTHOR_NAME=dzackgarza
-          export GIT_AUTHOR_EMAIL=1149853+dzackgarza@users.noreply.github.com
-          export GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
-          export GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
-
-          tree=$(git write-tree)
-          commit=$(printf '%s\n' 'Teach standard mathematical thought modalities' | git commit-tree "$tree" -p "$PARENT")
-
-          git push origin "$commit:refs/heads/main"
-          git push origin --delete "$TRANSPORT" || true
+          cd repo
+          test "$(git hash-object STYLE_GUIDE.md)" = "b52afde123efa76fb5b289c513c20fdb5539a6d9"
+          test "$(git hash-object CONTRIBUTING.md)" = "7bca70c1ede81e3998585d5aa2ef2dc9ed31d6ea"
+          test "$(git hash-object CHANGELOG.md)" = "9a7789bf425a1f8c3e881b56b07a2852695b185a"
+          test ! -e ANALYSES/COBLE_NOTEBOOK_MATHEMATICAL_THOUGHT_MODALITIES.md
+          git apply --check /tmp/modalities.patch
+          git apply /tmp/modalities.patch
+          git rm .github/workflows/apply-mathematical-modalities.yml
+          git rm .apply-mathematical-modalities
+          git add \
+            STYLE_GUIDE.md \
+            CONTRIBUTING.md \
+            CHANGELOG.md \
+            ANALYSES/COBLE_NOTEBOOK_MATHEMATICAL_THOUGHT_MODALITIES.md
+          git diff --cached --check
+          test "$(git hash-object STYLE_GUIDE.md)" = "3c376a2fe13d14a7260ad6e3e08c73e2ac65e41c"
+          test "$(git hash-object CONTRIBUTING.md)" = "b0369bf6d903a6ea4c5d2b3c9ca33c10256848ec"
+          test "$(git hash-object CHANGELOG.md)" = "151bf9350335d713dd9d6552a09d8dc590a7373e"
+          test "$(git hash-object ANALYSES/COBLE_NOTEBOOK_MATHEMATICAL_THOUGHT_MODALITIES.md)" = "4793def7d45511a0b2f8d82a66bace178bfa0bbe"
+          git config user.name "OpenAI"
+          git config user.email "noreply@openai.com"
+          git commit -m "Teach mathematical modalities and Sage semantic code"
+          git push origin HEAD:main
