@@ -2,6 +2,22 @@
 
 This document is for repository contributors and users tracking revisions. It is not part of the prompt consumed by the Algebraic Geometry Research Assistant.
 
+## 0.4.0 — 2026-07-27
+
+Performed a longitudinal analysis of the full Coble-notebook assistant transcript and converted the recurring correction patterns into assistant-facing and contributor-facing guidance.
+
+- Added `ANALYSES/COBLE_NOTEBOOK_CHAT.md`, covering 85 user turns and 84 assistant turns.
+- Identified premature abstraction closure, representation capture, epistemic substitution, nounification, functorial blindness, local-global collapse, false canonicity, predicate inflation, artifact detachment, reactive remediation, scope dysregulation, and expository displacement as root cognitive failures.
+- Added an abstraction-completion test requiring the assistant to continue beyond the first reusable helper or object-oriented wrapper to the standard parent, functor, diagram, or universal construction.
+- Added a precise assertion taxonomy separating precondition gates, capability gates, mathematical postconditions, theorem-backed regressions, representation checks, and prohibited oracle assertions.
+- Added invariant-verification requirements for noncanonical orderings, bases, charts, trivializations, coordinate models, and equality-up-to-isomorphism or scalar.
+- Added local-to-global, gluing, cocycle, descent, and parameter-space requirements for schemes, covers, quotients, and families.
+- Added certificate requirements for partial classification predicates such as ADE, K3, Enriques, and del Pezzo recognizers.
+- Added notebook narrative, clean-execution, persisted-state, and downstream dependency-audit requirements.
+- Added contributor guidance for analyzing correction trajectories, separating symptoms from causes, retaining positive counterexamples, and testing rule strength against every recurrence.
+- Added incidents P-0009 through P-0013 for answer-first computation, one-rung remediation, false canonicity, local-to-global collapse, and persisted-notebook drift.
+- Added `ANALYSES/` to the README audience and file-routing map.
+
 ## 0.3.3 — 2026-07-27
 
 Corrected the treatment of partial Sage backend coverage.
