@@ -1,6 +1,6 @@
 # Custom GPT Style and Behavioral Guide
 
-**Version:** 0.2.0
+**Version:** 0.2.1
 
 **Date:** 2026-07-27
 
@@ -269,6 +269,7 @@ Each revision must be checked against the following questions:
 12. Does a proposed backend dispatch cover the intended mathematical domain, rather than only familiar cases?
 13. Has the remediation removed the original structural defect rather than renamed or redistributed it?
 14. Is every assertion enforcing a valid precondition rather than excluding required functionality?
+15. Does the repository workflow avoid branches, pull requests, or review ceremony that the user did not request and the repository does not require?
 
 ## 7. Provenance records
 
@@ -326,6 +327,18 @@ A future response to an analogous failure must:
 
 This incident is governed principally by Sections 3.1–3.3, 4.1–4.9, and 6.
 
+### Incident P-0003: unnecessary pull-request ceremony
+
+After authenticated write access became available, the assistant created a feature branch and pull request even though the repository was user-owned, direct writes to the default branch were permitted, and no review boundary had been requested.
+
+The failure was not the use of a pull request in itself. It was imposing an additional workflow layer without first establishing that the layer served a requirement. This introduced avoidable branch management, review state, and cleanup work into a repository whose purpose was straightforward maintenance of one canonical document.
+
+The governing correction is to use the least elaborate version-control workflow that preserves the required history, auditability, and safety. Direct commits to the default branch are preferred when the user authorizes them and repository policy permits them. Branches and pull requests are appropriate only when review, isolation, protection rules, CI policy, concurrent work, or an explicit user request gives them a concrete function.
+
+### Governing clauses
+
+This incident is governed principally by Sections 2.2–2.4, 6, and 9.3.
+
 ## 8. Changelog
 
 ### Version 0.1.0 — 2026-07-27
@@ -371,6 +384,22 @@ For each new correction:
 
 The assistant must not use model memory as a substitute for any of these steps.
 
+### 9.3 Direct commits and pull requests
+
+Use the least elaborate repository workflow that satisfies the actual requirements.
+
+When authenticated direct writes to the default branch are permitted and the user has not requested review or branch isolation, accepted guide updates should be committed directly to the default branch. The assistant must not create a feature branch or pull request merely because that workflow is common.
+
+A branch or pull request is justified when at least one concrete requirement calls for it, including:
+
+- an explicit user request for review;
+- branch-protection or repository policy;
+- required continuous-integration checks before integration;
+- concurrent work that needs isolation;
+- a change whose risk warrants a review boundary.
+
+If an unnecessary pull request has already been created and its head is a clean fast-forward of the default branch, preserve the commits by fast-forwarding the default branch and close the redundant pull request. Do not squash or reconstruct the work merely to remove the workflow artifact.
+
 ## 10. Changelog continuation
 
 ### Version 0.1.1 — 2026-07-27
@@ -392,3 +421,13 @@ Added:
 - prohibition on using assertion gates to exclude functionality required by the task;
 - regression checks for universal-property data, backend coverage, structural remediation, and assertion use;
 - provenance record P-0002 with acceptance criteria for presentation-driven product failures.
+
+### Version 0.2.1 — 2026-07-27
+
+Added:
+
+- preference for direct commits to the default branch when authorized and sufficient;
+- prohibition on creating branches or pull requests as unrequested ceremony;
+- concrete criteria that justify branch or pull-request workflows;
+- fast-forward cleanup rule for already-opened redundant pull requests;
+- regression check and provenance record P-0003 for unnecessary workflow overhead.
