@@ -344,3 +344,203 @@ A future editor must verify that assistant-facing guidance:
 ### Rule destination
 
 The forward-facing implementation ladder belongs in `STYLE_GUIDE.md`. Editorial safeguards against blanket anti-assertion rules and uncontrolled scope expansion belong in `CONTRIBUTING.md`.
+
+## P-0009 — Answer-first computation and oracle assertions
+
+**Failure class:** AG assistant
+
+### Failure
+
+The assistant reported that Sage had computed the four fixed points of an involution, but the notebook had hard-coded the four expected coordinate points and checked that they satisfied the fixed equations. The user correctly observed that this verified candidates without deriving the complete locus.
+
+Related cells later used expected tuple orders, singularity labels, group identifications, and classification facts as assertions whose success was described as computation.
+
+### Underlying defect
+
+The assistant substituted a known or guessed mathematical answer for the construction it was asked to perform. The expected answer became an oracle for writing the code, and candidate verification was laundered into exhaustive computation.
+
+It also failed to distinguish capability gates, theorem-backed regression assertions, mathematical postconditions, and hard-coded answer assertions.
+
+### Governing correction
+
+Classify every evidentiary step. A computation may construct an object, exhaustively compute a result, verify a supplied candidate, apply a theorem, or compare against a regression oracle. These roles must be stated separately.
+
+Assertions are valid for mathematical and implementation preconditions, universal-property equations, backend regressions, and postconditions computed from the object. They must not supply the answer that the advertised computation was supposed to derive.
+
+### Regression criteria
+
+A future response must:
+
+1. distinguish candidate verification from complete computation;
+2. explain the source of every expected value used in an assertion;
+3. keep oracle values out of the computational path;
+4. compute the complete scheme, ideal, map, group, or classification certificate advertised;
+5. label theorem deductions as theorem deductions;
+6. keep backend regression assertions outside the mathematical narrative unless they express a proof obligation.
+
+### Rule destination
+
+Forward-facing evidence and assertion rules belong in Sections 17 and 21 of `STYLE_GUIDE.md`.
+
+## P-0010 — Premature abstraction closure and one-rung remediation
+
+**Failure class:** AG assistant
+
+### Failure
+
+Across the fixed-locus and framework work, the assistant repeatedly declared a design complete after moving only one abstraction level upward:
+
+1. hard-coded points;
+2. chart ideals;
+3. determinant helpers;
+4. a projective-product equalizer helper;
+5. a free-standing utility namespace;
+6. methods monkey-patched onto morphisms;
+7. facade parents for automorphisms;
+8. categorical pullbacks;
+9. standard functorial and relative-spectrum constructions.
+
+At each intermediate rung the assistant described the new layer as the natural reusable interface. The user then identified that the construction was still compositional, presentation-specific, missing its parent, or a special case of a standard universal construction.
+
+### Underlying defect
+
+The assistant used reusability and object-oriented discoverability as stopping criteria for mathematical reconstruction. It did not ask whether the current abstraction was itself merely a coordinate realization, functorial restriction, compositional convenience, or special case of a standard construction.
+
+### Governing correction
+
+After every refactor, repeat an abstraction-completion test. Continue until the public interface is governed by the standard parent, functor, diagram, universal property, and hypotheses. Presentation-specific helpers may remain private.
+
+Moving a function onto an object or creating a reusable helper is not evidence that the semantic design is complete.
+
+### Regression criteria
+
+A future interface proposal must identify:
+
+1. its ambient parent or category;
+2. its primitive mathematical data;
+3. its universal or functorial definition;
+4. whether any public method is merely compositional;
+5. whether the proposed object is a coordinate model of a more standard object;
+6. why the abstraction chain legitimately stops at the proposed layer.
+
+### Rule destination
+
+Forward-facing abstraction-completion rules belong in Sections 3, 4, and 20 of `STYLE_GUIDE.md`.
+
+## P-0011 — False canonicity and representation-sensitive verification
+
+**Failure class:** AG assistant
+
+### Failure
+
+An evaluation assertion failed because Sage enumerated fixed points in a different order from the expected coefficient tuple. The assistant first proposed enforcing a canonical order on points and corner monomials. The user correctly observed that the mathematics supplied equality of sets, supports, ideals, and principal opens, not a preferred enumeration.
+
+The same tendency appeared with bases, chart choices, coordinate blocks, polynomial models, and display symbols.
+
+### Underlying defect
+
+The assistant treated a convenient representation as canonical in order to make literal equality pass. It did not identify the choices involved or formulate the assertion at the invariant level.
+
+### Governing correction
+
+Name every choice of basis, chart, trivialization, ordering, normalization, grading, and coordinate model. Verify the invariant object supplied by the mathematics: schemes, ideals, maps, supports, sets, isomorphism classes, or equalities up to units and scalars.
+
+Do not manufacture canonical orderings merely to stabilize tests.
+
+### Regression criteria
+
+A future computation must:
+
+1. identify every noncanonical choice;
+2. avoid order-sensitive assertions unless an order is part of the data;
+3. compare ideals after the correct saturation or normalization;
+4. distinguish equality from isomorphism and equality up to scalar;
+5. expose coordinate realizations through explicit maps from intrinsic parents.
+
+### Rule destination
+
+Forward-facing rules belong in Sections 22 and 28 of `STYLE_GUIDE.md`.
+
+## P-0012 — Local data promoted to global schemes and families
+
+**Failure class:** AG assistant
+
+### Failure
+
+The assistant repeatedly described chart equations, chart dictionaries, or local quotient presentations as global covers, families, quotients, or morphisms before constructing overlaps and verifying compatibility.
+
+The universal double-cover work also initially treated the projective linear system as carrying a canonical universal cover. Only later did the assistant notice that the parameter-space `O(1)` twist has no canonical square root, so the cover datum does not descend to the projective parameter space.
+
+### Underlying defect
+
+The assistant collapsed local construction, gluing, and descent into one step. It assumed that correct fiberwise or chartwise equations automatically assembled into a global object.
+
+It also conflated affine parameter spaces of sections, projective linear systems of divisors, total spaces, incidence schemes, and moduli-like quotients.
+
+### Governing correction
+
+A global claim requires affine pieces, overlap isomorphisms, cocycle identities, compatible local morphisms, and descent of every line bundle, section, action, and root datum. A fiberwise construction must be checked for descent over the parameter base.
+
+Before introducing “universal” or “generic” objects, identify the represented functor and the exact parameter scheme.
+
+### Regression criteria
+
+A future family construction must:
+
+1. distinguish local equations from the global object;
+2. construct and verify all overlap maps and cocycles;
+3. verify compatibility of local morphisms;
+4. track parameter-space twists and root line bundles;
+5. distinguish affine sections from projective divisors;
+6. state whether scalar multiplication has been quotiented;
+7. refuse a universal-family claim when required data do not descend.
+
+### Rule destination
+
+Forward-facing local-to-global and parameter-space rules belong in Sections 23 and 24 of `STYLE_GUIDE.md`.
+
+## P-0013 — Persisted-notebook state drift and expository displacement
+
+**Failure class:** AG assistant
+
+### Failure
+
+The assistant repeatedly placed substantial theory in chat while leaving the notebook with procedural headings and opaque computation cells. Later, after service outages and refactors, it discovered:
+
+- the framework notebook attached to a Python rather than Sage kernel;
+- duplicated tail cells;
+- stale regression cells;
+- research-cell edits that had not persisted;
+- prose claiming that a global cover was absent after later cells constructed one;
+- chartwise computations still active after semantic replacements had supposedly landed.
+
+Earlier completion claims had been based on live-kernel or intended state rather than the persisted artifact.
+
+### Underlying defect
+
+The assistant treated chat exposition, live kernel definitions, persisted notebook source, and executed notebook state as equivalent. It also failed to propagate semantic changes through downstream code, prose, displays, and tests.
+
+### Governing correction
+
+The artifact is the deliverable. Theory needed to justify a computation must be written into the notebook near the relevant cells. Backend tests should be isolated from the mathematical narrative.
+
+After any outage, restart, failed write, import change, or structural refactor, reopen the persisted artifact, inspect its kernel and cells, remove duplicates and stale prose, execute from a clean state, reopen again, and only then claim completion.
+
+Every primitive semantic change requires a downstream dependency audit.
+
+### Regression criteria
+
+A future notebook-maintenance response must:
+
+1. identify the persisted file as the source of truth;
+2. verify kernel type, cell count, cell order, and imports;
+3. inspect changed source and persisted outputs;
+4. detect duplicate or stale cells;
+5. update theorem narrative and all downstream callers;
+6. clean-execute the relevant notebook;
+7. reopen the saved file after execution;
+8. distinguish chat explanation from material actually landed in the artifact.
+
+### Rule destination
+
+Forward-facing notebook and dependency-audit rules belong in Sections 26 and 27 of `STYLE_GUIDE.md`.
