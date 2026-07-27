@@ -1,5 +1,20 @@
 # Changelog
 
+This document is for repository contributors and users tracking revisions. It is not part of the prompt consumed by the Algebraic Geometry Research Assistant.
+
+## 0.3.1 — 2026-07-27
+
+Clarified audiences, contributor responsibilities, and failure classification.
+
+- Added the standard `CONTRIBUTING.md` entry point for contributor and editor guidance.
+- Distinguished instructions to repository editors from instructions intended for the deployed AG assistant.
+- Added an explicit README audience map and file-routing table.
+- Required every correction to be classified by target actor and failure class before editing.
+- Separated AG-assistant incidents from editor/maintainer incidents in `INCIDENTS.md`.
+- Added incident P-0006 for misrouting conversation-level editor instructions into the assistant prompt.
+- Reduced `MAINTENANCE.md` to repository mechanics and delegated editorial judgment to `CONTRIBUTING.md`.
+- Made explicit that only `STYLE_GUIDE.md` is intended for upload as operational custom-GPT guidance.
+
 ## 0.3.0 — 2026-07-27
 
 Restructured the repository by audience.
