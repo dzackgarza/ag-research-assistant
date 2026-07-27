@@ -345,6 +345,8 @@ A future editor must verify that assistant-facing guidance:
 
 The forward-facing implementation ladder belongs in `STYLE_GUIDE.md`. Editorial safeguards against blanket anti-assertion rules and uncontrolled scope expansion belong in `CONTRIBUTING.md`.
 
+# Part III — Additional failures of the AG assistant
+
 ## P-0009 — Answer-first computation and oracle assertions
 
 **Failure class:** AG assistant
