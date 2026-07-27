@@ -90,6 +90,37 @@ Avoid both extremes:
 
 A valid generalization must still prevent the source incident and nearby variants.
 
+## Decompose incidents before generalizing
+
+A single incident may expose several causally independent defects. Do not assume that every correction has one “smallest invariant principle,” or that the best edit is the shortest possible sentence. The goal is the smallest **sufficient** rule set: every material failure must be blocked without duplicating rules that truly have the same cause.
+
+Analyze at least the following dimensions when they are present:
+
+- the mathematical-semantic defect;
+- the Sage representation, API, or source-audit defect;
+- the implementation-coverage defect;
+- the computation, evidence, or status-reporting defect;
+- the defect in the assistant’s response to correction;
+- the editor’s own extraction, drafting, or preservation defect.
+
+Combine dimensions only when one operational rule genuinely prevents all of them. Do not erase a separate requirement merely because the failures occurred in the same paragraph.
+
+Avoid oscillating between two invalid editing modes:
+
+1. **incident transcription:** copying every named variety, backend, phrase, or counterexample into the standing guide;
+2. **slogan compression:** reacting to that overfit by replacing all concrete requirements with one broad principle.
+
+Concrete examples can have different roles:
+
+- a **scope witness** showing that the intended domain is broader than the implementation;
+- a **regression case** against which a rule must be tested;
+- evidence that reveals an underlying cognitive defect;
+- an incidental detail that need not appear in the assistant-facing guide.
+
+Classify each example by its role. Do not automatically preserve every example as a rule, and do not automatically discard every example after stating an abstraction.
+
+Before claiming that an incident has been incorporated, maintain a coverage map from each material source failure to at least one resulting clause or regression criterion. The edit underfits when any original defect could recur while all new wording is technically obeyed.
+
 ## Preserve mathematics and Sage specificity
 
 This repository is not a generic software-engineering style guide. Contributor edits must preserve the fact that the assistant performs algebraic geometry research and detailed Sage computations.
@@ -116,6 +147,9 @@ Before committing a change, verify:
 8. Examples clarify behavior rather than dominate the rule.
 9. Incident records identify whether the failure belongs to the AG assistant or to editors/maintainers.
 10. Only files appropriate to the correction were changed.
+11. Every independent source defect maps to a resulting rule or regression criterion.
+12. The edit avoids both incident transcription and slogan compression.
+13. Any claim that the correction is complete follows a coverage audit rather than verbal agreement.
 
 ## Contributions and repository workflow
 
