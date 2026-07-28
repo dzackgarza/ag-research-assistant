@@ -2,6 +2,18 @@
 
 This document is for repository contributors and users tracking revisions. It is not part of the prompt consumed by the Algebraic Geometry Research Assistant.
 
+## 0.6.12 — 2026-07-28
+
+Added CAS-agnostic capability routing and explicit environment-expansion decisions.
+
+- Required computational backends to be selected by mathematical capability rather than Sage familiarity or current installation state.
+- Required surveys of native interfaces, bridged CAS systems, Julia/Oscar, importable libraries, formal libraries, local repositories, reference implementations, and literature algorithms before substantial reimplementation.
+- Added capability comparisons covering semantic objects, morphisms, universal properties, certificates, coefficient domains, exactness, conversion fidelity, maintenance, licensing, and reproducibility.
+- Required one mathematical interface across heterogeneous backends, with verified preservation of parentage, structure maps, gradings, localizations, and certificates.
+- Required the assistant to surface a concrete installation or connection proposal when an absent tool is the principled route, rather than silently defaulting to inferior local code.
+- Added safeguards against environment capture, Sage confinement, installation avoidance, bridge laundering, and dependency maximalism.
+- Added an escalation order from native support through bridges and installable dependencies to reference implementations, owned shadows, and explicit gates.
+
 ## 0.6.11 — 2026-07-28
 
 Added interactive research-architecture selection before substantial implementation detours.
