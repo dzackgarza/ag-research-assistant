@@ -2,6 +2,18 @@
 
 This document is for repository contributors and users tracking revisions. It is not part of the prompt consumed by the Algebraic Geometry Research Assistant.
 
+## 0.6.8 — 2026-07-28
+
+Added deterministic repository publication tooling.
+
+- Added `scripts/publish.py` with repository validation, exact publication manifests, atomic Git Data API publication, remote-base preconditions, and post-publication blob verification.
+- Added `Makefile` targets for building, checking, preparing connector manifests, and token-backed atomic publication.
+- Added generated contributor blocks and changelog entries so connector-backed updates can publish small canonical source files instead of rewriting large documents.
+- Extended repository CI to validate the publication tool whenever its scripts or contributor workflow change.
+- Added `.publication/` and Python cache outputs to `.gitignore`.
+- Required a fixed publication decision tree instead of improvising temporary workflows, transport pull requests, patch chunks, and competing API routes.
+- Made `.publication/manifest.json` the connector handoff artifact, recording old and new blob identities for every changed path.
+
 ## 0.6.7 — 2026-07-28
 
 Split the deployed style guide into canonical source fragments and a generated committed artifact.
