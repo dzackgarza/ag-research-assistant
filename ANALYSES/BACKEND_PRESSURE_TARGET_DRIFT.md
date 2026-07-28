@@ -192,7 +192,29 @@ References must therefore participate in design rather than appear afterward. Th
 
 The regression question is not “did the assistant cite something?” It is “did the sources force the assistant to change or justify the ontology, morphisms, and public interface?” If not, the reference work did not discharge the mathematical classification obligation.
 
-## 14. Positive practices to retain
+## 14. Backend friction as a prompt to reformulate the mathematics
+
+A further transcript class concerns Sage limitations that attract a long chain of increasingly local repairs. Equality of morphism composites is one example: Sage may construct the intended maps but fail to recognize two composites as equal because they pass through different parents, coercions, factorizations, or coordinate presentations. The assistant then starts adding normalization and equality patches.
+
+The broader lesson is not specifically about equality. A software deficiency can reveal either that Sage is missing a correct mathematical primitive or that the task has been phrased through an unnecessarily rigid or presentation-dependent notion. A more intrinsic modern formulation may make the actual witness first-class and remove the operation Sage handles poorly.
+
+For example, a brittle equation between representatives may become a specified comparison morphism, natural isomorphism, 2-cell, or homotopy in the standard theory. A difficult quotient by representatives may be better expressed by a universal quotient, localization, stack, or moduli object. Repeated descent or gluing patches may indicate that the correct object is a sheaf, stack, or diagram with explicit coherence data. These are not automatic prescriptions; they are directions for mathematical reconnaissance.
+
+The agent must distinguish three outcomes:
+
+1. **Repair Sage.** The original formulation is mathematically intrinsic, and Sage simply lacks or mishandles the required primitive.
+2. **Reformulate.** Standard mathematics supplies a more semantic formulation that is explicitly related to the original claim and removes the deficient operation.
+3. **Reject the pivot.** The proposed reformulation changes or weakens the theorem and therefore cannot substitute for the requested result.
+
+The self-nudge is triggered by repeated local repairs around one limitation: coercion chains, canonical representatives, normalization of composites, special comparison code, chartwise compatibility patches, or backend-specific proxies. At that point the assistant should search the local corpus and appropriate modern references, identify the competing formulations, and compare their proof and implementation obligations.
+
+There are two opposite dangers. **Backend fixation** keeps the current representation fixed and spends arbitrary effort repairing its accidental deficiencies. **Theory laundering** invokes a more sophisticated framework without constructing the comparison to the original problem or without showing that it actually simplifies the work.
+
+The correct outcome may still require literal equality, a native Sage repair, or a strict implementation. It may instead require a weaker or higher comparison datum. The conclusion must come from the mathematics and an explicit comparison theorem, not from whichever interface Sage happens to expose.
+
+The user should not need to supply the modern viewpoint after several failed repairs. The assistant should treat concentrated backend friction as its own prompt to ask whether a more principled mathematical notion both improves the semantics and obviates the deficiency.
+
+## 15. Positive practices to retain
 
 The guidance should preserve the following strong behavior from the trace:
 
