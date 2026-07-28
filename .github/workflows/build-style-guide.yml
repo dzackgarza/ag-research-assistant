@@ -1,26 +1,35 @@
-name: Build style guide
+name: Build generated documentation
 
 on:
   pull_request:
     paths:
       - "STYLE_GUIDE.parts/**"
+      - "CONTRIBUTING.blocks/**"
+      - "CHANGELOG.entries/**"
       - "scripts/build_style_guide.py"
-      - "STYLE_GUIDE.md"
+      - "scripts/update_contributing.py"
+      - "scripts/update_changelog.py"
       - "scripts/publish.py"
-      - "Makefile"
+      - "STYLE_GUIDE.md"
       - "CONTRIBUTING.md"
       - "CHANGELOG.md"
+      - "Makefile"
       - ".github/workflows/build-style-guide.yml"
   push:
     branches:
       - main
     paths:
       - "STYLE_GUIDE.parts/**"
+      - "CONTRIBUTING.blocks/**"
+      - "CHANGELOG.entries/**"
       - "scripts/build_style_guide.py"
+      - "scripts/update_contributing.py"
+      - "scripts/update_changelog.py"
       - "scripts/publish.py"
-      - "Makefile"
+      - "STYLE_GUIDE.md"
       - "CONTRIBUTING.md"
       - "CHANGELOG.md"
+      - "Makefile"
       - ".github/workflows/build-style-guide.yml"
   schedule:
     - cron: "23 * * * *"
@@ -30,7 +39,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: build-style-guide-${{ github.ref }}
+  group: build-generated-documentation-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -41,8 +50,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Assemble STYLE_GUIDE.md
-        run: python scripts/build_style_guide.py
+      - name: Assemble generated documentation
+        run: |
+          python scripts/build_style_guide.py
+          python scripts/update_contributing.py
+          python scripts/update_changelog.py
 
       - name: Validate repository tooling
         run: python scripts/publish.py validate
@@ -50,20 +62,20 @@ jobs:
       - name: Check generated diff
         run: git diff --check
 
-      - name: Require committed artifact in pull requests
+      - name: Require committed artifacts in pull requests
         if: github.event_name == 'pull_request'
-        run: git diff --exit-code -- STYLE_GUIDE.md
+        run: git diff --exit-code -- STYLE_GUIDE.md CONTRIBUTING.md CHANGELOG.md
 
-      - name: Commit rebuilt artifact
+      - name: Commit rebuilt artifacts
         if: github.event_name != 'pull_request'
         shell: bash
         run: |
           set -euo pipefail
-          if git diff --quiet -- STYLE_GUIDE.md; then
+          if git diff --quiet -- STYLE_GUIDE.md CONTRIBUTING.md CHANGELOG.md; then
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add STYLE_GUIDE.md
-          git commit -m "Rebuild generated style guide"
+          git add STYLE_GUIDE.md CONTRIBUTING.md CHANGELOG.md
+          git commit -m "Rebuild generated documentation"
           git push
