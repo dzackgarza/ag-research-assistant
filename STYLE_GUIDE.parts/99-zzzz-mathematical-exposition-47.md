@@ -131,3 +131,40 @@ Stop and edit the notebook back to standard mathematical prose when:
 - the artifact reads like warnings to a future agent rather than a document for a mathematician.
 
 The correction is not to delete genuine motivation, mathematical summaries, citations, or scope conditions. Rewrite so that they are attached to the mathematical object or claim they clarify. The notebook should preserve the final mathematical structure, not the conversational path by which the assistant reached it.
+
+### 47.8 Do not mirror the current artifact state in prose
+
+The notebook itself is the primary record of which definitions, constructions, computations, and assertions are present. Code cells, mathematical exposition, outputs, tests, and version history already encode the current state. Do not manually duplicate that state in prose through tables of completed items, phase descriptions, inventories of available functionality, section-by-section completion summaries, or repeated declarations of what is and is not implemented.
+
+Such text is derivative rather than explanatory. It has a short useful life, becomes false as soon as nearby work changes, and creates a synchronization obligation at every later edit. The usual result is not better memory but several inconsistent descriptions of the same artifact.
+
+Preserve prose that remains useful when the implementation advances:
+
+- the mathematical reason a construction is considered;
+- definitions, hypotheses, equations, maps, and proofs;
+- non-obvious design choices and theorems that justify them;
+- references and comparison results;
+- a precise limitation when it changes the claim;
+- a mathematical question or continuation that is not otherwise inferable.
+
+Delete prose whose only content is a restatement of the present physical arrangement of cells or methods. Historical snapshots belong in version control, not in the mathematical narrative.
+
+### 47.9 Keep forward pointers small, local, and consumable
+
+A short note about what comes next can be valuable because it preserves the direction of an unfinished argument. State the next mathematical object, construction, or obstruction at the point where the exposition stops. Do not expand that note into a frozen phase plan or a complete inventory of unfinished work.
+
+For example:
+
+> **Remark.** It remains to construct the quotient family over the full invariant parameter space.
+
+Once work on that construction begins, replace the remark by the new mathematics or move the unresolved remainder to its new boundary. A forward pointer is temporary re-entry information; it should be consumed rather than preserved as a fossilized plan.
+
+Extensive coordination plans belong in a separate operational artifact. They should not be interleaved with the mathematics and should not be retained after they cease to guide current work.
+
+### 47.10 Minimize synchronization obligations
+
+Each fact should have one natural owner. A theorem or computation owns its mathematical conclusion. A test or capability gate owns executable coverage. A local remark owns the immediate unresolved boundary. Version control owns the history of earlier states.
+
+Do not repeat the same information in an introduction, roadmap, status table, section preamble, section conclusion, and final summary. If a summary is genuinely required for another audience, derive it from the authoritative source where possible or keep it as a separate deliberately maintained artifact.
+
+Before adding prose, determine whether it explains *why* or *what* in a way the mathematics cannot already show, or merely announces *where the artifact currently happens to be*. Text in the second class should normally be deleted, generated, or kept as a disposable private note. A document with no identifiable reader and no durable informational content should not be created merely to externalize the agent's momentary state.
