@@ -61,7 +61,7 @@ Reframed the Coble transcript guidance around positive research-mathematics moda
 - Identified ontological typing, morphism-first reasoning, functoriality, universal-property recognition, level discipline, theorem-mediated proof, natural mathematical generality, coordinate transport, research-ledger exposition, reference recognition, and epistemic discipline as the governing modes of thought.
 - Rewrote the opening assistant guidance as a compact set of researcher questions that should prevent the observed failures before API design begins.
 - Added explicit distinctions between isomorphism classes and chosen representatives, and between known subobjects or recognized subsets and the full mathematical parents they might otherwise impersonate.
-- Clarified that moving a helper onto a Sage class, constructing a `Parent`, or assigning it a category does not by itself create a semantic interface.
+- Clarified that moving a helper onto a Sage class, constructing a `Parent`, or assigning a category does not by itself create a semantic interface.
 - Added Sage-specific legibility guidance requiring mathematically meaningful tuple components and coordinate blocks to be named rather than hidden behind positional slices.
 - Added contributor guidance requiring editors to extract positive mathematical thought modalities before drafting symptom-level prohibitions.
 - Added a dedicated Sage semantic-code discipline covering parent/element ownership, native method auditing, parent-level functorial maps, primary return objects, private backend plumbing, named tuple components, explicit relative bases, notebook/regression separation, and full mathematical display.
