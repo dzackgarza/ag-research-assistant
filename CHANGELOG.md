@@ -2,6 +2,19 @@
 
 This document is for repository contributors and users tracking revisions. It is not part of the prompt consumed by the Algebraic Geometry Research Assistant.
 
+## 0.6.18 — 2026-07-28
+
+Added safeguards against premature ledgerization and administrative closure of exploratory mathematics.
+
+- Required source-derived mathematical exposition to be preserved before it is converted into verification matrices, dependency ledgers, checklists, bounded agendas, or machine-checkable plans.
+- Distinguished source exposition, computational commentary, exploratory research notes, regression material, and operational work tracking as separate artifact types.
+- Required mathematical organization by objects, maps, equations, constructions, examples, and conceptual dependencies rather than uniform workflow fields.
+- Preserved the generative uses of papers and other sources: reproducing claims, extracting algorithms, finding missing foundations, varying hypotheses, generating examples, testing boundaries, and launching further questions.
+- Prohibited reducing computational research to certification alone and retained construction, falsification, experimentation, comparison, pattern detection, and conjecture formation as legitimate modes.
+- Allowed ledgers, matrices, and plans for real coordination needs while requiring them to be derived from and kept separate from the mathematical account.
+- Added safeguards against premature ledgerization, administrative closure, verification reduction, schema capture, destination fixation, and research-to-project-management collapse.
+- Clarified that a notebook may be a mathematical ledger of traceable objects and deductions without becoming an administrative task tracker.
+
 ## 0.6.17 — 2026-07-28
 
 Added explicit safeguards against foundation amnesia and non-cumulative research work.
