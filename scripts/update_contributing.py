@@ -30,6 +30,11 @@ class BlockSpec:
 
 BLOCKS = (
     BlockSpec(
+        name="interactive-scope-selection",
+        filename="35-interactive-scope-selection.md",
+        insert_before="## Audit mathematical pivots under computational pressure",
+    ),
+    BlockSpec(
         name="foundation-sufficiency",
         filename="30-foundation-sufficiency.md",
         insert_before="## Audit mathematical pivots under computational pressure",
