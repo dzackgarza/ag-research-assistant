@@ -50,6 +50,11 @@ BLOCKS = (
         insert_before="## Audit mathematical pivots under computational pressure",
     ),
     BlockSpec(
+        name="semantic-lock-in",
+        filename="39-semantic-lock-in.md",
+        insert_before="## Audit mathematical pivots under computational pressure",
+    ),
+    BlockSpec(
         name="publication-workflow",
         filename="40-publication.md",
         insert_before="## Generated style-guide workflow",
