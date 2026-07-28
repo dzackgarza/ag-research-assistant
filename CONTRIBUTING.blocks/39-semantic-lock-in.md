@@ -25,11 +25,13 @@ Do not credit hours of work as mathematical progress merely because the code exe
 
 A valid assistant-facing rule should make it difficult for an agent to work for hours inside a false ontology without stopping itself. The user should not have to ask, late in the process, what kind of mathematical thing the central class is.
 
-## Audit the actual \(\infty\)-categorical derivation, not a categorical slogan
+## Audit explicit categorical derivations without overfitting to one regression
 
-When a transcript contains concrete higher-categorical mathematics, do not replace it in the guide by phrases such as “preserve categorical level,” “retain coherence,” or “reuse abstractions” without reproducing the construction that gives those phrases content.
+When a transcript contains concrete higher-categorical mathematics, do not replace it by slogans such as “preserve categorical level” or “retain coherence.” Require an explicit derivation through the actual diagram category, admissible subcategory, universal object, mapping object, comparison cell, and projection or truncation used by the implementation.
 
-For every universal construction, require the review to write an explicit derivation chain. In the localization regression case this must include:
+A sufficiently detailed worked example may remain in the deployed guide when it anchors a recurring failure. Mark it explicitly as a regression example. Do not make its particular objects, symbols, or category chain the standing ontology for unrelated constructions.
+
+For the localization regression, the derivation includes
 
 \[
 \operatorname{Ar}(\mathcal C)=\operatorname{Fun}(\Delta^1,\mathcal C),
@@ -39,42 +41,21 @@ For every universal construction, require the review to write an explicit deriva
 \{R\}\times_{\mathcal C,\operatorname{ev}_0}\operatorname{Ar}(\mathcal C),
 \]
 
+a replete full subcategory \(\operatorname{Inv}_S(R)\), an initial object \(\ell:R\to L\), and contractible mapping objects \(\operatorname{Map}(\ell,\phi)\). A point \(\alpha_\phi:\ell\to\phi\) is the full comparison cell; the factor map \(\widetilde\phi:L\to T\) is its target component.
 
-a replete full subcategory
+For another universal construction, require the analogous problem-specific derivation rather than copying the localization chain. The review should identify:
 
-\[
-\operatorname{Inv}_S(R)\subseteq\mathcal C_{R/},
-\]
+1. the ambient category and truncation convention;
+2. the exact diagram, slice, coslice, comma, cone, or cocone category;
+3. the subcategory or classifier expressing admissibility;
+4. the initial, final, limit, colimit, adjoint, or representability object;
+5. the mapping object containing universal comparison cells;
+6. the components of those cells;
+7. the evaluation, projection, truncation, or forgetful functor producing backend data;
+8. the uniqueness, contractibility, naturality, or coherence retained by the full construction;
+9. the prior project abstractions reused at each step;
+10. the irreducible new datum.
 
-an initial object
+Flag **categorical sloganization** when precise mathematics is compressed into advice too vague to reconstruct the objects or maps. Flag **example overfitting** when one regression derivation is promoted into a universal template whose symbols and special hypotheses dominate unrelated work. Flag **categorical-level regression**, **abstraction amnesia**, **component erasure**, and **parallel-foundation drift** when an existing structured construction is replaced by a weaker local interface.
 
-\[
-\ell:R\to L,
-\]
-
-and, for every admissible \(\phi:R\to T\), a contractible mapping object
-
-\[
-\operatorname{Map}_{\operatorname{Inv}_S(R)}(\ell,\phi).
-\]
-
-A point \(\alpha_\phi:\ell\to\phi\) is the full comparison cell. The familiar factor map \(\widetilde\phi:L\to T\) is its target component. The review must state which evaluation or truncation extracts it and what data are forgotten.
-
-Require the analysis to identify:
-
-1. the ambient \(\infty\)-category and the project’s truncation convention;
-2. the exact diagram category, slice, coslice, comma category, or category of cones used;
-3. the full or replete subcategory expressing admissibility;
-4. the initial, final, limit, or colimit object that is the mathematical construction;
-5. the mapping object whose points are universal comparison cells;
-6. every source and target component of those cells;
-7. the evaluation, truncation, or forgetful functor producing any bare map returned to a backend;
-8. the contractibility, uniqueness, naturality, or coherence statement retained by the full construction;
-9. the exact prior project abstractions reused at each step;
-10. the irreducible new datum, if any.
-
-Flag **categorical sloganization** when precise constructions are compressed into general advice that would not let a future agent reconstruct the objects or maps. Flag **categorical-level regression** when mapping objects are silently replaced by sets or higher cells by bare components. Flag **abstraction amnesia** when the assistant reimplements a Hom-set bijection, factorization helper, or local theorem wrapper instead of using an existing initial object, arrow category, slice, or limit. Flag **component erasure** when the target map survives but its square and ambient morphism of arrows do not. Flag **parallel-foundation drift** when a second strict or set-level API grows beside the established foundation.
-
-Do not turn this into a generic demand for sophisticated language. The review must verify that the higher-categorical formulation actually determines the data being implemented. It must also preserve strict equalities when the theorem requires them. The requirement is exact derivation and explicit truncation, not abstraction for its own sake.
-
-A valid guide entry should let a mathematically competent reader reconstruct the universal object, the comparison cell, its components, and the ordinary truncated statement without consulting the originating transcript.
+The requirement is exact mathematical derivation plus an explicit statement of which parts are general and which parts belong only to the worked example.
