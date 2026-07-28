@@ -2,6 +2,57 @@
 
 This document is for repository contributors and users tracking revisions. It is not part of the prompt consumed by the Algebraic Geometry Research Assistant.
 
+## 0.6.2 — 2026-07-28
+
+Generalized the category-refinement guidance into a rule against categorical reinvention.
+
+- Required proposed categories and wrapper hierarchies to be reduced first through existing Sage base categories, registered axioms, joins, slices, construction functors, and standard structured-object categories.
+- Distinguished genuinely new structure or morphism data from mere conjunctions of properties.
+- Required standard named categories to be aliases of compositionally generated categories when possible, rather than independent ontologies with duplicated methods and refinement paths.
+- Added contributor review criteria for detecting category reinvention across algebraic, geometric, topological, graded, equivariant, relative, and finiteness settings.
+- Retained specific examples only as regression witnesses for the general anti-reinvention principle.
+
+## 0.6.1 — 2026-07-27
+
+Added local-to-global construction and problem-space reconnaissance discipline.
+
+- Required global scheme, family, cover, action, and quotient operations to be built from general local algebraic primitives rather than implemented top-down through specialized objects.
+- Made pushouts and tensor products of explicit rings and algebras the foundational base-change primitive, with affine pullbacks obtained contravariantly by `Spec`.
+- Required compatibility with quotient, localization, polynomial, Laurent, and principal-open presentations to be expressed through the same universal tensor-product construction.
+- Required globalization by affine-cover descent or relative `Proj`, with family-specific methods delegating to general scheme pullbacks.
+- Added a dependency-graph and complexity survey before implementation, including comparison of general foundational repairs against accumulated special-case cost.
+- Required proactive searches of Sage source, tickets, external computer-algebra systems, bridges, reference implementations, and mathematical literature.
+- Added rules against greedy implementation paths that descend into point-, chart-, overlap-, localization-, and family-specific local minima.
+- Added contributor review criteria for reversed dependency implementation, greedy basin descent, and failure to survey the broader solution landscape.
+
+## 0.6.0 — 2026-07-27
+
+Added guidance against changing the mathematical problem to fit a failing Sage backend.
+
+- Required every restriction from a full parameter space to a pencil, principal open, or fiber to be expressed as a named base change with its logical effect on the original theorem.
+- Distinguished nonconstant equations from non-isotrivial families and required moduli-level or invariant-level evidence.
+- Distinguished exact discriminants and smooth loci from conservative resultant or denominator certificates.
+- Required relative schemes and families to be represented by structure morphisms or slice objects rather than attached side metadata such as an ad hoc `as_scheme_over`.
+- Added a root-cause rule requiring repair of the earliest broken semantic primitive instead of successive patches to lifts, overlaps, charts, products, and specializations.
+- Required overlap morphisms to arise functorially from restriction or localization of covered morphisms.
+- Clarified that avoiding bespoke wrappers does not justify avoiding standard mathematical parents such as linear subsystems with ambient inclusions.
+- Required affine base change to be implemented from \(R\otimes_A B\) and explicit algebra structure maps rather than coercion experiments.
+- Required method and category scope to match the exact backend domain.
+- Required final reports to preserve unresolved family-level work when only a pencil or rational fiber has been completed.
+- Added contributor guidance for auditing pivot debt while retaining exact certification, source inspection, and diagram verification as positive practices.
+
+## 0.5.1 — 2026-07-27
+
+Added Sage-native category-refinement guidance for installing mathematically uniform capabilities on existing parents.
+
+- Distinguished category-level axiom refinement via `C._with_axiom(A)` from object-level parent refinement via `P._refine_category_(D)`.
+- Required object refinement to record an already-true mathematical category membership rather than act as an unchecked cast or method-installation trick.
+- Directed uniform methods to Sage category `ParentMethods`, `ElementMethods`, or `SubcategoryMethods`, with installation code limited to routing parents at controlled construction boundaries.
+- Preferred the smallest accurate existing Sage category, while allowing new categories only for genuinely missing mathematical structures and uniform method surfaces.
+- Added clean-kernel, idempotency, category-join, dynamic-MRO, singleton-side-effect, and `@final` review requirements.
+- Clarified when category refinement is preferable to concrete-class monkey-patching and when a targeted native repair, shadow, subclass, backend patch, or proper category hierarchy remains the honest mechanism.
+- Added contributor checks preventing `_refine_category_` from being used as a false proof of membership.
+
 ## 0.5.0 — 2026-07-27
 
 Reframed the Coble transcript guidance around positive research-mathematics modalities rather than an expanding catalogue of observed failures.
@@ -10,7 +61,7 @@ Reframed the Coble transcript guidance around positive research-mathematics moda
 - Identified ontological typing, morphism-first reasoning, functoriality, universal-property recognition, level discipline, theorem-mediated proof, natural mathematical generality, coordinate transport, research-ledger exposition, reference recognition, and epistemic discipline as the governing modes of thought.
 - Rewrote the opening assistant guidance as a compact set of researcher questions that should prevent the observed failures before API design begins.
 - Added explicit distinctions between isomorphism classes and chosen representatives, and between known subobjects or recognized subsets and the full mathematical parents they might otherwise impersonate.
-- Clarified that moving a helper onto a Sage class, constructing a `Parent`, or assigning a category does not by itself create a semantic interface.
+- Clarified that moving a helper onto a Sage class, constructing a `Parent`, or assigning it a category does not by itself create a semantic interface.
 - Added Sage-specific legibility guidance requiring mathematically meaningful tuple components and coordinate blocks to be named rather than hidden behind positional slices.
 - Added contributor guidance requiring editors to extract positive mathematical thought modalities before drafting symptom-level prohibitions.
 - Added a dedicated Sage semantic-code discipline covering parent/element ownership, native method auditing, parent-level functorial maps, primary return objects, private backend plumbing, named tuple components, explicit relative bases, notebook/regression separation, and full mathematical display.
