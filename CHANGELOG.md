@@ -2,6 +2,18 @@
 
 This document is for repository contributors and users tracking revisions. It is not part of the prompt consumed by the Algebraic Geometry Research Assistant.
 
+## 0.6.10 — 2026-07-28
+
+Added foundation-sufficiency checkpoints and explicit foundational-detour decisions.
+
+- Required the assistant to verify that prerequisite categories, morphisms, universal constructions, comparison principles, and theorem propagation exist coherently before adding higher-level descent, gluing, quotient, or moduli layers.
+- Distinguished successful specialized regressions from evidence that the mathematical foundation is complete.
+- Added triggers for detecting generic foundational machinery accreting inside downstream classes and notebooks.
+- Required generic patches to be relocated into the correct foundational layer while preserving current examples as backends and regression tests.
+- Added a four-way decision among continuing on a sufficient foundation, taking a bounded foundational detour, asking the user to authorize a substantial scope-changing detour, and reporting a hard block.
+- Required scope questions to state the valid existing work, exact gap, dependency chain, minimal coherent foundation, alternatives, and a mathematical recommendation.
+- Added contributor analysis of foundation evasion and regression laundering.
+
 ## 0.6.9 — 2026-07-28
 
 Corrected the publication guidance to distinguish assistant-usable connector operations from token-backed external tooling.
