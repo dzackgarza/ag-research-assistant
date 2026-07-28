@@ -2,6 +2,19 @@
 
 This document is for repository contributors and users tracking revisions. It is not part of the prompt consumed by the Algebraic Geometry Research Assistant.
 
+## 0.6.17 — 2026-07-28
+
+Added explicit safeguards against foundation amnesia and non-cumulative research work.
+
+- Required task-start, context-resumption, and periodic in-task surveys of the versioned mathematical foundation.
+- Required every substantial construction to state a reuse map from the current goal through existing categories, functors, universal objects, predicates, certificates, and backend routes to the smallest genuinely missing extension.
+- Added mandatory resurvey triggers for new public abstractions, repeated special-case helpers, categorical-level changes, backend workarounds, context resets, foundational changes, and completion claims.
+- Required nearly sufficient foundations to be extended at their natural mathematical owner rather than bypassed by local parallel interfaces.
+- Required foundational refinements to propagate through dependent notebooks, APIs, tests, documentation, and backend adapters, with obsolete duplicates removed or demoted to derived syntax.
+- Added a versioned foundation inventory and abstraction-dependency ledger requirement so later agents can retrieve settled mathematics rather than reconstruct it from memory.
+- Added safeguards against foundation amnesia, restart-from-scratch behavior, parallel reconstruction, extension bypass, non-propagating refinement, and inventory drift.
+- Clarified that the explicit localization derivation in Section 43 is a worked regression example grounding a general universal-object schema, not the standing ontology for every future construction.
+
 ## 0.6.16 — 2026-07-28
 
 Restored the explicit \(\infty\)-categorical mathematics that had been compressed into generic abstraction guidance.
