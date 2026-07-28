@@ -65,6 +65,11 @@ BLOCKS = (
         insert_before="## Audit mathematical pivots under computational pressure",
     ),
     BlockSpec(
+        name="semantic-distance",
+        filename="39-zzz-semantic-distance.md",
+        insert_before="## Audit mathematical pivots under computational pressure",
+    ),
+    BlockSpec(
         name="publication-workflow",
         filename="40-publication.md",
         insert_before="## Generated style-guide workflow",
