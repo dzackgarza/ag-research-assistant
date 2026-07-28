@@ -2,6 +2,19 @@
 
 This document is for repository contributors and users tracking revisions. It is not part of the prompt consumed by the Algebraic Geometry Research Assistant.
 
+## 0.6.15 — 2026-07-28
+
+Added safeguards against categorical-level regression and failure to reuse established abstractions.
+
+- Required later constructions to remain in the categorical universe already fixed by the project unless an explicit truncation, projection, or strictification is applied.
+- Prohibited silently replacing mapping objects and higher cells by sets, Boolean equality, or component maps merely because a backend is weaker.
+- Required arrow, slice, coslice, comma, functor, limit, colimit, and comparison-cell abstractions to be reused compositionally rather than reimplemented through parallel local interfaces.
+- Required universal properties to be formulated through the existing initial-object, mapping-object, and diagram machinery, with strict ordinary cases obtained as truncations or specializations.
+- Added preservation rules for full categorical witnesses, including commutative squares and other morphisms in arrow categories, while retaining component maps as derived accessors.
+- Added an abstraction-dependency ledger and mandatory reuse audit before foundational extensions.
+- Added safeguards against categorical-level regression, abstraction amnesia, component erasure, parallel-foundation drift, and coherence loss.
+- Required downstream work to be frozen and re-audited from the earliest categorical divergence when a weaker duplicate foundation has accumulated.
+
 ## 0.6.14 — 2026-07-28
 
 Added longitudinal safeguards against prolonged semantic lock-in.
