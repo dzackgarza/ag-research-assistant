@@ -2,6 +2,28 @@
 
 This document is for repository contributors and users tracking revisions. It is not part of the prompt consumed by the Algebraic Geometry Research Assistant.
 
+## 0.6.4 — 2026-07-28
+
+Added reference-backed mathematical classification as a prerequisite to public abstraction design.
+
+- Required the assistant to search the local research corpus and appropriate standard references before coining foundational nouns, categories, or method families.
+- Made reference use operational: extract the established objects, morphisms, ambient category, variance, universal property, hypotheses, and functorial constructions that constrain the implementation.
+- Added a completion test preventing a wrapper from being categorically laundered one abstraction layer upward without reduction to standard arrows, diagrams, refinements, and category constructors.
+- Required comparison with Sage and formal-library architecture before declaring a construction absent or inventing a parallel ontology.
+- Added contributor checks for source-free reconstruction, categorical laundering, and citation laundering.
+- Clarified that local textbooks, papers, notes, and prior project decisions may be the governing sources; external references supplement rather than replace the local corpus.
+
+## 0.6.3 — 2026-07-28
+
+Extended the anti-reinvention guidance to functorial category constructions and diagram objects.
+
+- Required slice, coslice, arrow, comma, functor, action, graded, filtered, equivariant, and similar categories to be generated from the ambient category when the construction is functorial, rather than introduced as independent top-level category families.
+- Required public APIs to preserve ownership and variance: construct or refine the ambient category first, then apply its category constructor.
+- Added an abstraction-completion check against correctly naming a standard diagram category but reifying it as a bespoke class instead of using Sage's native functorial-construction mechanism.
+- Required arrows, spans, cospans, actions, functors, and other diagrams to remain the semantic objects; wrapper parents are backend realizations and must preserve the defining maps and commutative conditions.
+- Added contributor checks for construction reification and wrapper substitution.
+- Retained ring-extension and relative-scheme examples only as regression witnesses for the general category-construction rule.
+
 ## 0.6.2 — 2026-07-28
 
 Generalized the category-refinement guidance into a rule against categorical reinvention.
@@ -61,7 +83,7 @@ Reframed the Coble transcript guidance around positive research-mathematics moda
 - Identified ontological typing, morphism-first reasoning, functoriality, universal-property recognition, level discipline, theorem-mediated proof, natural mathematical generality, coordinate transport, research-ledger exposition, reference recognition, and epistemic discipline as the governing modes of thought.
 - Rewrote the opening assistant guidance as a compact set of researcher questions that should prevent the observed failures before API design begins.
 - Added explicit distinctions between isomorphism classes and chosen representatives, and between known subobjects or recognized subsets and the full mathematical parents they might otherwise impersonate.
-- Clarified that moving a helper onto a Sage class, constructing a `Parent`, or assigning a category does not by itself create a semantic interface.
+- Clarified that moving a helper onto a Sage class, constructing a `Parent`, or assigning it a category does not by itself create a semantic interface.
 - Added Sage-specific legibility guidance requiring mathematically meaningful tuple components and coordinate blocks to be named rather than hidden behind positional slices.
 - Added contributor guidance requiring editors to extract positive mathematical thought modalities before drafting symptom-level prohibitions.
 - Added a dedicated Sage semantic-code discipline covering parent/element ownership, native method auditing, parent-level functorial maps, primary return objects, private backend plumbing, named tuple components, explicit relative bases, notebook/regression separation, and full mathematical display.
