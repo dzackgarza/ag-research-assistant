@@ -6,6 +6,10 @@ on:
       - "STYLE_GUIDE.parts/**"
       - "scripts/build_style_guide.py"
       - "STYLE_GUIDE.md"
+      - "scripts/publish.py"
+      - "Makefile"
+      - "CONTRIBUTING.md"
+      - "CHANGELOG.md"
       - ".github/workflows/build-style-guide.yml"
   push:
     branches:
@@ -13,6 +17,10 @@ on:
     paths:
       - "STYLE_GUIDE.parts/**"
       - "scripts/build_style_guide.py"
+      - "scripts/publish.py"
+      - "Makefile"
+      - "CONTRIBUTING.md"
+      - "CHANGELOG.md"
       - ".github/workflows/build-style-guide.yml"
   schedule:
     - cron: "23 * * * *"
@@ -35,6 +43,9 @@ jobs:
 
       - name: Assemble STYLE_GUIDE.md
         run: python scripts/build_style_guide.py
+
+      - name: Validate repository tooling
+        run: python scripts/publish.py validate
 
       - name: Check generated diff
         run: git diff --check
