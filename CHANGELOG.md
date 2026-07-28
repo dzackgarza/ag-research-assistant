@@ -2,6 +2,16 @@
 
 This document is for repository contributors and users tracking revisions. It is not part of the prompt consumed by the Algebraic Geometry Research Assistant.
 
+## 0.6.9 — 2026-07-28
+
+Corrected the publication guidance to distinguish assistant-usable connector operations from token-backed external tooling.
+
+- Retracted the claim that `make publish-api` is a workflow available to a connector-only assistant.
+- Kept local build, validation, commit, and manifest generation as the deterministic preparation phase.
+- Specified the actual connector workflow: current-SHA precondition reads, sequential whole-file writes of small canonical sources, remote blob verification, and generated-artifact verification.
+- Required reports to preserve the connector's actual multi-commit sequence rather than claiming atomic reproduction of the local commit.
+- Classified token-backed atomic publication as optional tooling for environments that genuinely possess GitHub credentials.
+
 ## 0.6.8 — 2026-07-28
 
 Added deterministic repository publication tooling.
