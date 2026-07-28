@@ -55,6 +55,11 @@ BLOCKS = (
         insert_before="## Audit mathematical pivots under computational pressure",
     ),
     BlockSpec(
+        name="cumulative-foundations",
+        filename="39-cumulative-foundations.md",
+        insert_before="## Audit mathematical pivots under computational pressure",
+    ),
+    BlockSpec(
         name="publication-workflow",
         filename="40-publication.md",
         insert_before="## Generated style-guide workflow",
