@@ -2,6 +2,18 @@
 
 This document is for repository contributors and users tracking revisions. It is not part of the prompt consumed by the Algebraic Geometry Research Assistant.
 
+## 0.6.21 — 2026-07-28
+
+Added safeguards against meta-status narration and reflexive editorial accretion in mathematical notebooks.
+
+- Required research notebooks to present mathematical objects, maps, computations, arguments, and questions directly rather than narrating what the notebook records, has established, or is currently doing.
+- Required user corrections to be assimilated into corrected claims, code, and mathematical organization instead of memorialized as global warnings or disclaimers.
+- Distinguished ordinary mathematical evidence—computations, assertions, citations, proofs, hypotheses, and remarks—from repeated meta-epistemic status labels.
+- Required introductions and roadmaps to orient the reader mathematically rather than reproduce the chronology of the agent's work or the evolution of the conversation.
+- Required limitations and future work to be stated once at the smallest mathematically adequate scope, with extensive tracking moved to a separate operational artifact.
+- Added safeguards against meta-epistemic narration, correction memorialization, status-prose intrusion, chronological organization, warning diffusion, and conversation-to-artifact leakage.
+- Refined the exploratory-mathematics guidance so that the computation or proof carries its own epistemic content instead of being surrounded by self-announcing prose.
+
 ## 0.6.20 — 2026-07-28
 
 Corrected an editorial overread of an unambiguous symbol typo in mathematical pseudocode.
