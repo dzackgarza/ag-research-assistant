@@ -4,30 +4,64 @@
 from __future__ import annotations
 
 import argparse
+from dataclasses import dataclass
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "CONTRIBUTING.md"
 BLOCKS_DIR = ROOT / "CONTRIBUTING.blocks"
-BEGIN = "<!-- BEGIN GENERATED: publication-workflow -->"
-END = "<!-- END GENERATED: publication-workflow -->"
-INSERT_BEFORE = "## Generated style-guide workflow"
-LEGACY_HEADING = "## Single-command publication workflow"
 
 
-def block_bytes() -> bytes:
-    path = BLOCKS_DIR / "40-publication.md"
+@dataclass(frozen=True)
+class BlockSpec:
+    name: str
+    filename: str
+    insert_before: str
+    legacy_heading: str | None = None
+
+    @property
+    def begin(self) -> str:
+        return f"<!-- BEGIN GENERATED: {self.name} -->"
+
+    @property
+    def end(self) -> str:
+        return f"<!-- END GENERATED: {self.name} -->"
+
+
+BLOCKS = (
+    BlockSpec(
+        name="foundation-sufficiency",
+        filename="30-foundation-sufficiency.md",
+        insert_before="## Audit mathematical pivots under computational pressure",
+    ),
+    BlockSpec(
+        name="publication-workflow",
+        filename="40-publication.md",
+        insert_before="## Generated style-guide workflow",
+        legacy_heading="## Single-command publication workflow",
+    ),
+)
+
+
+def block_bytes(spec: BlockSpec) -> bytes:
+    path = BLOCKS_DIR / spec.filename
     data = path.read_bytes().rstrip(b"\n")
     if not data:
         raise SystemExit(f"empty contributor block: {path}")
-    return BEGIN.encode() + b"\n" + data + b"\n" + END.encode() + b"\n\n"
+    return (
+        spec.begin.encode()
+        + b"\n"
+        + data
+        + b"\n"
+        + spec.end.encode()
+        + b"\n\n"
+    )
 
 
-def rendered_bytes() -> bytes:
-    current = OUTPUT.read_bytes()
-    block = block_bytes()
-    begin = BEGIN.encode()
-    end = END.encode()
+def replace_or_insert(current: bytes, spec: BlockSpec) -> bytes:
+    block = block_bytes(spec)
+    begin = spec.begin.encode()
+    end = spec.end.encode()
 
     if begin in current:
         start = current.index(begin)
@@ -36,19 +70,29 @@ def rendered_bytes() -> bytes:
             finish += 1
         return current[:start] + block + current[finish:]
 
-    legacy = LEGACY_HEADING.encode()
-    if legacy in current:
-        start = current.index(legacy)
-        next_heading = current.find(b"\n## ", start + len(legacy))
-        if next_heading < 0:
-            raise SystemExit("unable to find heading after legacy publication section")
-        return current[:start] + block + current[next_heading + 1 :]
+    if spec.legacy_heading is not None:
+        legacy = spec.legacy_heading.encode()
+        if legacy in current:
+            start = current.index(legacy)
+            next_heading = current.find(b"\n## ", start + len(legacy))
+            if next_heading < 0:
+                raise SystemExit(
+                    f"unable to find heading after legacy section: {spec.legacy_heading}"
+                )
+            return current[:start] + block + current[next_heading + 1 :]
 
-    marker = INSERT_BEFORE.encode()
+    marker = spec.insert_before.encode()
     if marker not in current:
-        raise SystemExit(f"missing insertion heading: {INSERT_BEFORE}")
+        raise SystemExit(f"missing insertion heading: {spec.insert_before}")
     start = current.index(marker)
     return current[:start] + block + current[start:]
+
+
+def rendered_bytes() -> bytes:
+    current = OUTPUT.read_bytes()
+    for spec in BLOCKS:
+        current = replace_or_insert(current, spec)
+    return current
 
 
 def main() -> int:
