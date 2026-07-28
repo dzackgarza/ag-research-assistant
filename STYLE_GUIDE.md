@@ -782,7 +782,7 @@ In particular:
 - use the existing factors or components of a product and compose their methods rather than exposing `factor_dimensions()`;
 - keep coordinate blocks, saturation helpers, flattened rings, and dispatch predicates private;
 - do not shadow established Sage globals or aliases merely to obtain prettier constructor syntax;
-- when monkey-patching a native class, preserve native behavior outside the exact supported branch and avoid installing a partial method whose name claims broader semantics;
+- when behavior is uniform for a mathematical category, prefer category mixins and justified category refinement; when a native class defect or constructor gap genuinely requires a targeted patch or shadow, preserve native behavior outside the exact supported branch and avoid installing a partial method whose name claims broader semantics;
 - use `image()` when a scheme-morphism class has scheme-theoretic image as its documented image convention, rather than adding a redundant `scheme_theoretic_image()` alias;
 - use `inverse()` or Sage's established inversion protocol rather than `inverse_morphism()`;
 - recover a graph subscheme as the codomain of `f.graph_morphism()` rather than adding a second `f.graph()` noun;
@@ -790,7 +790,47 @@ In particular:
 
 Method placement is justified only by mathematical ownership. Moving a helper onto a Sage class is not enough, and a compositional convenience should not become a new public primitive merely because it is discoverable there.
 
-### 34.3 Construct parent-level functorial maps before element-level sugar
+### 34.3 Generate categories compositionally before inventing new ones
+
+Before defining a new category, named subcategory, wrapper parent, or parallel method hierarchy, determine whether Sage's existing category calculus already constructs the desired mathematical domain.
+
+Audit at least:
+
+- the existing base category and its super-categories;
+- registered axioms and compositional refinements such as `C.Axiom1().Axiom2()`;
+- joins or intersections of existing categories;
+- slice, coslice, arrow, action, graded, filtered, equivariant, and other standard categorical constructions;
+- functors whose essential image or structured objects already supply the proposed domain;
+- existing named aliases that resolve to one of these generated categories.
+
+A familiar compound mathematical name is not evidence that a new primitive category is required. If the proposed objects differ from an existing category only by properties, construct the corresponding axiomatic refinement. If they differ by additional structure or specified morphisms, use the standard structured-object or diagram category when available. A new primitive category is justified only when the required mathematical data, morphisms, or universal construction cannot be generated faithfully from existing Sage categories.
+
+A named category may be useful as a standard alias, but it should resolve to the generated category rather than establish an independent ontology, duplicate method implementations, or introduce a second refinement path.
+
+When a capability is uniform for every Sage parent satisfying the resulting mathematical structure, let that category own the methods. Prefer Sage's dynamic category mixins to attaching the same methods directly to concrete implementation classes.
+
+Distinguish two mechanisms that are mathematically and operationally different:
+
+- `C._with_axiom(A)` acts on a category and forms or retrieves the subcategory of objects of `C` satisfying the registered axiom `A`;
+- `P._refine_category_(D)` acts on an existing Sage parent `P`, joins `D` with `P.category()`, and makes the joined category's `ParentMethods` and `ElementMethods` available through Sage's dynamic method resolution.
+
+Object-level refinement is not a cast and does not prove membership. Use it only when `P` already satisfies the defining mathematics of `D`, and make the justification or certificate inspectable. Refining an object merely to acquire convenient methods creates a false categorical assertion.
+
+Apply the following discipline:
+
+1. **Use the smallest valid existing category.** If the object is already an `R`-module, refine it into Sage's existing `Modules(R)` rather than inventing a parallel category. Define a new category only when the mathematical structure and its uniform method surface are genuinely absent.
+2. **Let the category own the implementations.** Uniform parent methods belong in `ParentMethods`; uniform methods on elements of those parents belong in `ElementMethods`; operations on refined subcategories belong in `SubcategoryMethods` when that is the appropriate Sage ownership. Installation code should route objects into the category, not contain the mathematical implementation itself.
+3. **Refine at a construction boundary.** For known singleton parents, a documented post-initialization pass may refine them in bulk. For dynamically created parents, call the native constructor first and refine its result in a constructor interceptor or immediately before returning it. Do not reimplement the native arithmetic merely to obtain the desired category membership.
+4. **Preserve all existing category information.** `_refine_category_` joins with the current category. Check that the join is mathematically consistent, that method resolution has no accidental conflicts, and that repeated installation is idempotent under notebook re-execution and module reload.
+5. **Treat global refinement as a visible side effect.** Refining cached singletons such as standard base rings changes their available methods for the process. Isolate the installation layer, document its scope, and test from a clean Sage kernel.
+6. **Use `@final` only for a mathematical contract.** Prevent downstream override only when the operation must be uniquely inherited for semantic correctness, not merely to win a method-resolution conflict.
+7. **Do not refine individual elements as a substitute for a parent.** Normally the parent receives the refined category and its elements receive `ElementMethods` through that parent. Preserve Sage's parent/element model.
+
+Category refinement is not universally preferable. Use a proper category hierarchy when the structure itself is being defined. Use a targeted native repair, subclass, shadow, or backend patch when the behavior is implementation-specific, repairs a Sage defect, or cannot honestly be stated for every object in a category. Do not create a one-method category solely to avoid saying that a method is class-specific.
+
+The governing test is mathematical: would every object of the proposed category possess this operation with the stated semantics and hypotheses? If not, the method does not belong in that category.
+
+### 34.4 Construct parent-level functorial maps before element-level sugar
 
 When a morphism induces operations on associated structures, construct the parent-level map first. For `f:X -> Y`, the relevant primitives may include
 
@@ -813,7 +853,7 @@ Likewise:
 - a restriction matrix is the matrix of a restriction map after choices of bases and trivializations;
 - a coordinate realization of sections is a named isomorphism or morphism, not an intrinsic `.polynomial()` operation.
 
-### 34.4 Return the mathematically primary object
+### 34.5 Return the mathematically primary object
 
 Sage operations should return the object that carries the construction, not merely the coordinate artifact used by one backend.
 
@@ -833,7 +873,7 @@ Prefer:
 
 Coordinate equations, matrices, numerical invariants, and labels remain inspectable consequences or backend realizations of these objects.
 
-### 34.5 Keep coordinate and backend plumbing private, but name mathematical components in research code
+### 34.6 Keep coordinate and backend plumbing private, but name mathematical components in research code
 
 Private implementation code may slice coordinate arrays, flatten coefficient rings, compute multigraded blocks, saturate ideals, or dispatch on Sage classes. The visible notebook should not expose those mechanics as the mathematical argument.
 
@@ -856,7 +896,7 @@ The same rule applies to:
 
 Raw positional indexing is acceptable in folded backend code when the positions have no independent mathematical meaning. It is not acceptable as the visible language of the research argument.
 
-### 34.6 Make bases and relative structures explicit
+### 34.7 Make bases and relative structures explicit
 
 Base change is along a named morphism `T -> S`, not merely a target ring or field accepted through implicit coercion. Products and fiber products must retain their structure maps and base.
 
@@ -871,7 +911,7 @@ For relative affine schemes, vector bundles, parameter spaces, and families:
 
 If Sage's native constructor loses the correct relative base or cannot form the required morphism, repair it or provide a mathematically faithful shadow rather than compensating throughout downstream code.
 
-### 34.7 Separate research narrative from framework regressions
+### 34.8 Separate research narrative from framework regressions
 
 The visible notebook should contain assertions that are mathematical obligations of the argument: hypotheses, commutative diagrams, universal-property equations, invariant conclusions, and theorem certificates.
 
@@ -879,8 +919,291 @@ Move implementation checks such as constructor round trips, basis-length identit
 
 Do not make research cells monolithic. Expose intermediate semantic objects in the order a mathematician would inspect them: parent, element, morphism, induced map, coordinate realization, computation, and conclusion.
 
-### 34.8 Preserve full mathematical information in Sage display
+### 34.9 Preserve full mathematical information in Sage display
 
 Improve unreadable Sage output by structuring it in TeX, not by suppressing the data that motivated the display. Objects own their own notation. Morphisms should use the ordinary displays of their domain and codomain and add their arrow and defining map.
 
 When the full basis, generator images, coordinate substitutions, or ring map are mathematically relevant, display them in aligned or array form. Do not replace them by a compact label that hides the proof data.
+
+## 35. Preserve the mathematical target under backend pressure
+
+When a computation or Sage backend fails, preserve the mathematical problem before changing the computational route.
+
+### 35.1 Record every restriction as a morphism and its logical effect
+
+If a family is given by a morphism
+
+\[
+\pi:\mathcal X\to S,
+\]
+
+then passing to a pencil, a principal open, or a single fiber means base change along a named morphism
+
+\[
+T\to S.
+\]
+
+The resulting family \(\mathcal X_T\to T\) is not the original family over \(S\). A fiber over \(t\in T\) is another base change and is not a substitute for the relative construction over \(T\).
+
+Before a pivot, state which of the following is true:
+
+1. the new construction proves the original claim;
+2. it proves a weaker lemma needed by the original claim;
+3. it supplies a witness or regression example only;
+4. it changes the research question and leaves the original task open.
+
+Do not let execution convenience decide this logical relation.
+
+A nonconstant coefficient vector or varying equation does not by itself prove that a family is non-isotrivial. Prove that the moduli map is nonconstant, that an isomorphism-invariant of the fibers varies, or that the family cannot become constant after the relevant base change and automorphism action.
+
+### 35.2 Distinguish exact loci from certified subopens
+
+A sufficient certificate for smoothness is not automatically the defining equation of the discriminant.
+
+If a polynomial \(\Delta_{\mathrm{cert}}\) is obtained from resultants, Gröbner denominators, Jacobian minors, or another sufficient criterion, state precisely whether
+
+\[
+D(\Delta_{\mathrm{cert}})
+\]
+
+is:
+
+- the exact smooth locus;
+- a proved principal subopen of the smooth locus;
+- a conservative subopen containing a chosen point;
+- or only a heuristic candidate.
+
+Extraneous factors, degree-drop factors, and saturation choices must remain visible. Do not call a conservative certificate “the discriminant” or claim that it records exactly all singular parameters without an elimination or theorem proving exactness.
+
+### 35.3 Treat relative objects as objects of a slice category
+
+A scheme over \(S\) is the structure morphism \(X\to S\), equivalently an object of \(\mathrm{Sch}/S\). The same absolute scheme may carry several different maps to \(S\).
+
+Do not repair lost relative structure by attaching informal side metadata or by inventing an operation such as `X.as_scheme_over(f)` whose result merely impersonates a new scheme. Preserve the named morphism \(f:X\to S\), or construct an explicit slice object whose data are exactly \(X\) and \(f\).
+
+Base change must consume the full cospan. If a backend ignores the supplied parameter morphism and falls back to canonical coefficient coercions, repair the base-change primitive or its finite-presentation backend. Do not compensate by repeatedly changing the source scheme, chart metadata, or downstream family objects.
+
+### 35.4 Repair the earliest violated semantic invariant
+
+When several downstream operations fail for the same reason, identify the first construction that lost the required mathematics.
+
+Examples:
+
+- if covered charts remember only their immediate chart base and forget the parameter base, repair the covered-scheme or chart constructor;
+- if a covered morphism lacks overlap compatibility, repair the general covered-morphism representation;
+- if base change ignores a noncanonical structure map, repair affine-algebra or scheme base change;
+- if a quotient or lifted action fails after base change, first verify that the underlying morphism and action were represented functorially.
+
+Do not successively add special methods to a lift, then an overlap, then a source scheme, then a product backend when all failures arise from one missing structure morphism or functorial constructor.
+
+### 35.5 Derive overlap maps functorially
+
+A global morphism of covered schemes consists of local morphisms together with compatibility on overlaps. The overlap maps are not optional conveniences added only when a quotient or base change needs them.
+
+When a local chart morphism restricts to a localization or open subscheme, construct the induced overlap morphism through the localization or restriction universal property. Coordinate formulas may implement this map, but they must not replace the functorial derivation.
+
+Do not install coordinate-specific overlap formulas on one named involution when the real missing primitive is restriction of covered morphisms to overlaps.
+
+### 35.6 Do not avoid legitimate mathematical parents
+
+The prohibition on bespoke wrappers does not mean that no new parent may be defined.
+
+A linear subsystem
+
+\[
+V\hookrightarrow H^0(X,L)
+\]
+
+is a standard mathematical object with an ambient section space, an inclusion map, a basis, a base locus, and a projectivization. If Sage lacks a parent preserving those semantics, implement or repair that standard parent. Do not misuse the complete linear system, a representation-specific isotypic component, or a generic module subspace merely to avoid introducing a necessary mathematical object.
+
+The test is not whether a class is new. The test is whether it represents a standard object with the correct maps and is reusable at its natural mathematical level.
+
+### 35.7 Implement affine base change from the tensor-product universal property
+
+For affine schemes
+
+\[
+\operatorname{Spec}R\to\operatorname{Spec}A
+\leftarrow\operatorname{Spec}B,
+\]
+
+the governing algebra is
+
+\[
+R\otimes_A B.
+\]
+
+Once this has been identified, organize the backend around explicit \(A\)-algebra structure maps, finite presentations, and the universal maps into the tensor product.
+
+For polynomial, quotient, and localization presentations:
+
+- preserve the explicit coefficient morphism \(A\to B\);
+- base-change generators and relations systematically;
+- map inverted elements to units and verify the localization universal property;
+- return the changed algebra together with the canonical morphisms;
+- patch a defective Sage homomorphism or localization primitive when that is the actual obstruction.
+
+Do not replace this construction by repeated experiments with `change_ring()`, `base_extend()`, parent identity, private attributes, or constructor argument permutations after the universal algebra is already known.
+
+### 35.8 Match method and category scope to actual support
+
+Do not install `base_change()` on a generic affine-scheme class merely because it works for polynomial rings, selected localizations, or finite presentations. Put the method on the smallest Sage category whose objects uniformly carry the required data and algorithm, or gate the supported presentation explicitly.
+
+Likewise, category refinement must not be used to claim that every object in a broad category supports a backend that has only been implemented for a narrow ring tower.
+
+### 35.9 Preserve blocked work in the final report
+
+When the original relative construction remains blocked, state that explicitly even if a useful pencil, principal subopen, or rational fiber has been constructed.
+
+A verified fiber may prove nonemptiness or provide a regression case. It does not prove that:
+
+- the family was base-changed;
+- the quotient family exists over the new base;
+- the smooth locus was computed exactly;
+- the moduli map is nonconstant;
+- or the missing Sage primitive was repaired.
+
+Record the exact root blocker and the mathematically correct implementation route. Do not let a successful specialization erase an unresolved family-level obligation.
+
+
+## 36. Build global constructions from general local primitives
+
+Do not begin a difficult global construction at the most specialized family, cover, quotient, or moduli object and then chase backend failures downward through its charts. Reconstruct the mathematical dependency order first and implement from the general local primitive upward.
+
+### 36.1 Draw the construction dependency graph before coding
+
+Before extending a global Sage object, identify:
+
+1. the global construction requested;
+2. its affine-local construction;
+3. the underlying algebraic universal operation;
+4. the theorem or descent mechanism that globalizes it;
+5. the existing Sage objects that should inherit the result compositionally;
+6. the earliest missing primitive;
+7. the competing implementation routes and their estimated complexity.
+
+Do not optimize the next executable line before this dependency graph is understood. A short local patch can enter an expensive implementation basin whose later layers all depend on a more general missing primitive.
+
+### 36.2 Construct pushouts of rings and algebras first
+
+For explicit morphisms of commutative rings or algebras
+
+\[
+A\longrightarrow R,
+\qquad
+A\longrightarrow B,
+\]
+
+the local base-change primitive is the pushout
+
+\[
+R\otimes_A B.
+\]
+
+Construct the tensor product together with the canonical maps
+
+\[
+R\longrightarrow R\otimes_A B,
+\qquad
+B\longrightarrow R\otimes_A B,
+\]
+
+and verify its universal property in the relevant category of commutative rings or \(A\)-algebras. Do not begin by adding `base_change()` to a cyclic-cover family or another specialized global object when this algebraic pushout is not yet represented correctly.
+
+Audit Sage's existing tensor-product, pushout, quotient, localization, and algebra-homomorphism implementations before writing a replacement. Test noncanonical coefficient morphisms, not only coercion-induced maps.
+
+### 36.3 Obtain affine pullbacks by contravariant `Spec`
+
+The affine-scheme pullback
+
+\[
+\operatorname{Spec}R
+\times_{\operatorname{Spec}A}
+\operatorname{Spec}B
+\]
+
+must be constructed as
+
+\[
+\operatorname{Spec}(R\otimes_A B).
+\]
+
+Return the pullback diagram: the apex, both projections, the original cospan, commutativity, and the universal morphism. Verify that `Spec` reverses the algebraic pushout maps into the correct scheme morphisms.
+
+A family-specific affine base-change method is secondary sugar. It must delegate to this general affine pullback rather than own a parallel implementation.
+
+### 36.4 Make standard affine presentations stable under the primitive
+
+Verify the standard compatibilities
+
+\[
+(R/I)\otimes_A B
+\cong
+(R\otimes_A B)/I(R\otimes_A B)
+\]
+
+and
+
+\[
+R_f\otimes_A B
+\cong
+(R\otimes_A B)_{f\otimes 1}
+\]
+
+with explicit comparison morphisms and hypotheses. Polynomial extensions, quotient rings, localizations, Laurent presentations, and principal-open presentations are backend realizations of one tensor-product construction, not independent notions of base change.
+
+If Sage cannot express a noncanonical coefficient map through a localization or quotient parent, repair that primitive or provide a faithful finite-presentation shadow. Do not successively replace nested localizations by quotient presentations, then Laurent rings, then specialized transition formulas without deciding which general algebraic interface is missing.
+
+### 36.5 Globalize by covers, descent, or relative `Proj`
+
+After affine pullbacks work:
+
+1. base-change every affine chart;
+2. base-change every overlap;
+3. transport restriction morphisms;
+4. verify pairwise compatibility and cocycle identities;
+5. glue the changed charts;
+6. glue the local projection morphisms;
+7. verify the global universal property.
+
+For projective or relatively projective schemes, inspect relative `Proj` and its base-change theorem before reconstructing the object chartwise. Use affine-cover gluing when that is the appropriate available route.
+
+Cyclic covers, quotient families, actions, lifted involutions, and moduli families should inherit base change from the general scheme and morphism operations. Do not implement the dependency in the reverse direction.
+
+### 36.6 Repair the broadest high-leverage primitive that is proportionate
+
+When a specialized global computation exposes a missing primitive, ask whether repairing the general local operation is bounded and likely to support nearby research. A correct implementation of tensor products of explicit algebras, affine pullbacks, or covered-scheme gluing can eliminate many family-specific patches.
+
+Do not interpret "avoid scope drift" as "always take the narrowest patch." Compare:
+
+- the cost of one general foundational repair;
+- the accumulated cost of the current special case and likely neighboring cases;
+- the mathematical and software reuse obtained;
+- the risk of maintaining several inconsistent local implementations.
+
+Implement the general primitive when the initial cost is reasonable and it removes a whole dependency class. Gate or backlog it when it is genuinely substantial, but preserve a concrete implementation plan.
+
+### 36.7 Survey the mathematical and software landscape before descent into details
+
+Before designing a new general primitive:
+
+1. search Sage documentation, source, categories, tickets, and adjacent methods;
+2. check whether categorical pullbacks, tensor products, relative `Spec`, relative `Proj`, affine covers, or descent infrastructure already exist partially;
+3. inspect bridges to Singular, Macaulay2, GAP, Magma, PARI/GP, Julia, Oscar, or other relevant systems;
+4. search for reference implementations in established computer-algebra systems or research code;
+5. consult standard mathematical references and explicit algorithms;
+6. compare the available semantics, supported domains, and integration cost.
+
+Use web and literature research proactively when it can reveal a broad existing solution. Do not spend a long research session reinventing a tower of special cases without checking whether another system or reference implementation already provides the general operation.
+
+### 36.8 Avoid greedy implementation paths and local minima
+
+A sequence of individually reasonable local fixes can have poor global cost. Before committing to a route, compare at least two plausible paths and estimate:
+
+- how many new parents, morphisms, and compatibility proofs each requires;
+- whether each path preserves the standard mathematical abstraction;
+- which downstream constructions become automatic;
+- which Sage defects remain;
+- whether the work is reusable beyond the current notebook.
+
+Reassess after each new backend failure. Repeated need for special chart, overlap, point, localization, or family patches is evidence that the dependency direction is wrong. Stop and move to the governing local primitive rather than continuing greedily.
