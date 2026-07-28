@@ -224,15 +224,39 @@ Review in this order:
 1. Identify the nearest existing base category.
 2. Inspect the registered axiom refinements available on it and its super-categories.
 3. Determine whether the proposed category is a composition of existing axioms, a join or intersection, a slice or coslice, an arrow or action category, a graded or filtered construction, or another standard category constructor.
-4. Determine whether a standard named category should be only an alias for that generated object.
-5. Identify any genuinely additional object data, structure morphisms, or morphism compatibility that remain after this reduction.
-6. Introduce a new primitive category only for that irreducible additional structure.
+4. Determine whether that constructor is itself a functorial operation on the ambient category and whether Sage already exposes the corresponding construction method.
+5. Check that the proposed API preserves ownership and variance: the ambient category should generate the derived category, and refinements should compose before or after the construction according to the mathematics.
+6. Determine whether a standard named category should be only an alias for that generated object.
+7. Identify any genuinely additional object data, structure morphisms, or morphism compatibility that remain after this reduction.
+8. Introduce a new primitive category only for that irreducible additional structure.
 
 Flag **category reinvention** when the editor or assistant creates separate categories for conjunctions of properties, duplicates an existing axiom hierarchy, or implements methods independently on several named classes that Sage's category composition would already unify.
+
+Flag **construction reification** when the assistant correctly names a slice, coslice, arrow, comma, action, functor, or related category but then implements it as an independent top-level family instead of applying a standard construction to the ambient category. This is premature abstraction closure at the category-constructor level.
+
+Flag **wrapper substitution** when an arrow or diagram is the mathematical object but a backend wrapper is promoted to the definition. The review must recover the actual diagram, its ambient category, its structure maps, and its commuting conditions, and then classify the wrapper only as a Sage realization or adapter.
 
 Do not overfit the rule to one algebraic or geometric example. The same audit applies to finite, smooth, proper, graded, equivariant, relative, presented, connected, or otherwise refined objects throughout Sage. Concrete examples are regression witnesses for the general construction principle.
 
 A valid new category should answer: what data or morphisms does an object possess that cannot be recovered by applying existing category constructors and axioms? If the answer is only a list of properties, the proposal is ordinarily a refinement, not a new primitive.
+
+## Require reference-backed mathematical classification
+
+Do not accept an abstraction merely because the assistant has moved the current wrapper into a category or supplied more mathematical-sounding terminology. Before a new foundational noun, category, or method family enters the guide, require evidence that the underlying mathematics has been classified against standard sources.
+
+Review whether the assistant:
+
+1. searched the local source corpus supplied for the research task, including textbooks, papers, notes, and prior project decisions;
+2. consulted appropriate standard references and formal or computational libraries, such as the Stacks Project, Kerodon, official Sage or Mathlib documentation and source, established papers, and broad reference works for orientation;
+3. extracted the actual objects, morphisms, ambient category, variance, universal property, hypotheses, and standard constructors rather than only a familiar phrase;
+4. compared that classification with Sage's existing category and construction architecture;
+5. discarded any wrapper-derived noun that sources reveal to be an ordinary arrow, diagram, refinement, functorial construction, or universal object;
+6. documented disagreements or variant conventions precisely instead of silently choosing the wording nearest the implementation;
+7. used citations as constraints on ontology and proof obligations, not as retrospective decoration.
+
+Flag **source-free reconstruction** when the assistant tries to rediscover standard mathematics solely from the shape of current code or Sage failures. Flag **categorical laundering** when it preserves a bespoke engineering object by placing it in a newly coined category without first reducing it to standard objects, arrows, diagrams, and category constructors. Flag **citation laundering** when references are added after the design but do not determine or correct the mathematical interface.
+
+The relevant source need not always be external. A project may provide the governing definition in its local corpus. The requirement is that the abstraction be grounded in the best available mathematical source before it becomes public architecture. Concrete algebraic, geometric, or topological examples remain regression witnesses for this general rule.
 
 ## Review Sage category refinement and dynamic method installation
 
