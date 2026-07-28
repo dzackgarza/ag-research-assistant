@@ -356,6 +356,28 @@ Also preserve positive evidence. It is good when the assistant:
 
 The editor's task is to retain these practices while preventing them from legitimizing a change of theorem.
 
+## Audit backend friction as a signal for mathematical reformulation
+
+When a transcript becomes preoccupied with compensating for one Sage limitation, do not assume that the only issue is a missing method or defective comparison routine. Audit whether the limitation exposes a more principled mathematical formulation that would make the desired semantics first-class and remove much of the repair work.
+
+Require the analysis to distinguish:
+
+1. the original mathematical object, relation, and theorem;
+2. the exact Sage limitation and the presentations in which it appears;
+3. whether Sage is deficient relative to the correct mathematical notion;
+4. whether the chosen notion is itself unnecessarily strict, coordinate-bound, representative-dependent, or at the wrong categorical level;
+5. the standard alternative formulations found in the local corpus and appropriate references;
+6. the explicit comparison map, equivalence, universal property, or strictification result relating those formulations;
+7. whether the reformulation preserves the original theorem rather than silently changing the target;
+8. whether it eliminates a family of local patches and yields a more reusable semantic interface;
+9. the genuine backend work that remains after the mathematical reformulation.
+
+Flag **backend fixation** when the assistant assumes that every Sage difficulty must be solved by implementing the exact missing operation in the current representation. Flag **semantic foreclosure** when it does not search for a standard intrinsic formulation before extending a repair chain. Flag **theory laundering** when it invokes higher, derived, homotopical, or other modern language without an explicit comparison to the original claim or without reducing the implementation burden.
+
+Equality of composites is a regression example, not the governing rule. Repeated normalization may reveal that the mathematics requires a comparison 2-cell or transport along an isomorphism; it may also reveal only that Sage fails to prove a genuine strict equality. The contributor must determine which conclusion follows from the mathematics.
+
+A valid assistant-facing rule should teach a self-nudge: after several repairs around one backend deficiency, pause and ask whether a standard mathematical reformulation would both improve semantic fidelity and obviate the deficient operation. Preserve the useful parts of the original implementation only after that audit.
+
 ## Review checklist
 
 Before committing a change, verify:
@@ -378,9 +400,82 @@ Before committing a change, verify:
 16. The native-Sage, bridge, reference-implementation, and literature routes were considered before substantial new backend work was deferred.
 17. A deferred generalization has an actionable strategy, not a vague TODO.
 
+## Generated style-guide workflow
+
+`STYLE_GUIDE.parts/` is the canonical editable source for the deployed guide. `STYLE_GUIDE.md` is the committed generated artifact uploaded to the custom GPT. Do not edit the generated file as the primary source.
+
+The fragments are ordered by their two-digit filename prefixes and concatenated byte-for-byte by:
+
+```bash
+python scripts/build_style_guide.py
+```
+
+Before committing a style-guide change:
+
+1. edit the smallest relevant fragment or fragments;
+2. run `python scripts/build_style_guide.py`;
+3. run `python scripts/build_style_guide.py --check`;
+4. review both the fragment diff and the generated `STYLE_GUIDE.md` diff;
+5. commit the fragments and generated artifact together.
+
+The `Build style guide` workflow verifies the committed artifact on pull requests. On `main`, it rebuilds and commits `STYLE_GUIDE.md` when the source fragments are newer. An hourly scheduled run is a fallback for connector- or API-authored fragment updates that do not emit ordinary push-triggered workflow events.
+
+When direct Git push access is unavailable, publish only the changed small fragments, build script, workflow, or contributor documents through the connector/API using current blob-SHA preconditions. Do not reconstruct or overwrite the monolithic generated guide from memory. Either publish the locally generated artifact exactly through a whole-file API call and verify its blob hash, or allow the workflow to assemble it from the committed fragments.
+
 ## Contributions and repository workflow
 
 Follow `MAINTENANCE.md` for canonical storage, commits, branch policy, deployment, and preservation checks.
+
+### Update the repository when direct Git publication is unavailable
+
+Lack of Git push access does not justify editing from remembered content, partial excerpts, or chat history. Preserve the ordinary local-diff workflow and change only the publication transport.
+
+Use this order:
+
+1. **Materialize the exact current baseline.**
+   - Prefer an ordinary clone or fetch of the repository, even when the checkout is read-only or no push credentials are available.
+   - Record the upstream branch and commit SHA before editing.
+   - If network Git transport is unavailable, use the connected repository API to fetch the exact current files or blobs needed for the edit. Fetch complete file contents, not only surrounding line ranges.
+   - If several files or repository-wide checks matter, reconstruct a local checkout from connector-fetched contents and record the upstream commit from which it was reconstructed.
+
+2. **Apply the correction locally as a diff.**
+   - Write the fetched bytes to the local checkout without paraphrasing or reconstruction.
+   - Apply a narrow patch to those files using normal editing or patch tools.
+   - Inspect `git diff`, run `git diff --check`, run relevant tests or preservation checks, and commit the reviewed local state.
+   - Compute `git hash-object <file>` for every file that will be published.
+
+3. **Recheck the remote precondition immediately before writing.**
+   - Fetch the current remote blob SHA for every target file.
+   - Confirm that it still matches the baseline used by the local patch. If it changed, fetch the new file, rebase or reapply the local diff, and review again.
+   - Never overwrite a changed remote file with the older local version merely because the intended edit is small.
+
+4. **Publish the exact local files through the available API.**
+   - When a connector provides whole-file replacement, send the complete reviewed local file and the current remote blob SHA to the update action.
+   - When a lower-level Git data API is available, create blobs from the exact local bytes, assemble a tree against the verified base tree, create a commit, and update the branch ref.
+   - Use connector or REST operations as the transport for the locally reviewed Git state; do not redraft the file inside the API call.
+   - Perform sequential writes when the API requires one file per commit. Do not run concurrent updates against the same path.
+
+5. **Verify publication by content, not by a success message.**
+   - Compare every returned or refetched GitHub blob SHA with the corresponding local `git hash-object` value.
+   - Refetch the changed files and inspect the changed sections.
+   - Compare the remote base and final commits and confirm that only the intended files changed.
+   - Report the actual remote commit sequence when a contents API necessarily created several commits; do not claim that it reproduced one local commit atomically.
+
+6. **Leave the repository clean when publication fails.**
+   - Remove or reset temporary workflows, trigger files, transport branches, patch chunks, and other publication machinery from the canonical branch.
+   - Preserve the reviewed local commit and exportable patch so the work remains reproducible.
+   - State precisely which files were updated remotely and which remain local.
+
+Prohibited shortcuts include:
+
+- composing a replacement file from memory, prior assistant messages, or partial search snippets;
+- using a short `fetch_file` line range as though it were the complete source file;
+- overwriting a whole remote file without an expected current blob SHA;
+- claiming local and remote equality without comparing Git blob hashes;
+- treating a connector's successful response as proof that the complete payload was stored;
+- leaving temporary transport artifacts on the default branch after a failed publication attempt.
+
+The invariant is: **the API publishes an already reviewed local repository state; it does not become the editing environment or the source of reconstructed file contents.**
 
 ## Analyze correction trajectories
 
