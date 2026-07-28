@@ -2,6 +2,18 @@
 
 This document is for repository contributors and users tracking revisions. It is not part of the prompt consumed by the Algebraic Geometry Research Assistant.
 
+## 0.6.13 — 2026-07-28
+
+Added ontological-coherence checks against invented mathematical terminology and theorem reification.
+
+- Required every public noun to be typed as an object, morphism, diagram, property, structure, theorem, proof, certificate, algorithm, or presentation in an explicit ambient setting.
+- Separated mathematical objects and maps from properties, universal properties, proof data, construction algorithms, and backend provenance.
+- Clarified that formal universal-property structures are valid only as explicitly typed evidence and do not replace the objects or morphisms they characterize.
+- Required factorization APIs to expose the map being factored, the comparison morphism, and the induced mediator.
+- Added safeguards against ontological coinage, theorem reification, bundle laundering, self-referential ontology, and tautological certification.
+- Prohibited using internally coined class names or passing trivial regressions as evidence that a mathematical abstraction is coherent.
+- Required incoherent pseudo-objects to be deleted or decomposed, with valid routines relocated to their standard mathematical owners.
+
 ## 0.6.12 — 2026-07-28
 
 Added CAS-agnostic capability routing and explicit environment-expansion decisions.
