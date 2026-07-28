@@ -70,6 +70,11 @@ BLOCKS = (
         insert_before="## Audit mathematical pivots under computational pressure",
     ),
     BlockSpec(
+        name="mathematical-exposition",
+        filename="39-zzzz-mathematical-exposition.md",
+        insert_before="## Audit mathematical pivots under computational pressure",
+    ),
+    BlockSpec(
         name="publication-workflow",
         filename="40-publication.md",
         insert_before="## Generated style-guide workflow",
