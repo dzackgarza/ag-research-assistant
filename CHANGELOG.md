@@ -2,6 +2,18 @@
 
 This document is for repository contributors and users tracking revisions. It is not part of the prompt consumed by the Algebraic Geometry Research Assistant.
 
+## 0.6.22 — 2026-07-28
+
+Strengthened the guide against state-snapshot prose, synchronization debt, and self-announcing editing updates.
+
+- Distinguished durable mathematical documentation from prose that manually mirrors the current physical state of notebooks, source files, methods, phases, or tests.
+- Required volatile coverage and history to remain in code, tests, capability gates, generated views, and version control rather than duplicated in hand-maintained prose inventories.
+- Required forward-looking notes to be local, concise, and consumable: they should be replaced or moved when the indicated work begins.
+- Removed the implication that cumulative foundations require a manually synchronized inventory of current consumers, backend status, and completion state; foundations should be discoverable from their owning source and generated indices where useful.
+- Added a rule against narrating routine editing activity in chat, including future-tense cleanup promises and empty labels such as “rewrote section,” “updated further questions,” or “simplified notebook section.”
+- Required interim updates to communicate a mathematical finding, exact blocker, consequential decision, or completed substantive change rather than an internal work diary.
+- Added safeguards against state mirroring, synchronization burden, transient-plan fossilization, audience-free documentation, remediation narration, intent substitution, activity-label noise, and recursive self-announcement.
+
 ## 0.6.21 — 2026-07-28
 
 Added safeguards against meta-status narration and reflexive editorial accretion in mathematical notebooks.
