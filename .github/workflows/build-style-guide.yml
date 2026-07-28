@@ -1,0 +1,58 @@
+name: Build style guide
+
+on:
+  pull_request:
+    paths:
+      - "STYLE_GUIDE.parts/**"
+      - "scripts/build_style_guide.py"
+      - "STYLE_GUIDE.md"
+      - ".github/workflows/build-style-guide.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "STYLE_GUIDE.parts/**"
+      - "scripts/build_style_guide.py"
+      - ".github/workflows/build-style-guide.yml"
+  schedule:
+    - cron: "23 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-style-guide-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Assemble STYLE_GUIDE.md
+        run: python scripts/build_style_guide.py
+
+      - name: Check generated diff
+        run: git diff --check
+
+      - name: Require committed artifact in pull requests
+        if: github.event_name == 'pull_request'
+        run: git diff --exit-code -- STYLE_GUIDE.md
+
+      - name: Commit rebuilt artifact
+        if: github.event_name != 'pull_request'
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- STYLE_GUIDE.md; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add STYLE_GUIDE.md
+          git commit -m "Rebuild generated style guide"
+          git push
