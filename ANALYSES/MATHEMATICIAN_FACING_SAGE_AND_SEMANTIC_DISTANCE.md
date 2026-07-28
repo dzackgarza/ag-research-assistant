@@ -147,7 +147,7 @@ The danger is that visually mathematical pseudocode can still be incoherent. Eac
 - full diagrams versus projected components;
 - whether the method is native, proposed, or purely schematic.
 
-The transcript's individual method names are therefore not a specification. They are directional evidence for a style in which the semantic distance is small. Questionable lines—such as treating a covering morphism itself as an automorphism—must be corrected rather than canonized because they appear in an otherwise useful sketch.
+The transcript's individual method names are therefore not a specification. They are directional evidence for a style in which the semantic distance is small. The sketch also contains the line `assert pi in X.Aut()`, but the surrounding declarations make the intended line unambiguous: `assert i_dP in X.Aut()`. This is a transcription typo, not evidence that the user confused a covering morphism with an automorphism. Editorial analysis must reconstruct such sketches charitably from their local types and must not promote an obvious symbol slip into a conceptual failure mode.
 
 ## 8. The mathematical-auditor criterion
 
