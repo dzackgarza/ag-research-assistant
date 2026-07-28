@@ -23,18 +23,19 @@ A research notebook may be a mathematical ledger in the sense that its objects, 
 
 Organize source notes by the mathematics: constructions, diagrams, objects, morphisms, strata, examples, theorems, invariants, or conceptual themes. Use ordinary mathematical prose, displayed equations, precise maps, and theorem-style units when appropriate.
 
-For each cluster of claims, it is useful to say:
+For each cluster of claims:
 
-- what the source asserts;
-- how the objects and maps are related;
-- which conclusions are computed and which are deduced;
-- what a future notebook could reproduce or test;
-- which foundations appear necessary;
-- what additional questions or experiments the claims suggest.
+- state the mathematical assertion directly;
+- name the objects and maps that relate its parts;
+- present the calculation, proof, or cited theorem at the point where it is used;
+- mention a possible computational realization only when it clarifies the mathematics or suggests a genuine experiment;
+- record nearby questions, variants, and consequences in their natural mathematical context.
+
+Do not wrap these points in a repeated narration of what the notebook has established, what the current code knows, or what stage of the investigation has been reached. The computation, displayed result, proof, and citation should carry that information. Add an explicit qualification only where the reader could otherwise mistake the strength or scope of the claim.
 
 Do not force every statement into identical fields such as `status`, `destination`, `prerequisite`, `expected output`, and `verification method` unless the user has asked for that operational artifact. The source's mathematical dependencies need not coincide with a software work breakdown.
 
-Headings and thematic lists are not the problem. The failure occurs when workflow metadata becomes the primary representation of the mathematics and prematurely decides what is relevant, complete, computable, or worth retaining.
+Headings and thematic lists are not the problem. The failure occurs when workflow metadata or commentary about the artifact becomes the primary representation of the mathematics and prematurely decides what is relevant, complete, computable, or worth retaining.
 
 ### 45.3 Keep source-derived notes generative and open-ended
 
@@ -73,13 +74,7 @@ Computational research has several legitimate modes:
 
 A verification-oriented schema tends to privilege only certification and regression. Preserve the other modes. Some source statements should become exact regressions; others are conceptual guidance, theorem-derived consequences, examples to generalize, or questions whose computational form is not yet known.
 
-When recording future work, distinguish naturally in prose among:
-
-- what the source states;
-- what current code actually computes;
-- what follows from a cited theorem once hypotheses are established;
-- what remains to be reproduced;
-- what is proposed as an exploratory extension.
+Express epistemic distinctions through ordinary mathematical writing rather than running status labels. A displayed computation followed by its result is visibly computational. A sentence beginning “By Proposition 3.4” is visibly theorem-mediated. A concise remark can say that a construction remains open or that a displayed family is only a witness. Do not repeatedly announce that a notebook “has established,” “has verified,” or “has not yet completed” material that the surrounding mathematics already makes clear.
 
 Do not require every item to possess a complete executable specification before it can appear in the research notes.
 
@@ -109,16 +104,12 @@ A source-derived prose notebook should remain useful to a mathematician who is n
 - examples and special cases;
 - how the claims interact;
 - possible computational realizations;
-- open implementation questions;
+- open mathematical or implementation questions;
 - mathematically motivated extensions and experiments.
 
-A natural pattern is:
+Write these as ordinary mathematical sections and remarks. The primary grammatical subjects should be the schemes, maps, divisors, groups, families, loci, and theorems—not “this notebook,” “this section,” “the current stage,” or “what has been established.” A brief mathematical introduction may orient the reader; it should not narrate the document's editing history, evolving task definition, or internal status.
 
-> The source constructs or asserts the following mathematical object and relations. A future computation should be able to reproduce these features by the following kinds of constructions. This also suggests the following related questions or variants.
-
-This is preferable to replacing the paragraph by a row whose main content is `pending`, `blocked`, or `destination notebook`.
-
-Keep detailed task tracking in a separate section or artifact when it is useful. Do not make readers decode project-management fields in order to recover the mathematics.
+Keep detailed task tracking in a separate section or artifact when it is useful. Do not make readers decode project-management fields or self-description in order to recover the mathematics.
 
 ### 45.7 Detect premature administrative closure
 
@@ -131,6 +122,7 @@ Pause and return to the source mathematics when:
 - source order and conceptual relations are replaced by implementation dependency order;
 - exploratory questions are rewritten as obligations with fixed expected outputs;
 - more effort is spent designing the tracking format than explaining the mathematics;
-- the notebook becomes intelligible mainly to the agent managing the work rather than to a mathematician studying the source.
+- the notebook becomes intelligible mainly to the agent managing the work rather than to a mathematician studying the source;
+- corrections from the conversation reappear as warnings or disclaimers in the notebook instead of being assimilated into its mathematical organization.
 
 The correction is not to discard all structure. Restore the ordinary mathematical exposition first, preserve the source as a generative research object, and add operational structure only where it has a demonstrated purpose.
