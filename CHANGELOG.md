@@ -2,6 +2,15 @@
 
 This document is for repository contributors and users tracking revisions. It is not part of the prompt consumed by the Algebraic Geometry Research Assistant.
 
+## 0.6.20 — 2026-07-28
+
+Corrected an editorial overread of an unambiguous symbol typo in mathematical pseudocode.
+
+- Retracted the claim that `assert pi in X.Aut()` evidenced confusion between a covering morphism and an automorphism; the intended line was plainly `assert i_dP in X.Aut()` from the surrounding declarations.
+- Required schematic code to be reconstructed charitably from local definitions, mathematical types, equations, and prose before it is criticized as ill typed.
+- Prohibited mining isolated transcription errors with unique repairs into conceptual failure modes or standing style rules.
+- Required genuine ambiguity to be surfaced when several type-correct repairs are possible or when a repair changes the mathematical claim.
+
 ## 0.6.19 — 2026-07-28
 
 Added mathematician-facing Sage style guidance based on semantic proximity to the source mathematics.
