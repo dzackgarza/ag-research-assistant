@@ -1960,40 +1960,29 @@ After a foundational change, audit:
 
 A general abstraction left unused while the motivating notebook continues through its old private code is not cumulative progress.
 
-### 44.6 Maintain a versioned foundation inventory
+### 44.6 Make foundations discoverable at their owning source
 
-Keep a searchable record of the project’s reusable mathematics. This may be encoded in source documentation, a dependency graph, symbol indices, construction registries, or dedicated foundation notes; it need not become a separate bureaucracy. It must nevertheless let a later agent recover:
+The repository must make reusable mathematics recoverable, but this does not require a hand-maintained inventory of the project's current physical state. Prefer the actual source definitions, mathematical documentation, module and symbol structure, tests, capability gates, and generated indices as the authoritative record.
 
-- the standard name and mathematical type of each construction;
-- its ambient category and categorical level;
-- its defining objects, morphisms, and universal property;
-- the source location of its implementation;
-- dependencies on earlier constructions;
-- derived consumers and convenience interfaces;
-- backend coverage and capability gates;
-- theorem, certificate, and regression status;
-- known limitations and intended extension points.
+Durable documentation should identify the standard name and mathematical type of a construction, its ambient category, defining objects and morphisms, universal property, implementation location, stable dependencies, and intended extension points. Volatile facts—such as which notebook currently calls it, which phase is complete, or which examples happened to run in the latest session—should be inferred from the code and tests rather than copied into prose.
 
-Update this inventory when a foundation is added, refined, replaced, or deprecated. Query it before declaring that an operation must be invented.
+If a separate index is genuinely useful, keep it minimal, link to the owning source, and generate it from authoritative data where possible. Do not create a second manually synchronized description of backend coverage, consumers, completion state, and limitations. Place a limitation beside the construction or capability gate it qualifies.
+
+Before declaring that an operation must be invented, search the actual sources and tests. Discoverability is the objective; an ever-growing status inventory is not.
 
 ### 44.7 Treat context loss as a retrieval problem, not permission to restart
 
-After a long interruption or context reset, do not reconstruct the theory from recollection and do not ask the user to restate settled foundations. Recover the state from the repository, local corpus, notebooks, decisions, and tests. If the persisted records are insufficient, identify that documentation gap and repair it before building a parallel foundation.
+After a long interruption or context reset, do not reconstruct the theory from recollection and do not ask the user to restate settled foundations. Recover the state from the repository, local corpus, notebooks, decisions, and tests. If the persisted records are insufficient, repair the mathematical documentation at the owning source before building a parallel foundation.
 
 The project’s source of truth is the versioned artifact, not the current model context. Memory loss must trigger retrieval, not reinvention.
 
-### 44.8 Define progress by compounding capability
+### 44.8 Define progress by compounding capability, not by narrating it
 
-At the end of substantial work, state internally and, when useful, visibly:
+Substantial work should leave the shared foundation more capable: prior constructions are reused, a genuine gap is repaired at its natural owner, motivating special cases route through the repair, and regressions protect the result. The code, definitions, tests, and migrated consumers should make this accumulation visible.
 
-1. which prior foundations were reused;
-2. which foundation was extended or corrected;
-3. which new construction is now available to later work;
-4. which earlier special cases were migrated to it;
-5. which new regressions and comparison theorems protect the extension;
-6. which limitations remain explicitly gated.
+Do not append a prose recap merely to announce that these things occurred. If an unresolved continuation is not evident from the mathematics, leave one concise forward note at the exact boundary and remove or rewrite it when that work begins.
 
-A one-off computation may answer a bounded research question, but it should not be described as framework progress unless its valid mathematics has been integrated into the reusable foundation. The cumulative loop is
+A one-off computation may answer a bounded research question, but it should not be described as framework progress unless its valid mathematics has been integrated into the reusable foundation. The cumulative process is
 
 \[
 \text{survey}
@@ -2004,10 +1993,10 @@ A one-off computation may answer a bounded research question, but it should not 
 \longrightarrow
 \text{propagate}
 \longrightarrow
-\text{record}
-\longrightarrow
 \text{reuse again}.
 \]
+
+Version control records when each refinement occurred; the research artifact need not preserve a prose snapshot of every intermediate state.
 
 ### 44.9 Repair foundation amnesia from the earliest divergence
 
@@ -2020,10 +2009,9 @@ When later work has rebuilt mathematics already present in the project:
 5. migrate valid computations and tests into the shared layer;
 6. remove or demote duplicate public interfaces;
 7. re-audit downstream claims for changed hypotheses, equality, naturality, and coherence;
-8. update the foundation inventory so the same failure cannot recur after another context reset.
+8. update durable source documentation or a generated index only where the repaired foundation would otherwise remain undiscoverable.
 
 Do not preserve a parallel foundation merely because time has been invested in it. Research work compounds only when improvements are consolidated into the common mathematical substrate.
-
 ## 45. Preserve exploratory mathematics before operationalizing it
 
 A paper, book, database, lecture, or research conversation is not initially a task list. When extracting material from a source, first preserve the mathematics as mathematics: the objects, maps, equations, hypotheses, constructions, examples, conclusions, and relations among them. Do not immediately convert the source into a verification matrix, dependency ledger, checklist, ticket hierarchy, bounded agenda, or machine-checkable plan.
