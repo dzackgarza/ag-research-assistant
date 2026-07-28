@@ -6,8 +6,12 @@ BRANCH ?= main
 
 build:
 	$(PYTHON) scripts/build_style_guide.py
+	$(PYTHON) scripts/update_contributing.py
+	$(PYTHON) scripts/update_changelog.py
 
 check:
+	$(PYTHON) scripts/update_contributing.py --check
+	$(PYTHON) scripts/update_changelog.py --check
 	$(PYTHON) scripts/publish.py validate
 
 publish-plan:
