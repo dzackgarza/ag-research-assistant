@@ -2,6 +2,41 @@
 
 This document is for repository contributors and users tracking revisions. It is not part of the prompt consumed by the Algebraic Geometry Research Assistant.
 
+## 0.6.7 — 2026-07-28
+
+Split the deployed style guide into canonical source fragments and a generated committed artifact.
+
+- Added ordered `STYLE_GUIDE.parts/*.md` source files grouped by mathematical and Sage concerns.
+- Added `scripts/build_style_guide.py`, which concatenates the fragments byte-for-byte and supports a `--check` mode.
+- Kept `STYLE_GUIDE.md` as the single deployable custom-GPT artifact while making the fragments the canonical editable source.
+- Added a GitHub Actions workflow that verifies the generated artifact on pull requests and rebuilds and commits it on `main`.
+- Added an hourly scheduled fallback for connector- or API-authored fragment updates that do not trigger ordinary push workflows.
+- Updated contributor guidance to prohibit memory-based whole-file reconstruction and to prefer publishing small reviewed fragments through repository APIs.
+
+## 0.6.6 — 2026-07-28
+
+Added backend-friction self-auditing and mathematical reformulation guidance.
+
+- Required repeated repair around a Sage limitation to trigger reconsideration of the mathematical formulation, not merely another backend patch.
+- Distinguished genuine Sage deficiencies from cases where the chosen notion is unnecessarily strict, presentation-bound, or at the wrong categorical level.
+- Required searches of the local corpus and appropriate modern references for intrinsic formulations that may make the relevant witness first-class and obviate the deficient operation.
+- Required explicit comparison maps, equivalences, universal properties, or strictification results before a reformulation may replace the original statement.
+- Added safeguards against backend fixation, semantic foreclosure, and theory laundering.
+- Retained equality of morphism composites as one regression example rather than the governing rule.
+- Added contributor review criteria requiring proof that a reformulation preserves the research target and actually reduces the implementation burden.
+
+## 0.6.5 — 2026-07-28
+
+Added a contributor workflow for publishing reviewed changes when direct Git push access is unavailable.
+
+- Required contributors to clone or materialize the exact current repository baseline before editing, with the upstream commit recorded.
+- Prohibited reconstructing complete files from memory, chat history, partial connector snippets, or stale local copies.
+- Required all corrections to be applied and reviewed locally as ordinary Git diffs before connector or REST publication.
+- Added remote blob-SHA precondition checks immediately before whole-file overwrites.
+- Required connector/API writes to transmit the exact reviewed local bytes and remote verification by comparison with local `git hash-object` values.
+- Added explicit fallbacks for whole-file contents APIs and lower-level blob/tree/commit APIs.
+- Required failed publication machinery to be removed from the canonical branch and partial remote completion to be reported precisely.
+
 ## 0.6.4 — 2026-07-28
 
 Added reference-backed mathematical classification as a prerequisite to public abstraction design.
@@ -83,7 +118,7 @@ Reframed the Coble transcript guidance around positive research-mathematics moda
 - Identified ontological typing, morphism-first reasoning, functoriality, universal-property recognition, level discipline, theorem-mediated proof, natural mathematical generality, coordinate transport, research-ledger exposition, reference recognition, and epistemic discipline as the governing modes of thought.
 - Rewrote the opening assistant guidance as a compact set of researcher questions that should prevent the observed failures before API design begins.
 - Added explicit distinctions between isomorphism classes and chosen representatives, and between known subobjects or recognized subsets and the full mathematical parents they might otherwise impersonate.
-- Clarified that moving a helper onto a Sage class, constructing a `Parent`, or assigning it a category does not by itself create a semantic interface.
+- Clarified that moving a helper onto a Sage class, constructing a `Parent`, or assigning a category does not by itself create a semantic interface.
 - Added Sage-specific legibility guidance requiring mathematically meaningful tuple components and coordinate blocks to be named rather than hidden behind positional slices.
 - Added contributor guidance requiring editors to extract positive mathematical thought modalities before drafting symptom-level prohibitions.
 - Added a dedicated Sage semantic-code discipline covering parent/element ownership, native method auditing, parent-level functorial maps, primary return objects, private backend plumbing, named tuple components, explicit relative bases, notebook/regression separation, and full mathematical display.
