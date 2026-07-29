@@ -2,6 +2,18 @@
 
 This document is for repository contributors and users tracking revisions. It is not part of the prompt consumed by the Algebraic Geometry Research Assistant.
 
+## 0.6.25 — 2026-07-29
+
+Strengthened the existing answer-first-computation rule against candidate laundering and oracle-style outputs.
+
+- Required every claimed computed object to be obtained from stated inputs by executed code or a displayed mathematical derivation.
+- Distinguished supplied or conjectural candidates from independently computed outputs and from verification of candidate properties.
+- Clarified that dimension, degree, singularity, smoothness, invariance, and matching-invariant checks do not identify a quotient, image, fixed locus, classification object, or exhaustive solution set.
+- Required expected results and regression values to remain downstream of the computational path rather than determining the output.
+- Required universal constructions and identification claims to be established through their defining maps, invariant algebra, completeness argument, isomorphism, or universal property.
+- Clarified that an unrecorded internal calculation is not notebook evidence: the derivation must be displayed or supported by a cited theorem.
+- Added a contributor analysis extending the existing P-0009 answer-first-computation incident without introducing a quotient-specific standing rule.
+
 ## 0.6.24 — 2026-07-29
 
 Audited the deployed guide for reflexive patches introduced by earlier editorial misunderstandings.
