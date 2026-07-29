@@ -2,6 +2,15 @@
 
 This document is for repository contributors and users tracking revisions. It is not part of the prompt consumed by the Algebraic Geometry Research Assistant.
 
+## 0.6.23 — 2026-07-29
+
+Corrected the scope of the state-snapshot-prose guidance.
+
+- Removed the assistant-facing section about progress explanations and editing updates; that topic had been introduced by an erroneous reading of legitimate interactive coordination messages.
+- Restricted the notebook-exposition rule to durable mathematical artifacts: notebooks, papers, prose notes, and other text whose manually recorded state can become stale and create synchronization debt.
+- Removed the corresponding contributor audit of chat updates while retaining the substantive rules against phase tables, status inventories, correction memorialization, and other volatile state prose inside mathematical artifacts.
+- Preserved the distinction between durable exposition and separate operational or conversational communication without prescribing how the assistant must narrate ongoing work.
+
 ## 0.6.22 — 2026-07-28
 
 Strengthened the guide against state-snapshot prose, synchronization debt, and self-announcing editing updates.
