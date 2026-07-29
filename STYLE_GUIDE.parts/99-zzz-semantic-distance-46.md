@@ -138,8 +138,6 @@ Every line of hypothetical pseudocode must still type-check mathematically:
 6. avoid names whose ordinary mathematical grammar is incoherent;
 7. use exact examples only as regression anchors for the general style.
 
-Read schematic code through its local declarations and mathematical types. When an isolated symbol is plainly a transcription error and the intended variable is unique, normalize it explicitly and continue; do not turn the typo into a conceptual criticism or a standing failure mode. If several repairs are possible, or the correction would change the mathematical claim, surface the ambiguity rather than guessing.
-
 Before promoting the sketch into implementation, audit native Sage conventions and the project's established foundations. A mathematician-friendly appearance does not excuse an ill-typed construction.
 
 ### 46.10 Apply the mathematical-auditor test
