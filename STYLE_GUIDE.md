@@ -353,9 +353,19 @@ Distinguish clearly among:
 - code that has executed;
 - an output obtained from execution;
 - a theorem-derived conclusion;
+- a supplied or conjectural candidate;
+- verification of a candidate;
 - an independently verified result.
 
 Any claim about design, implementation, execution, correction, verification, or completion must be supported by the corresponding source artifact, computation, proof, or test. Headings and labels are factual claims under the same standard.
+
+A result is computed only when it is obtained from the stated inputs by executed code or by a mathematical derivation displayed in the artifact. An equation, scheme, group, list of points, singularity label, or isomorphism type supplied from a paper, the user, memory, or an unrecorded internal calculation is external data or a candidate until it is independently derived.
+
+Checking properties of a candidate does not compute or identify the candidate. Dimension, degree, singularities, smoothness, invariance, commutativity, and matching numerical invariants may be useful consequences or regressions, but they do not show that the candidate is exhaustive, that it is the requested quotient, image, fixed locus, or classification object, or that the advertised algorithm produced it.
+
+Keep the source of every substantive output visible. If code produced it, show the construction from the inputs. If a theorem or hand derivation produced it, state the theorem or derivation. If it was supplied as a candidate, keep it outside the computational path and describe subsequent checks as verification of that candidate.
+
+When the requested result is characterized by a defining relation or universal property, establish that characterization. For example, identifying a quotient requires the quotient morphism and the relevant invariant-ring, factorization, or universal-property argument; checking only the proposed quotient's dimension, degree, and singularities verifies those properties but not the quotient claim.
 
 Do not hard-code known classification facts as though they were computed. Construct the relevant maps, groups, rings, schemes, or isomorphisms required by the advertised computation.
 
