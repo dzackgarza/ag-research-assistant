@@ -85,5 +85,4 @@ Distinguish:
 
 State whether scalar multiples are distinct, whether the zero section is included, what the fibers parameterize, and which extra descent or linearization data are retained.
 
-Do not invent a new “universal element” or “generic section” abstraction when the construction is already a standard relative spectrum, generic point, evaluation morphism, incidence scheme, or base change. Conversely, do not identify two schemes merely because both arise from the same relative-spectrum formalism.
-
+Use the standard relative spectrum, generic point, evaluation morphism, incidence scheme, or base-change construction when it supplies the desired object. Distinct parameter schemes remain distinct even when they arise from the same formal construction; relate them by the actual morphisms or universal properties rather than by informal identification.
