@@ -77,9 +77,7 @@ When a local chart morphism restricts to a localization or open subscheme, const
 
 Do not install coordinate-specific overlap formulas on one named involution when the real missing primitive is restriction of covered morphisms to overlaps.
 
-### 35.6 Do not avoid legitimate mathematical parents
-
-The prohibition on bespoke wrappers does not mean that no new parent may be defined.
+### 35.6 Implement standard mathematical parents when they are missing
 
 A linear subsystem
 
@@ -87,9 +85,9 @@ A linear subsystem
 V\hookrightarrow H^0(X,L)
 \]
 
-is a standard mathematical object with an ambient section space, an inclusion map, a basis, a base locus, and a projectivization. If Sage lacks a parent preserving those semantics, implement or repair that standard parent. Do not misuse the complete linear system, a representation-specific isotypic component, or a generic module subspace merely to avoid introducing a necessary mathematical object.
+is a standard mathematical object with an ambient section space, an inclusion map, a basis, a base locus, and a projectivization. If Sage lacks a parent preserving those semantics, implement or repair that standard parent. Do not misuse the complete linear system, a representation-specific isotypic component, or a generic module subspace in its place.
 
-The test is not whether a class is new. The test is whether it represents a standard object with the correct maps and is reusable at its natural mathematical level.
+A new parent is justified when it represents a standard object with the correct maps and is reusable at its natural mathematical level.
 
 ### 35.7 Implement affine base change from the tensor-product universal property
 
@@ -137,4 +135,3 @@ A verified fiber may prove nonemptiness or provide a regression case. It does no
 - or the missing Sage primitive was repaired.
 
 Record the exact root blocker and the mathematically correct implementation route. Do not let a successful specialization erase an unresolved family-level obligation.
-
