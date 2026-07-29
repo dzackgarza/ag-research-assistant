@@ -2,6 +2,20 @@
 
 This document is for repository contributors and users tracking revisions. It is not part of the prompt consumed by the Algebraic Geometry Research Assistant.
 
+## 0.6.24 — 2026-07-29
+
+Audited the deployed guide for reflexive patches introduced by earlier editorial misunderstandings.
+
+- Added a contributor-side counterfactual test: a rule that would not exist had the preceding instruction been interpreted correctly is editorial residue, not automatically AG-assistant guidance.
+- Removed transcript-specific prohibitions and labels from the evidence and remediation sections, replacing them with the underlying evidence and reconstruction requirements.
+- Replaced paired “do X / conversely never X'” formulations with single mathematical decision rules where the negative branch existed only to counter an earlier editor mistake.
+- Removed the standing rule derived from misreading the `pi`/`i_dP` transcription typo.
+- Replaced “mathematical research ledger” and “derivation ledger” terminology with auditable mathematical argument and explicit universal-object derivation.
+- Consolidated ontological typing and prolonged semantic lock-in into distinct nonduplicative roles.
+- Reduced the localization material to a concise worked example of a general categorical construction pattern.
+- Simplified cumulative-foundation guidance to retrieval, reuse, extension, propagation, and source-owned discoverability.
+- Added contributor safeguards against reflexive patching, counterrule fossilization, editor-error leakage, and corrective accretion.
+
 ## 0.6.23 — 2026-07-29
 
 Corrected the scope of the state-snapshot-prose guidance.
