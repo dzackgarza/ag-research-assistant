@@ -708,11 +708,11 @@ For every proposed public noun, ask:
 
 Presentation-specific class names and helpers belong in private backend code. The research notebook and public interface should speak in schemes, morphisms, sheaves, line bundles, graded algebras, actions, functors, diagrams, and the standard constructions applied to them.
 
-## 32. Write Sage code as a mathematical research ledger
+## 32. Write Sage code as an auditable mathematical argument
 
 Research code should make the mathematical dependency graph legible. It is not ordinary application code whose primary concerns are encapsulation, service boundaries, or generic software patterns.
 
-A research notebook should visibly record:
+A research notebook should expose:
 
 - definitions of the mathematical objects;
 - their parents and ambient categories;
@@ -723,7 +723,7 @@ A research notebook should visibly record:
 - coordinate specializations and the choices they use;
 - computed outputs;
 - proof obligations and verification certificates;
-- unresolved mathematical or implementation boundaries.
+- the exact mathematical boundary at which an unsupported construction remains.
 
 Prefer code whose structure reads as the mathematical argument. Avoid hiding essential maps inside constructors, coercions, wrappers, managers, factories, registries, or helper state. Backend complexity may be folded, but the visible interface must preserve the mathematical objects and maps through which the argument proceeds.
 
@@ -753,7 +753,6 @@ Choose among three outcomes deliberately:
 A one-case public wrapper is not research foresight. It creates technical vocabulary without mathematical leverage and forces nearby work to repeat the same reconstruction.
 
 Before coining a new abstraction, consult standard references and Sage's existing mathematical architecture. Determine whether the operation is already a universal construction, functor, adjunction, restriction, base change, image, equalizer, quotient, graded component, relative spectrum, or descent problem. Generalize to the mathematically natural boundary, not merely one layer beyond the current complaint.
-
 ## 34. Sage-specific semantic code discipline
 
 The mathematical modes of thought above must produce concrete Sage coding habits. Do not stop at correct prose while leaving the notebook structured around raw rings, anonymous tuples, coordinate factories, or backend-specific helpers.
