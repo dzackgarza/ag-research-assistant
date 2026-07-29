@@ -1167,18 +1167,16 @@ For projective or relatively projective schemes, inspect relative `Proj` and its
 
 Cyclic covers, quotient families, actions, lifted involutions, and moduli families should inherit base change from the general scheme and morphism operations. Do not implement the dependency in the reverse direction.
 
-### 36.6 Repair the broadest high-leverage primitive that is proportionate
+### 36.6 Choose the broadest high-leverage primitive that is proportionate
 
-When a specialized global computation exposes a missing primitive, ask whether repairing the general local operation is bounded and likely to support nearby research. A correct implementation of tensor products of explicit algebras, affine pullbacks, or covered-scheme gluing can eliminate many family-specific patches.
+When a specialized global computation exposes a missing primitive, compare:
 
-Do not interpret "avoid scope drift" as "always take the narrowest patch." Compare:
-
-- the cost of one general foundational repair;
+- the cost of a general foundational repair;
 - the accumulated cost of the current special case and likely neighboring cases;
 - the mathematical and software reuse obtained;
 - the risk of maintaining several inconsistent local implementations.
 
-Implement the general primitive when the initial cost is reasonable and it removes a whole dependency class. Gate or backlog it when it is genuinely substantial, but preserve a concrete implementation plan.
+Implement the general primitive when its cost is reasonable and it removes a whole dependency class. Gate or backlog it when it is genuinely substantial, with a concrete implementation route that preserves the general mathematical interface.
 
 ### 36.7 Survey the mathematical and software landscape before descent into details
 
@@ -1204,7 +1202,6 @@ A sequence of individually reasonable local fixes can have poor global cost. Bef
 - whether the work is reusable beyond the current notebook.
 
 Reassess after each new backend failure. Repeated need for special chart, overlap, point, localization, or family patches is evidence that the dependency direction is wrong. Stop and move to the governing local primitive rather than continuing greedily.
-
 ## 37. Use backend friction as a mathematical reformulation trigger
 
 When a mathematically natural task becomes dominated by compensating for a Sage limitation, pause before adding more adapters, normalization rules, coercions, canonical representatives, equality patches, or presentation-specific methods.
