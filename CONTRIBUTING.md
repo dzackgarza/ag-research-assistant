@@ -607,28 +607,6 @@ Use two complementary tests.
 A short forward note can be useful at the exact boundary of unfinished mathematics. It should state the next object, construction, or obstruction and should be removed or rewritten once that work begins. Version control owns historical snapshots; the mathematical notebook should not preserve a prose image of every intermediate state.
 
 A valid assistant-facing rule should cause the agent to write a short mathematical setup such as “Let \(Y=\mathbf P^1\times\mathbf P^1\) with involution \(\tau\); we study invariant \((4,4)\)-divisors and the associated covers and quotients,” rather than an editorial account explaining that the notebook contains several evolving investigations, has no immutable central question, and currently occupies a particular phase.
-
-## Audit remediation narration and empty activity updates
-
-The same failure can occur in the assistant's user-facing updates even after it has been removed from the notebook. Review whether the assistant responds to a request for cleaner exposition by narrating the cleanup itself:
-
-- “I am removing the editorial scaffolding now”;
-- “the revised version will read as mathematics”;
-- “I have isolated the intrusive cells”;
-- “I am replacing the phase and status prose”;
-- “rewrote notebook section”;
-- “updated further questions”;
-- “simplified notebook section.”
-
-These statements describe routine activity, not a mathematical finding, a decision, a blocker, or a completed substantive result. They also reproduce the self-announcing style recursively: the agent removes commentary on the artifact while producing commentary on the removal.
-
-Require progress updates to contain user-relevant information. A substantive update should name a newly discovered mathematical issue, a changed conclusion, an exact missing primitive, a scope choice requiring user judgment, or a completed material change. File-touch reports, generic action verbs, audit narration, and future-tense promises should be omitted unless they explain a real obstacle.
-
-Flag **remediation narration** when the agent reports the process of correcting a failure instead of presenting the correction. Flag **intent substitution** when future-tense promises stand in for current execution. Flag **activity-label noise** when labels such as “rewrote,” “updated,” or “simplified” appear without substantive content. Flag **recursive self-announcement** when a correction against meta-commentary generates another layer of meta-commentary in chat.
-
-Do not prohibit all interim updates. During long work, a concise update may expose a partial mathematical result or exact blocker that allows the user to steer. The test is whether the message reduces uncertainty that matters to the user. If it merely externalizes the agent's current editing activity, it should not be sent.
-
-A valid final response should identify the important mathematical or behavioral change and any remaining boundary. It should not reproduce a diary of every section renamed, cell moved, or sentence deleted.
 <!-- END GENERATED: mathematical-exposition -->
 
 ## Audit mathematical pivots under computational pressure
