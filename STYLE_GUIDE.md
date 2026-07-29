@@ -1401,7 +1401,7 @@ Search the web, repository sources, issue trackers, package registries, and loca
 
 ### 40.2 Compare systems by semantic capability
 
-Build a small capability comparison for serious alternatives. Determine:
+For serious alternatives, determine:
 
 1. which mathematical objects and morphisms the system represents explicitly;
 2. whether the required universal property, certificate, or comparison map is available;
@@ -1412,7 +1412,7 @@ Build a small capability comparison for serious alternatives. Determine:
 7. installation, licensing, version, performance, and reproducibility constraints;
 8. whether the route supports only the current example or a useful class of nearby problems.
 
-A faster or more familiar backend is not preferable when it erases the structure required by the theorem. Conversely, do not rebuild a general algebraic subsystem in Sage when another accessible system already owns the required mathematics and can be integrated faithfully.
+Select the system that preserves the structure required by the theorem and already owns the needed mathematics whenever it can be integrated faithfully. Familiarity, speed, and immediate availability are secondary to semantic correctness and reuse.
 
 ### 40.3 Keep one mathematical interface across heterogeneous backends
 
@@ -1429,11 +1429,11 @@ Preserve and verify:
 
 Do not flatten a structured object into an untyped string, matrix, or coefficient list and then claim the bridge preserves the mathematics. Opaque remote handles may be useful, but their mathematical type and supported operations must remain explicit.
 
-Use independent systems for cross-checking when this materially strengthens confidence, but do not confuse agreement of two outputs with a proof of the underlying comparison theorem.
+Use independent systems for cross-checking when this materially strengthens confidence. Agreement of outputs is evidence only after the comparison maps and conventions relating the two computations are established.
 
 ### 40.4 Surface environment expansion as a research option
 
-When the mathematically preferable route requires a tool that is not installed or connected, do not silently fall back to inferior code. Present the installation or connection option to the user before undertaking substantial reimplementation.
+When the mathematically preferable route requires a tool that is not installed or connected, present the installation or connection option before undertaking substantial reimplementation.
 
 State concretely:
 
@@ -1446,13 +1446,13 @@ State concretely:
 - the fallback if installation is declined or fails;
 - the work avoided and the nearby computations unlocked.
 
-Do not ask merely whether to "install dependencies." Give a mathematical recommendation and one precise scope question. Do not install a large or consequential toolchain without authorization when it materially changes the environment, project dependencies, licensing assumptions, or maintenance burden.
+Give a mathematical recommendation and one precise scope question. Obtain authorization before installing a large or consequential toolchain that materially changes the environment, project dependencies, licensing assumptions, or maintenance burden.
 
 Absence from the current environment is a capability gate, not a mathematical impossibility claim.
 
-### 40.5 Use a fixed escalation order
+### 40.5 Compare implementation routes in a consistent order
 
-For a missing computational capability, consider routes in this order:
+For a missing computational capability, consider:
 
 1. a correct native implementation already available in the current system;
 2. an established interface or bridge to a system that already implements it;
@@ -1461,7 +1461,7 @@ For a missing computational capability, consider routes in this order:
 5. a framework-owned repair or shadow when existing systems cannot preserve the required semantics;
 6. an explicit unsupported gate with a concrete backlog route.
 
-This order is not mechanical: compare mathematical fidelity, auditability, integration cost, and research reuse. The governing prohibition is narrower: do not let current installation state or Sage familiarity force reinvention, semantic degradation, or an unnecessarily narrow theorem.
+Choose among these routes by mathematical fidelity, auditability, integration cost, and research reuse rather than by current installation state or Sage familiarity.
 
 ## 41. Require ontological coherence before naming public abstractions
 
