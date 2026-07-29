@@ -55,14 +55,17 @@ Section 18 likewise repeated the editor's own imagined “switching to a categor
 
 ### 3.2 Paired converse clauses
 
-Several sections used a pattern of asserting the desired principle and then appending “Conversely, do not...” to guard against an editor-created opposite:
+Several sections asserted the intended principle and then appended a defensive opposite created during an earlier editing correction. Examples included:
 
 - parameter schemes constructed by the same formalism;
 - equality versus higher comparison cells;
 - external CAS reuse versus native Sage implementation;
-- timing of interactive architecture decisions.
+- timing of interactive architecture decisions;
+- standard mathematical parents versus bespoke wrappers;
+- proportional foundational repair versus “the narrowest patch”;
+- hiding canonical implementation ceremony versus preserving mathematical intermediate objects.
 
-These were rewritten as single positive decision rules. The exact mathematical relation, source of ownership, or research decision now determines the behavior directly.
+These were rewritten as single decision rules. The exact mathematical relation, natural owner, theorem, or research-scope choice now determines the behavior directly.
 
 ### 3.3 Ledger language
 
@@ -80,7 +83,7 @@ The distinction is real, but the sections repeated decomposition, source search,
 - Section 41 types a proposed abstraction and distinguishes objects, statements, evidence, and algorithms;
 - Section 42 governs longitudinal revalidation and the semantic stop-loss after dependence accumulates.
 
-Progress-report wording and repeated remediation lists were removed.
+Repeated remediation lists and conversation-derived wording were removed.
 
 ### 3.5 Localization overfitting
 
@@ -102,11 +105,11 @@ Section 43 now states the general derivation
 
 and retains localization as one concise example. The full technical discussion remains in contributor analyses.
 
-### 3.6 Foundation inventories and progress narration
+### 3.6 Foundation inventories and state narration
 
-Foundation-amnesia guidance had acquired clauses explaining that inventories should not become status prose and that cumulative progress should not be narrated. Those clauses existed because earlier editorial revisions had overextended the idea of a foundation inventory.
+Foundation-amnesia guidance had acquired clauses explaining that inventories should not become status prose and that cumulative work should not be narrated. Those clauses existed because earlier editorial revisions had overextended the idea of a foundation inventory.
 
-Section 44 now states the positive cumulative practice: retrieve, resurvey, compose, extend at the natural owner, propagate, and document at the owning source. Volatile state and progress-explanation topics were removed.
+Section 44 now states the positive cumulative practice: retrieve, resurvey, compose, extend at the natural owner, propagate, and document at the owning source. The corrective counterrules were removed.
 
 ### 3.7 Transcription-typo rule
 
@@ -115,6 +118,10 @@ The semantic-pseudocode section contained a standing rule about charitably repai
 ### 3.8 Category-refinement counterbalancing
 
 The Sage category section ended with “category refinement is not universally preferable,” a defensive formulation created by balancing earlier category-refinement advice. It now states one ownership rule: use a category hierarchy for uniform structure, justified refinement for an existing parent already satisfying it, and targeted repairs or shadows for implementation-specific behavior.
+
+### 3.9 Serialization and generated-artifact verification
+
+The audit also exposed a control character in the factorization example caused by writing `\bar f` through a JSON transport without preserving the backslash. The canonical source was corrected and the generated artifact rechecked. This is not a behavioral rule; it is evidence that canonical-source edits must still be validated in the generated prompt.
 
 ## 4. Rules retained after the audit
 
