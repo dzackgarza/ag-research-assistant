@@ -36,7 +36,7 @@ X \xrightarrow{f} Z,
 X \xrightarrow{u} Y,
 \]
 
-a factorization of \(f\) through \(u\) is a morphism \(ar f:Y\to Z\) satisfying \(ar f\circ u=f\). The map being factored, the comparison arrow, and the mediator must all be visible in the interface.
+a factorization of \(f\) through \(u\) is a morphism \(\bar f:Y\to Z\) satisfying \(\bar f\circ u=f\). The map being factored, the comparison arrow, and the mediator must all be visible in the interface.
 
 Place operations on their mathematical owners. Mediator construction belongs to the universal arrow or diagram, or to the ambient category's universal-construction interface. Properties and uniqueness statements belong to predicates, theorems, or certificates. Derived structure belongs to the object on which it is defined. Provenance remains separate.
 
