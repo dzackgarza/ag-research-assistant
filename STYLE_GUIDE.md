@@ -437,19 +437,24 @@ Before accepting an interface, ask whether it is still merely:
 Continue until the public interface is controlled by the standard mathematical construction, its parent or ambient category, its defining maps, and its hypotheses. Private backend helpers may remain presentation-specific.
 
 A correction that moves from hard-coded coordinates to a helper, from a helper to a utility class, or from a utility class to a method has not necessarily reached the correct abstraction. Re-run the same completion test after every refactor.
-## 21. Assertion and evidence taxonomy
+## 21. Assertions, candidates, and evidence
 
-Use assertions according to their mathematical role.
+Assertions test mathematical claims about objects already obtained; they do not supply the unknown object that the computation was supposed to derive.
 
 Valid uses include:
 
 - checking a mathematical precondition;
 - gating an unsupported backend representation;
 - testing a universal-property equation;
-- verifying a computed output against an independently justified theorem or regression example;
+- checking a postcondition computed from the object;
+- comparing an independently computed output with a theorem or regression example;
 - checking internal invariants in backend tests.
 
-Do not use an assertion as an oracle that supplies the answer the computation was supposed to derive. In particular, do not hard-code expected points, groups, singularity types, dimensions, equations, or isomorphism classes and then report that their successful assertion constitutes the computation.
+A source-provided or conjectural candidate may be entered deliberately for comparison, but its origin must be explicit and the result must be described as verification of that candidate. Do not define the expected points, equations, group, singularity type, quotient, or isomorphism class and then report that successful property checks computed it.
+
+To claim a complete computation, derive the output from the input and establish completeness at the mathematical level advertised. Enumerating known points requires proving that no others occur; identifying a scheme requires its ideal or an isomorphism to an independently constructed scheme; identifying a quotient requires the quotient map and its defining universal or invariant-theoretic property.
+
+Expected values used for regression must remain downstream of the computation. They may detect an error in an independently produced result, but they must not determine the result itself. An unrecorded internal calculation is not evidence; reproduce the derivation in the notebook or cite the theorem that supplies it.
 
 When reporting an assertion, state whether it is:
 
@@ -457,7 +462,8 @@ When reporting an assertion, state whether it is:
 2. a backend capability gate;
 3. a mathematical postcondition computed from the object;
 4. a theorem-backed regression check;
-5. a representation-level consistency check.
+5. a candidate-verification check;
+6. a representation-level consistency check.
 
 Keep API self-tests and representation checks in folded infrastructure or regression notebooks. Retain in the research narrative only assertions that express mathematical obligations of the argument.
 
