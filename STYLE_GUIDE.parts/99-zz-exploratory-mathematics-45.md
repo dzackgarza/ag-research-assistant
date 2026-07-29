@@ -17,8 +17,6 @@ Keep the following artifact types conceptually separate.
 
 These artifacts may refer to one another, but none should impersonate another. In particular, do not replace the mathematical exposition by the operational tracker. A source claim remains worth recording even when it is not currently computable, has no assigned notebook, or does not reduce to a Boolean pass/fail condition.
 
-A research notebook may be a mathematical ledger in the sense that its objects, maps, assumptions, computations, and deductions are traceable. That does not make it a project-management ledger. Preserve this distinction.
-
 ### 45.2 Let the mathematical structure determine the organization
 
 Organize source notes by the mathematics: constructions, diagrams, objects, morphisms, strata, examples, theorems, invariants, or conceptual themes. Use ordinary mathematical prose, displayed equations, precise maps, and theorem-style units when appropriate.
@@ -31,7 +29,7 @@ For each cluster of claims:
 - mention a possible computational realization only when it clarifies the mathematics or suggests a genuine experiment;
 - record nearby questions, variants, and consequences in their natural mathematical context.
 
-Do not wrap these points in a repeated narration of what the notebook has established, what the current code knows, or what stage of the investigation has been reached. The computation, displayed result, proof, and citation should carry that information. Add an explicit qualification only where the reader could otherwise mistake the strength or scope of the claim.
+Do not wrap these points in repeated narration of what the notebook has established, what the current code knows, or what stage of the investigation has been reached. The computation, displayed result, proof, and citation should carry that information. Add an explicit qualification only where the reader could otherwise mistake the strength or scope of the claim.
 
 Do not force every statement into identical fields such as `status`, `destination`, `prerequisite`, `expected output`, and `verification method` unless the user has asked for that operational artifact. The source's mathematical dependencies need not coincide with a software work breakdown.
 
@@ -56,43 +54,31 @@ Do not close this space by declaring a finite list of source claims to be *the* 
 
 Treat published assertions as external mathematical benchmarks, not as values to hard-code. The code may reproduce, verify, falsify, illustrate, or explore them. Agreement with an expected result is evidence only to the extent supplied by the actual computation and comparison theorem.
 
-### 45.4 Do not reduce computation to certification
+### 45.4 Preserve the full range of computational research
 
-Computational research has several legitimate modes:
+Computational research includes construction, exact calculation, theorem-backed deduction, certification, falsification, comparison, experimentation, example generation, pattern detection, conjecture formation, and exploration of nearby cases.
 
-- construction;
-- exact calculation;
-- theorem-backed deduction;
-- certification;
-- falsification;
-- comparison;
-- experimentation;
-- example generation;
-- pattern detection;
-- conjecture formation;
-- exploration of nearby cases.
+Some source statements should become exact regressions; others are conceptual guidance, theorem-derived consequences, examples to generalize, or questions whose computational form is not yet known.
 
-A verification-oriented schema tends to privilege only certification and regression. Preserve the other modes. Some source statements should become exact regressions; others are conceptual guidance, theorem-derived consequences, examples to generalize, or questions whose computational form is not yet known.
+Express epistemic distinctions through ordinary mathematical writing rather than running status labels. A displayed computation followed by its result is visibly computational. A sentence beginning “By Proposition 3.4” is visibly theorem-mediated. A concise remark can say that a construction remains open or that a displayed family is only a witness. Do not repeatedly announce material that the surrounding mathematics already makes clear.
 
-Express epistemic distinctions through ordinary mathematical writing rather than running status labels. A displayed computation followed by its result is visibly computational. A sentence beginning “By Proposition 3.4” is visibly theorem-mediated. A concise remark can say that a construction remains open or that a displayed family is only a witness. Do not repeatedly announce that a notebook “has established,” “has verified,” or “has not yet completed” material that the surrounding mathematics already makes clear.
-
-Do not require every item to possess a complete executable specification before it can appear in the research notes.
+A research note may record a mathematically useful claim before a complete executable specification is known.
 
 ### 45.5 Use operational schemas only for a real coordination need
 
 A checklist, matrix, issue list, dependency graph, or machine-checkable plan can be appropriate when the user asks for one, when several agents must coordinate, when CI must enforce a bounded contract, or when a mature research program needs an explicit implementation schedule.
 
-Even then:
+In that setting:
 
 1. derive the operational artifact from a separately preserved mathematical account;
 2. state that it is a current projection of the research program, not the mathematics itself;
 3. keep it extensible unless completeness has been proved or requested;
 4. distinguish mathematical prerequisites from engineering sequencing choices;
-5. avoid excluding claims merely because their computational route is unknown;
+5. retain claims whose computational route is not yet known;
 6. keep internal agent bookkeeping out of the visible research narrative unless it helps the user;
-7. update the tracker when exploration changes the mathematical picture rather than forcing the research to conform to the initial schema.
+7. update the tracker when exploration changes the mathematical picture.
 
-The assistant may maintain private or contributor-facing ledgers for its own work. It must not allow those tools to dictate the form or scope of the mathematical artifact.
+Private or contributor-facing tracking must not determine the form or scope of the mathematical artifact.
 
 ### 45.6 Write prose notebooks as sources for future research
 
@@ -107,22 +93,22 @@ A source-derived prose notebook should remain useful to a mathematician who is n
 - open mathematical or implementation questions;
 - mathematically motivated extensions and experiments.
 
-Write these as ordinary mathematical sections and remarks. The primary grammatical subjects should be the schemes, maps, divisors, groups, families, loci, and theorems—not “this notebook,” “this section,” “the current stage,” or “what has been established.” A brief mathematical introduction may orient the reader; it should not narrate the document's editing history, evolving task definition, or internal status.
+Write these as ordinary mathematical sections and remarks. The primary grammatical subjects should be the schemes, maps, divisors, groups, families, loci, and theorems—not the notebook, section, current stage, or verification status.
 
-Keep detailed task tracking in a separate section or artifact when it is useful. Do not make readers decode project-management fields or self-description in order to recover the mathematics.
+Keep detailed task tracking in a separate artifact when it is useful. Do not make readers decode project-management fields or self-description in order to recover the mathematics.
 
 ### 45.7 Detect premature administrative closure
 
-Pause and return to the source mathematics when:
+Return to the source mathematics when:
 
-- the first response to “record the paper's computational facts” is to design a matrix, agenda, ledger, or schema;
+- the first response to recording computational facts is to design a matrix, agenda, ledger, or schema;
 - every mathematical statement is immediately assigned a status, prerequisite, destination, or owner;
-- the assistant declares a bounded list before the source has been mined openly;
+- a bounded list is declared before the source has been mined openly;
 - claims are omitted because no current backend can verify them;
 - source order and conceptual relations are replaced by implementation dependency order;
 - exploratory questions are rewritten as obligations with fixed expected outputs;
 - more effort is spent designing the tracking format than explaining the mathematics;
 - the notebook becomes intelligible mainly to the agent managing the work rather than to a mathematician studying the source;
-- corrections from the conversation reappear as warnings or disclaimers in the notebook instead of being assimilated into its mathematical organization.
+- conversation corrections reappear as warnings instead of being assimilated into the mathematics.
 
-The correction is not to discard all structure. Restore the ordinary mathematical exposition first, preserve the source as a generative research object, and add operational structure only where it has a demonstrated purpose.
+Restore ordinary mathematical exposition, preserve the source as a generative research object, and add operational structure only where it serves a demonstrated coordination need.
