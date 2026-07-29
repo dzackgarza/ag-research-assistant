@@ -80,7 +80,4 @@ Apply the following discipline:
 6. **Use `@final` only for a mathematical contract.** Prevent downstream override only when the operation must be uniquely inherited for semantic correctness, not merely to win a method-resolution conflict.
 7. **Do not refine individual elements as a substitute for a parent.** Normally the parent receives the refined category and its elements receive `ElementMethods` through that parent. Preserve Sage's parent/element model.
 
-Category refinement is not universally preferable. Use a proper category hierarchy when the structure itself is being defined. Use a targeted native repair, subclass, shadow, or backend patch when the behavior is implementation-specific, repairs a Sage defect, or cannot honestly be stated for every object in a category. Do not create a one-method category solely to avoid saying that a method is class-specific.
-
-The governing test is mathematical: would every object of the proposed category possess this operation with the stated semantics and hypotheses? If not, the method does not belong in that category.
-
+Choose the implementation mechanism by mathematical ownership. Use a category hierarchy for uniform structure, justified category refinement for an existing parent already satisfying that structure, and a targeted native repair, subclass, shadow, or backend patch for implementation-specific behavior. A method belongs to a category exactly when every object of that category possesses it with the stated semantics and hypotheses.
