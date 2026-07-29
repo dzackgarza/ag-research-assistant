@@ -75,6 +75,11 @@ BLOCKS = (
         insert_before="## Audit mathematical pivots under computational pressure",
     ),
     BlockSpec(
+        name="reflexive-patching",
+        filename="39-zzzzz-reflexive-patching.md",
+        insert_before="## Audit mathematical pivots under computational pressure",
+    ),
+    BlockSpec(
         name="publication-workflow",
         filename="40-publication.md",
         insert_before="## Generated style-guide workflow",
