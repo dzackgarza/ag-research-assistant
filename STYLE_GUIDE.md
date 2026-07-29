@@ -1903,21 +1903,11 @@ Use assertions as mathematical checkpoints in the notebook narrative. Appropriat
 
 These assertions must test actual computations, comparison maps, or theorem-backed certificates. Do not hard-code the desired conclusion, attach an expected label by construction, or use a weaker numerical coincidence as a proxy for the asserted theorem.
 
-### 46.4 Encapsulate standard procedures but expose mathematical intermediate objects
+### 46.4 Hide canonical ceremony while exposing mathematical dependencies
 
-A mathematician should not need to manually spell out routine implementation stages that are canonically induced by the mathematical object. If a line bundle canonically determines a complete linear system, or a group action induces an action on a section space, the semantic method should compose those standard steps internally when their hypotheses are met.
+Compose routine canonically induced stages inside semantic methods, and keep the mathematical intermediate objects visible whenever they participate in the argument. A line bundle may internally construct its complete linear system, and a group action may internally induce the action on a section space; the notebook should still name the line bundle, section space, linear system, invariant subsystem, branch divisor, covering morphism, quotient map, local ring, germ, or parameter stratum used in the proof.
 
-Conversely, do not hide the intermediate mathematical objects needed to audit the argument. Name the line bundle, section space, linear system, invariant subsystem, branch divisor, covering morphism, quotient map, local ring, germ, or parameter stratum when it participates in the proof. Hide coercion plumbing, coordinate-block indexing, saturation helpers, ring flattening, and backend dispatch—not the mathematics.
-
-The desired balance is:
-
-\[
-\text{canonical implementation ceremony hidden}
-\qquad\text{and}\qquad
-\text{mathematical dependency structure visible}.
-\]
-
-Do not optimize research code for minimum line count. Extra lines that state parentage, define named maps, display equations, and assert intermediate conclusions improve mathematical auditability.
+Hide coercion plumbing, coordinate-block indexing, saturation helpers, ring flattening, and backend dispatch. Expose parentage, named maps, equations, and intermediate conclusions. Mathematical auditability, not minimum line count, determines the visible granularity.
 
 ### 46.5 Distinguish universal, generic, general, and specialized objects
 
