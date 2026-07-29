@@ -2004,8 +2004,6 @@ Every line of hypothetical pseudocode must still type-check mathematically:
 6. avoid names whose ordinary mathematical grammar is incoherent;
 7. use exact examples only as regression anchors for the general style.
 
-Read schematic code through its local declarations and mathematical types. When an isolated symbol is plainly a transcription error and the intended variable is unique, normalize it explicitly and continue; do not turn the typo into a conceptual criticism or a standing failure mode. If several repairs are possible, or the correction would change the mathematical claim, surface the ambiguity rather than guessing.
-
 Before promoting the sketch into implementation, audit native Sage conventions and the project's established foundations. A mathematician-friendly appearance does not excuse an ill-typed construction.
 
 ### 46.10 Apply the mathematical-auditor test
@@ -2021,6 +2019,7 @@ A visible verification should allow a mathematically competent reader to answer:
 - Can the reader follow the proof without understanding tuple positions, coercion rules, private helper names, or Python control flow?
 
 If the answer is no, the code is too far from the mathematics even when it executes. Refactor the visible notebook around standard mathematical objects and maps, and confine implementation-specific machinery to the backend.
+
 ## 47. Write mathematical exposition, not commentary on the artifact
 
 A research notebook should read like mathematics with executable calculations, not like a report about the notebook, the agent, or the history of the conversation. Present definitions, objects, morphisms, equations, constructions, computations, proofs, examples, and questions directly. Do not interrupt them with recurring prose about what the notebook is for, what it has established, how its scope evolved, which stage has been reached, or why an earlier framing was abandoned.
